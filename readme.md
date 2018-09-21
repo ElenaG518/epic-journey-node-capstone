@@ -1,5 +1,5 @@
-## "Shakespeare Passport" | Thinkful Node Capstone
-The Shakespeare Passport app is designed for Theatrical Performers, Theatre Goers, and Theatre enthusiast alike. It allows a User to compile a list of plays by SEEN, PERFORMED, and READ tracking date and location.
+## "Epic Journey" | Thinkful Node Capstone
+Epic Journey app helps users to keep track of the places they visit by adding location, a description or journal entry, and photos or videos of their trip.   Each trip can be broken down into smaller trips, for instance, going to Greece can be broken into Athens, Mikonos, Delphi, etc., with each smaller trip having its own location, journal entry, and photos.  
 
 ## Screenshots
 
@@ -12,12 +12,6 @@ Add Entry  | Edit Entry
 ![Add Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/add-entry.jpg) | ![Edit Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/edit-entry.jpg)
 Delete Entry |
 ![Delete Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/delete-entry.jpg) |
-
-## User Cases
-This app is for three types of users:
-1. READ - For Theatrical Students, so that they can track Plays that have been read (by title and author, optional edition) by date and include Notes.
-2. SEEN - For Theatre-Goers (enthusiasts, specialists, etc.), so that they can track all the shows the have seen, where and when they have seen them, and any specific Notes they would like to add.
-3. PERFORMED - For Theatrical Artists and Perfomers, so that they can record all shows they have performed in by Role, Location, Date and include Notes (and Lines).
 
 ### UI Flow
 ![UI Flow handwritten draft](https://github.com/KatiLong/node-capstone/blob/master/github-images/node-capstone-user-flow.jpg)
@@ -32,7 +26,6 @@ You can access a working prototype of the app here: https://epic-journey.herokua
 The app's functionality includes:
 * Every User has the ability to create an account that stores information unique to them
 * User can Add Entries, Update Entries, and Delete Entries
-* User can sort entries by: Date & Type (Read, Seen, Performed)
 
 ## Technology
 * Front-End: HTML5 | CSS3 | JavaScript ES6 | jQuery
@@ -45,5 +38,7 @@ App is strongly built to be usuable on mobile devices, as well as responsive acr
 
 ## Development Roadmap
 This is v1.0 of the app, but future enhancements are expected to include:
-* Google Maps integrated to view all entries by location
-* Featured Theaters of the World Section
+* Ability to share journeys with friends
+* Ability to have friends post, edit, and delete comments on journeys
+
+
