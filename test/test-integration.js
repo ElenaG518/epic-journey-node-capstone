@@ -25,7 +25,7 @@ describe('GET endpoint', function() {
         .then(function(res) {
           expect(res).to.have.status(200);
           expect(res).to.have.header('content-type');
-          // expect(res.header).to.be.equal('text/html');
+          expect(res.header['content-type']).to.be.equal('text/html; charset=UTF-8');
         });
         
     });
