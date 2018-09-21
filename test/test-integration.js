@@ -2,12 +2,13 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const faker = require('faker');
-const mongoose = require('mongoose');
 
+const { app } = require('../server');
 // this makes the expect syntax available throughout
 // this module
 const expect = chai.expect;
+
+chai.use(chaiHttp);
 
 describe('GET endpoint', function() {
 
@@ -23,7 +24,8 @@ describe('GET endpoint', function() {
         .get('/')
         .then(function(res) {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.typeOf(html);
+          expect(res).to.have.header('content-type');
+          // expect(res.header).to.be.equal('text/html');
         });
         
     });
