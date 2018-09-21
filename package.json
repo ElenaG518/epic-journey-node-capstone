@@ -1,20 +1,37 @@
 {
-  "name": "epic-journey",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "mocha",
-    "start": "node server.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.3"
-  },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.2.0",
-    "mocha": "^5.2.0"
-  }
+    "name": "epic-journey",
+    "version": "1.0.0",
+    "description": "The epic-journey app is designed for travelers to keep track of their trips.",
+    "main": "server.js",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "express": "^4.16.3",
+        "mongodb": "^3.1.6",
+        "mongoose": "^5.2.16",
+        "passport": "^0.4.0",
+        "passport-http": "^0.3.0",
+        "unirest": "^0.5.1"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "chai-http": "^4.2.0",
+        "faker": "^4.1.0",
+        "mocha": "^5.2.0"
+    },
+    "scripts": {
+        "test": "mocha",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ElenaG518/epic-journey-node-capstone.git"
+    },
+    "author": "Elena Granados",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ElenaG518/epic-journey-node-capstone/issues"
+    },
+    "homepage": "https://github.com/ElenaG518/epic-journey-node-capstone#readme"
 }
