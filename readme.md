@@ -22,6 +22,9 @@ Delete Entry |
 ## Working Prototype
 You can access a working prototype of the app here: https://epic-journey.herokuapp.com/
 
+##Live Version GitHub Pages
+https://elenag518.github.io/epic-journey-node-capstone
+
 ## Functionality
 The app's functionality includes:
 * Every User has the ability to create an account that stores information unique to them
