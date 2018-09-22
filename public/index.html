@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Thinkful | Example of client with mock API data</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Epic Journey</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
+
+    <head>
+        <h1>Epic Journey</h1>
+    </head>
     <main role='main'>
 
         <div class='forms-container'>
@@ -17,9 +23,8 @@
                     <input type='text' id='login-username' name='login-username' required>
                     <label for='login-password'>Password</label>
                     <input type='password' id='login-password' name='login-password' required>
-
                     <button role='button' type='submit' id='login-button'>Login</button>
-                    <input type="submit" value="Log In" class="button">
+
                     <a class="buttonGhost" href="./#signup">Sign Up</a>
                     <p id='login-error'></p>
                 </fieldset>
@@ -42,7 +47,31 @@
                     <button role='button' type='submit' id='signUpButton'>Sign Up</button>
                     <p id='signup-error'></p>
                 </fieldset>
+
+                <fieldset class='create-journey'>
+                    <legend>Create Journey</legend>
+                    <label for='title'>Title</label>
+                    <input type='text' id='title' name='title' required>
+                    <label for='location'>Location</label>
+                    <input type='text' id='location' name='location' required>
+                    <label for='dates'>Dates</label>
+                    <input type='text' id='dates' name='dates' required> Journal Entry:
+                    <textarea class='journal-entry'></textarea>
+                    <button role='button' type='submit' id='signUpButton'> submit</button>
+                </fieldset>
             </form>
+        </div>
+
+        <div class="homepage">
+
+        </div>
+
+        <div class="dashboard">
+
+        </div>
+
+        <div class="users">
+
         </div>
     </main>
 

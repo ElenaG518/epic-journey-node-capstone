@@ -1,0 +1,14 @@
+.dashboard,
+.users,
+.homepage {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+.journal,
+.user {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid green;
+}

@@ -10,9 +10,13 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
+app.use(morgan(':remote-addr - :remote-user :date[web] :method :url :response-time '));
+// app.use(morgan(':date :method :url :response-time'));
 
 mongoose.Promise = global.Promise;
 
@@ -63,7 +67,8 @@ function closeServer() {
 app.post('/users/create', (req, res) => {
 
     //take the name, username and the password from the ajax api call
-    let name = req.body.name;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
     let username = req.body.username;
     let password = req.body.password;
 
@@ -97,7 +102,8 @@ app.post('/users/create', (req, res) => {
 
             //using the mongoose DB schema, connect to the database and create the new user
             User.create({
-                name,
+                firstName,
+                lastName,
                 username,
                 password: hash,
             }, (err, item) => {
