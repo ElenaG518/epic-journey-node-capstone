@@ -98,17 +98,22 @@ function getRecentStatusUpdates(callbackFn) {
 // to real API later
 function displayStatusUpdates(data) {
     // for (index in data.journeys) {
+    $('.notebook').append(
+        `<div class="journal-entry">
+                <h2>${data.journeys[0].title}</h2>
+                <p>${data.journeys[0].location}</p>
+                <p>${data.journeys[0].description}</p>
+         </div>`
+    );
     $('.dashboard').append(
-        `<div class="journal"><h2>${data.journeys[0].title} </h2>
-            <p>${data.journeys[0].location}</p>
-            <p>${data.journeys[0].description}</p>
-            <div class="album">
+        `<div class="album">
             <img src="${data.journeys[0].album[0].src}">
             <img src="${data.journeys[0].album[1].src}"> 
             <img src="${data.journeys[0].album[2].src}">
             <img src="${data.journeys[0].album[3].src}">
-            </div>
-            <button class='add-pics'>Add more photos</button></div>`
+        </div>
+        <button class='add-pics'>Add more photos</button>
+        `
     );
     // }
 }
@@ -129,7 +134,19 @@ function displayHomeResults(data) {
         </article>`
         );
     }
-    $('.homepage').append(`<button class="add-journey">Add Journey</button>`);
+
+    $('.cards').append(`
+        <article class="card">
+            <a href="#">
+                <div class="card-content">
+                    <p>Add Journey</p>
+                </div>
+                <picture class="thumbnail">
+                    <img src="images/img.png" alt="add journey" class="img-placeholder">
+                </picture>
+            </a>
+        </article>
+        <button class="add-journey">Add Journey</button>`);
 }
 
 // this function can stay the same even when we

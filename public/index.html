@@ -7,6 +7,8 @@
     <title>Epic Journey</title>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato|Playfair+Display:400,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 </head>
 
 <body>
@@ -22,26 +24,26 @@
  -->
 
 
-        <div class='forms-container'>
+        <div class='forms-container hide'>
             <h2>Create journals for all of your trips in one easy to use app</h2>
 
             <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
             <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
             <form id='login-form'>
 
-                <fieldset class='login-form-section'>
-                    <legend>Login</legend>
+                <fieldset class='login-form-section hide'>
+                    <legend>Sign In</legend>
                     <label for='login-username'>Username:</label>
                     <input type='text' id='login-username' name='login-username' required>
                     <label for='login-password'>Password:</label>
                     <input type='password' id='login-password' name='login-password' required>
-                    <button role='button' type='submit' id='login-button'>Login</button>
+                    <button role='button' type='submit' id='login-button'>Log In</button>
                     <p id='login-error'></p>
 
                     <a class="buttonGhost" href="./#signup">create account</a>
                 </fieldset>
 
-                <fieldset class='signup-form-section'>
+                <fieldset class='signup-form-section hide'>
                     <legend>Sign Up</legend>
                     <label for='firstName'>First Name:</label>
                     <input type='text' id='firstName' name='firstName' required>
@@ -62,41 +64,32 @@
 
                 <fieldset class='create-journey'>
                     <legend>Create Journey</legend>
-                    <label for='title'>Title</label>
+                    <label for='title'>Title:</label>
                     <input type='text' id='title' name='title' required>
-                    <label for='location'>Location</label>
+                    <label for='location'>Location:</label>
                     <input type='text' id='location' name='location' required>
-                    <label for='dates'>Dates</label>
+                    <label for='dates'>Dates:</label>
                     <input type='text' id='dates' name='dates' required>
                     <label for='entry'>Journal Entry:</label>
                     <textarea class='journal-entry'></textarea>
-                    <button role='button' type='submit' id='signUpButton'> submit</button>
+                    <button role='button' type='submit' id='signUpButton'>Submit</button>
                 </fieldset>
             </form>
         </div>
 
-        <div class="homepage">
+        <div class="homepage hide">
             <h2>Journeys</h2>
+
             <div class="cards">
 
-                <article class="card">
-                    <a href="#">
-                        <div class="card-content">
-                            <p>Add Journey</p>
-                        </div>
-                        <!-- .card-content -->
-                        <picture class="thumbnail">
-                            <img src="images/img.png" alt="add journey" class="img-placeholder">
-                        </picture>
-                    </a>
-                </article>
+
             </div>
         </div>
 
 
 
         <div class="dashboard">
-
+            <div class="notebook"><img src="images/sketchBackground.jpg"></div>
         </div>
 
         <div class="users hide">
