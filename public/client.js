@@ -15,6 +15,16 @@ var MOCK_JOURNEY_ENTRIES = {
                     "photoid": "567",
                     "src": "images/pic2.jpg",
                     "caption": "so prettier"
+                },
+                {
+                    "photoid": "35456",
+                    "src": "images/pic7.jpg",
+                    "caption": "sublime"
+                },
+                {
+                    "photoid": "764832",
+                    "src": "images/pic8.jpg",
+                    "caption": "ultimate"
                 }
             ]
         },
@@ -58,10 +68,16 @@ var MOCK_JOURNEY_ENTRIES = {
             "location": "Guatemala, Guatemala",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             "album": [{
-                "photoid": "35456",
-                "src": "images/pic7.jpg",
-                "caption": "sublime"
-            }]
+                    "photoid": "35456",
+                    "src": "images/pic7.jpg",
+                    "caption": "sublime"
+                },
+                {
+                    "photoid": "764832",
+                    "src": "images/pic8.jpg",
+                    "caption": "ultimate"
+                }
+            ]
         }
     ]
 };
@@ -81,29 +97,41 @@ function getRecentStatusUpdates(callbackFn) {
 // this function stays the same when we connect
 // to real API later
 function displayStatusUpdates(data) {
-    for (index in data.journeys) {
-        $('.dashboard').append(
-            `<div class="journal"><p>${data.journeys[index].title} </p>
-            <p>${data.journeys[index].location}</p>
-            <p>${data.journeys[index].description}</p>
-            <img src="${data.journeys[index].album[0].src}" height="100">
-            <img src="${data.journeys[index].album[1].src}" height="100"><div>
+    // for (index in data.journeys) {
+    $('.dashboard').append(
+        `<div class="journal"><h2>${data.journeys[0].title} </h2>
+            <p>${data.journeys[0].location}</p>
+            <p>${data.journeys[0].description}</p>
+            <div class="album">
+            <img src="${data.journeys[0].album[0].src}">
+            <img src="${data.journeys[0].album[1].src}"> 
+            <img src="${data.journeys[0].album[2].src}">
+            <img src="${data.journeys[0].album[3].src}">
+            </div>
             <button class='add-pics'>Add more photos</button></div>`
-        );
-    }
+    );
+    // }
 }
 
 function displayHomeResults(data) {
     for (index in data.journeys) {
-        $('.homepage').append(
-            `<figure>
-            <img src="${data.journeys[index].album[0].src}" height="100">
-            <figcaption>${data.journeys[index].title}</figcaption>
-            </figure>`
+        $('.cards').append(
+            `<article class="card">
+            <a href="#">
+                <div class="card-content">
+                    <p>${data.journeys[index].title}</p>
+                </div>
+                <!-- .card-content -->
+                <picture class="thumbnail">
+                    <img src="${data.journeys[index].album[0].src}" alt="taking a stroll with dogs">
+                </picture>
+            </a>
+        </article>`
         );
     }
     $('.homepage').append(`<button class="add-journey">Add Journey</button>`);
 }
+
 // this function can stay the same even when we
 // are connecting to real API
 function getAndDisplayStatusUpdates() {
@@ -159,8 +187,8 @@ function getListofUsers(callbackFn) {
 function displayUserList(data) {
     for (index in data.users) {
         $('.users').append(
-            `<div class="user"><p> ${data.users[index].firstName}</p>
-            <p> ${data.users[index].lastName} </p>
+            `<div class="user">
+            <p> ${data.users[index].firstName} ${data.users[index].lastName} </p>
             <p>  ${data.users[index].userName} </p></div>`
 
         );

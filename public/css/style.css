@@ -1,0 +1,208 @@
+/* .users,
+{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid gray;
+}
+
+.user {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid green;
+} */
+
+body {
+    background-image: url("../images/mustard.jpg");
+    background-color: #ffc3a0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+header h1 {
+    margin: 0;
+    padding: 150px 0;
+    text-align: center;
+    background-image: url("../images/header.jpg");
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+    background-color: #e1b750;
+}
+
+main {
+    position: relative;
+    top: 400px;
+    margin: 0 auto;
+    max-width: 1200px;
+    margin-bottom: 100px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 15px;
+}
+
+p {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    line-height: 1.5em;
+}
+
+.hide {
+    display: none;
+}
+
+.forms-container {
+    max-width: 960px;
+    margin: 50px auto;
+}
+
+form {
+    max-width: 400px;
+    border: 3px solid white;
+    border-radius: 10px;
+    margin: 50px auto;
+}
+
+form fieldset {
+    border: 0;
+}
+
+form legend {
+    text-align: center;
+    padding: 30px 0 20px;
+    font-size: larger;
+}
+
+label {
+    max-width: 280px;
+    display: block;
+    padding: 5px 0px;
+    margin: 0 auto;
+}
+
+form input,
+form textarea {
+    display: block;
+    border: 1px solid lightcoral;
+    margin: 0 auto 25px;
+    width: 280px;
+}
+
+form textarea {
+    min-width: 320px;
+    height: 350px;
+}
+
+form a {
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+form button,
+.add-journey,
+.add-pics {
+    border: 5px solid white;
+    border-radius: 5px;
+    padding: 15px 25px;
+    background-color: #ffc3a0;
+    display: block;
+    margin: 15px auto;
+}
+
+figure,
+figure img,
+.thumbnail img {
+    display: inline-block;
+    width: 300px;
+    height: auto;
+}
+
+.img-placeholder {
+    background-color: white;
+}
+
+.journal img {
+    display: inline-block;
+    width: 200px;
+    height: auto;
+}
+
+.cards,
+.album {
+    margin-top: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.card {
+    flex: 0 1 calc(22% - .5em);
+    margin: auto;
+    background: white;
+    margin-bottom: 2em;
+    box-shadow: 0px 0px 1px 0px lightgrey;
+}
+
+.card a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    background-color: brown;
+    padding: 10px 15px;
+}
+
+.card a:hover {
+    box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
+}
+
+.card-content {
+    letter-spacing: 2px;
+    font-size: 80%;
+}
+
+.journal h2 {
+    text-align: left;
+    max-width: 800px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+.album img {
+    border: 2px inset silver;
+    flex: 0 1 calc(25% - 1em);
+    margin: auto;
+    background: white;
+    margin-bottom: 2em;
+    box-shadow: 0px 0px 1px 0px lightgrey;
+}
+
+@media screen and (min-width: 320px) and (max-width: 620px) {
+    .cards,
+    .album {
+        justify-content: space-between;
+    }
+    .card,
+    .album img {
+        width: 300px;
+        margin-bottom: 1em;
+    }
+    main {
+        margin-bottom: 25px;
+    }
+}

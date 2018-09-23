@@ -5,43 +5,55 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Epic Journey</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/reset.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 
-    <head>
+    <header>
         <h1>Epic Journey</h1>
-    </head>
+    </header>
     <main role='main'>
+        <!-- <h2>Create journals for all of your trips in one easy to use app</h2>
+
+        <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
+        <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
+ -->
+
 
         <div class='forms-container'>
+            <h2>Create journals for all of your trips in one easy to use app</h2>
+
+            <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
+            <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
             <form id='login-form'>
+
                 <fieldset class='login-form-section'>
                     <legend>Login</legend>
-                    <label for='login-username'>Username</label>
+                    <label for='login-username'>Username:</label>
                     <input type='text' id='login-username' name='login-username' required>
-                    <label for='login-password'>Password</label>
+                    <label for='login-password'>Password:</label>
                     <input type='password' id='login-password' name='login-password' required>
                     <button role='button' type='submit' id='login-button'>Login</button>
-
-                    <a class="buttonGhost" href="./#signup">Sign Up</a>
                     <p id='login-error'></p>
+
+                    <a class="buttonGhost" href="./#signup">create account</a>
                 </fieldset>
 
                 <fieldset class='signup-form-section'>
                     <legend>Sign Up</legend>
-                    <label for='firstName'>First Name</label>
+                    <label for='firstName'>First Name:</label>
                     <input type='text' id='firstName' name='firstName' required>
-                    <label for='lastName'>Last Name</label>
+                    <label for='lastName'>Last Name:</label>
                     <input type='text' id='lastName' name='lastName' required>
-                    <label for='username'>Username</label>
+                    <label for='username'>Username:</label>
                     <input type='text' id='username' name='username' required>
 
-                    <label for='password'>Password</label>
+                    <label for='password'>Password:</label>
                     <input type='password' id='password' name='password' required>
 
-                    <label for='password-match'>Re-enter Password</label>
+                    <label for='password-match'>Re-enter Password:</label>
                     <input type='password' id='password-match' name='password-match' required>
 
                     <button role='button' type='submit' id='signUpButton'>Sign Up</button>
@@ -55,7 +67,8 @@
                     <label for='location'>Location</label>
                     <input type='text' id='location' name='location' required>
                     <label for='dates'>Dates</label>
-                    <input type='text' id='dates' name='dates' required> Journal Entry:
+                    <input type='text' id='dates' name='dates' required>
+                    <label for='entry'>Journal Entry:</label>
                     <textarea class='journal-entry'></textarea>
                     <button role='button' type='submit' id='signUpButton'> submit</button>
                 </fieldset>
@@ -63,14 +76,30 @@
         </div>
 
         <div class="homepage">
+            <h2>Journeys</h2>
+            <div class="cards">
 
+                <article class="card">
+                    <a href="#">
+                        <div class="card-content">
+                            <p>Add Journey</p>
+                        </div>
+                        <!-- .card-content -->
+                        <picture class="thumbnail">
+                            <img src="images/img.png" alt="add journey" class="img-placeholder">
+                        </picture>
+                    </a>
+                </article>
+            </div>
         </div>
+
+
 
         <div class="dashboard">
 
         </div>
 
-        <div class="users">
+        <div class="users hide">
 
         </div>
     </main>
