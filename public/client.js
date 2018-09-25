@@ -1,5 +1,3 @@
-'use strict'
-
 // this is mock data, but when we create our API
 // we'll have it return data that looks like this
 var MOCK_JOURNEY_ENTRIES = {
@@ -87,6 +85,33 @@ var MOCK_JOURNEY_ENTRIES = {
     ]
 };
 
+// this is mock data, but when we create our API
+// we'll have it return data that looks like this
+var MOCK_USERS = {
+    "users": [{
+            "id": "1111111",
+            "firstName": "Pera",
+            "lastName": "Olin",
+            "userName": "linda",
+            "password": "secret"
+        },
+        {
+            "id": "2222222",
+            "firstName": "Elena",
+            "lastName": "Granados",
+            "userName": "awesome",
+            "password": "secret2"
+        },
+        {
+            "id": "3333333",
+            "firstName": "Kenji",
+            "lastName": "Hawley",
+            "userName": "locote",
+            "password": "secretote"
+        }
+    ]
+};
+
 // this function's name and argument can stay the
 // same after we have a live API, but its internal
 // implementation will change. Instead of using a
@@ -147,19 +172,6 @@ function displayHomeResults(data) {
         </article>`
         );
     }
-
-    // $('.cards').append(`
-    //     <article class="card">
-    //         <a href="#">
-
-    //             <picture class="thumbnail">
-    //                 <img src="images/img.png" alt="add journey" class="img-placeholder">
-    //             </picture>
-    //             <div class="card-content">
-    //                 <p>Add Journey</p>
-    //             </div>
-    //         </a>
-    //     </article> `);
 }
 
 function showHomePage() {
@@ -171,6 +183,7 @@ function getAndEditJourney() {
 }
 
 function editJourney(data) {
+    console.log(data.journeys[0]);
     $('.edit-journey').append(
         `<div class="edit-entry">
                 <h2>Editing journey ${data.journeys[0].title}</h2>
@@ -184,7 +197,7 @@ function editJourney(data) {
                         <label for='dates'>Dates:</label>
                         <input type='text' id='dates' name='dates' value ="${data.journeys[0].dates}" required>
                         <label for='entry'>Journal Entry:</label>
-                        <textarea class='journal-text' value ="${data.journeys[0].description}"></textarea>
+                        <textarea class='journal-text'>${data.journeys[0].description}</textarea>
                         <button role='button' type='submit' id='journal-text'>Submit</button>
                         
                     </fieldset>
@@ -193,32 +206,123 @@ function editJourney(data) {
     );
 }
 
-// this is mock data, but when we create our API
-// we'll have it return data that looks like this
-var MOCK_USERS = {
-    "users": [{
-            "id": "1111111",
-            "firstName": "Pera",
-            "lastName": "Olin",
-            "userName": "linda",
-            "password": "secret"
-        },
-        {
-            "id": "2222222",
-            "firstName": "Elena",
-            "lastName": "Granados",
-            "userName": "awesome",
-            "password": "secret2"
-        },
-        {
-            "id": "3333333",
-            "firstName": "Kenji",
-            "lastName": "Hawley",
-            "userName": "locote",
-            "password": "secretote"
-        }
-    ]
-};
+// login API call
+$('login-form').submit(function(event) {
+    event.preventDefault();
+    console.log("login form ran");
+
+    const username = $('#login-username').val();
+    const password = $('#login-password').val();
+    console.log(username);
+    console.log(password);
+
+    if (username == "") {
+        alert('Please enter username');
+    } else if (password == "") {
+        alert('Please enter password');
+    };
+
+    //make the api call using the payload above
+    //     $.ajax({
+    //             type: 'POST',
+    //             url: '/auth/login',
+    //             dataType: 'json',
+    //             data: JSON.stringify(newUserObject),
+    //             contentType: 'application/json'
+    //         })
+    //         //if call is succefull
+    //         .done(function(result) {
+    //             console.log(result);
+    //             // $('section').hide();
+    //             // $('.navbar').show();
+    //             // $('#user-dashboard').show();
+    //             // $('#loggedInName').text(result.name);
+    //             // $('#loggedInUserName').val(result.username);
+    //             // //            htmlUserDashboard();
+    //             // populateUserDashboardDate(result.username); //AJAX call in here??
+    //             // //                noEntries();
+
+    //         })
+    //         //if the call is failing
+    //         .fail(function(jqXHR, error, errorThrown) {
+    //             console.log(jqXHR);
+    //             console.log(error);
+    //             console.log(errorThrown);
+    //             alert('Incorrect Username or Password');
+    //         });
+});
+
+
+
+// sign up API call
+$('.signup-form').submit(function(event) {
+    event.preventDefault();
+    console.log("signup form ran");
+
+    const firstName = $('#firstName').val();
+    const lastName = $('#lastName').val();
+    const username = $('#username').val();
+    const password = $('#password').val();
+    // const passwordMatch = $('$password-match').val();
+
+    console.log(username);
+    console.log(password);
+
+    //validate the input
+    if (firstName == "") {
+        alert('Please add a first name');
+    } else if (lastName == "") {
+        alert('Please add a last name');
+    } else if (username == "") {
+        alert('Please add an user name');
+    } else if (password == "") {
+        alert('Please add a password');
+        // } else if (password !== passwordMatch) {
+        //     alert('Password entries must match')
+    }
+    //if the input is valid
+    else {
+        //create the payload object (what data we send to the api call)
+        const newUserObject = {
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            password: password
+        };
+        console.log(newUserObject);
+
+        //make the api call using the payload above
+        $.ajax({
+                type: 'POST',
+                url: '/users/create',
+                dataType: 'json',
+                data: JSON.stringify(newUserObject),
+                contentType: 'application/json'
+            })
+            //if call is succefull
+            .done(function(result) {
+                console.log(result);
+                // $('section').hide();
+                // $('.navbar').show();
+                // $('#user-dashboard').show();
+                // $('#loggedInName').text(result.name);
+                // $('#loggedInUserName').val(result.username);
+                // //            htmlUserDashboard();
+                // populateUserDashboardDate(result.username); //AJAX call in here??
+                // //                noEntries();
+
+            })
+            //if the call is failing
+            .fail(function(jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+                alert('Incorrect Username or Password');
+            });
+    }
+});
+
+
 
 
 // this function's name and argument can stay the
@@ -231,7 +335,7 @@ function getListofUsers(callbackFn) {
     // we use a `setTimeout` to make this asynchronous
     // as it would be with a real AJAX call.
     setTimeout(function() { callbackFn(MOCK_USERS) }, 1);
-}
+};
 
 // this function stays the same when we connect
 // to real API later
@@ -244,7 +348,7 @@ function displayUserList(data) {
 
         );
     }
-}
+};
 
 // this function can stay the same even when we
 // are connecting to real API

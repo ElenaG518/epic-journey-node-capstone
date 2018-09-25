@@ -18,41 +18,43 @@
     </header>
     <main role='main'>
 
-        <section class='intro hide'>
+        <section class='intro'>
             <h2>Create journals for all of your trips in one easy to use app</h2>
 
             <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
             <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
 
-            <form id='login-form'>
+            <form class='login-form'>
 
 
-                <fieldset class='login-form-section hide'>
+                <fieldset class='login-form-section'>
                     <legend>Sign In</legend>
                     <label for='login-username'>Username:</label>
-                    <input type='text' id='login-username' name='login-username' required>
+                    <input type='text' id='login-username' name='login-username' value="elenaG" required>
                     <label for='login-password'>Password:</label>
-                    <input type='password' id='login-password' name='login-password' required>
+                    <input type='password' id='login-password' name='login-password' value="password" required>
                     <button role='button' type='submit' id='login-button'>Log In</button>
                     <p id='login-error'></p>
 
-                    <p>Need an account? <a class="buttonGhost" href="./#signup">  create account</a> </p>
+                    <p>Need an account? <a class="buttonGhost" href="">  create account</a> </p>
                 </fieldset>
+            </form>
 
-                <fieldset class='signup-form-section  '>
+            <form class="signup-form" id="users">
+                <fieldset class='signup-form-section'>
                     <legend>Sign Up</legend>
                     <label for='firstName'>First Name:</label>
-                    <input type='text' id='firstName' name='firstName' required>
+                    <input type='text' id='firstName' name='firstName' value="Elena" required>
                     <label for='lastName'>Last Name:</label>
-                    <input type='text' id='lastName' name='lastName' required>
+                    <input type='text' id='lastName' name='lastName' value="Granados" required>
                     <label for='username'>Username:</label>
-                    <input type='text' id='username' name='username' required>
+                    <input type='text' id='username' name='username' value="elenaG" required>
 
                     <label for='password'>Password:</label>
-                    <input type='password' id='password' name='password' required>
+                    <input type='password' id='password' name='password' value="password" required>
 
-                    <label for='password-match'>Re-enter Password:</label>
-                    <input type='password' id='password-match' name='password-match' required>
+                    <!-- <label for='password-match'>Re-enter Password:</label>
+                    <input type='password' id='password-match' name='password-match' required> -->
 
                     <button role='button' type='submit' id='signUpButton'>Sign Up</button>
                     <p>Already have an account? <a class="buttonGhost" href="./#signup">Sign In</a></p>
@@ -62,7 +64,7 @@
         </section>
 
         <section>
-            <form class="journey-form hide">
+            <form class="journey-form ">
 
                 <fieldset class='create-journey '>
                     <legend>Create Journey</legend>
@@ -79,7 +81,7 @@
             </form>
         </section>
 
-        <section class="homepage hide ">
+        <section class="homepage ">
             <h2>Journeys</h2>
 
             <div class="cards">
@@ -98,18 +100,18 @@
             </div>
         </section>
 
-        <section class="add-photos hide ">
+        <section class="add-photos  ">
             <h2>Add Photos</h2>
         </section>
 
-        <section class="edit-journey hide">
+        <section class="edit-journey ">
 
         </section>
 
 
 
 
-        <div class="users hide">
+        <div class="users">
 
         </div>
     </main>
@@ -117,6 +119,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="client.js"></script>
+    <!-- <script type="text/javascript" src="data.js"></script> -->
 </body>
 
 </html>
