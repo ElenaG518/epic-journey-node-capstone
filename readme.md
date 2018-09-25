@@ -5,13 +5,13 @@ Epic Journey app helps users to keep track of the places they visit by adding lo
 
 Home Page View | Login Page View #2
 :-------------------------:|:-------------------------:
-![Home Page](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/home-page.jpg)  |  ![Login Page](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/login.jpg)
+![Home Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signin.png)  |  ![Sign Up Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signup.png)
 User Dashboard | Seen Entry
-![User Dashboard](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/user-dashboard.jpg) | ![Seen Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/seen-entry.jpg)
+![User Dashboard](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/journeylist.png) 
 Add Entry  | Edit Entry
-![Add Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/add-entry.jpg) | ![Edit Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/edit-entry.jpg)
+![Add Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/submitjourney.png) | ![Edit Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png)
 Delete Entry |
-![Delete Entry](https://github.com/KatiLong/shakespeare-passport-node-capstone/blob/master/github-images/delete-entry.jpg) |
+![Delete Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png) |
 
 ### UI Flow
 ![UI Flow handwritten draft](https://github.com/KatiLong/node-capstone/blob/master/github-images/node-capstone-user-flow.jpg)
@@ -22,8 +22,7 @@ Delete Entry |
 ## Working Prototype
 You can access a working prototype of the app here: https://epic-journey.herokuapp.com/
 
-##Live Version GitHub Pages
-https://elenag518.github.io/epic-journey-node-capstone
+
 
 ## Functionality
 The app's functionality includes:
