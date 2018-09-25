@@ -121,6 +121,7 @@ router.post('/create', jsonParser, (req, res) => {
             });
         })
         .then(user => {
+
             return res.status(201).json(user.serialize());
         })
         .catch(err => {
@@ -180,7 +181,7 @@ router.post('/login', jsonParser, (req, res) => {
                     message: 'Incorrect username or password'
                 });
             }
-            return user => res.json(user.serialize())
+            return user;
         })
         .catch(err => {
             if (err.reason === 'LoginError') {

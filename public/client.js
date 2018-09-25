@@ -217,9 +217,6 @@ $('.signup-form').submit(function(event) {
     const password = $('#password').val();
     // const passwordMatch = $('$password-match').val();
 
-    console.log(username);
-    console.log(password);
-
     //validate the input
     if (firstName == "") {
         alert('Please add a first name');
@@ -254,6 +251,7 @@ $('.signup-form').submit(function(event) {
             //if call is succefull
             .done(function(result) {
                 console.log(result);
+                console.log(result.name);
                 // $('section').hide();
                 // $('.navbar').show();
                 // $('#user-dashboard').show();
