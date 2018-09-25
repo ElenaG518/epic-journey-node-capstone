@@ -5,10 +5,12 @@ body {
 }
 
 header {
-    /* position: fixed; */
+    position: fixed;
     top: 0;
-    width: 100%;
     z-index: 1;
+    width: 100%;
+    height: 100px;
+    background-color: #85c738;
 }
 
 header h1 {
@@ -17,7 +19,7 @@ header h1 {
     font-weight: 900;
     margin: 0;
     font-size: 3em;
-    padding: 125px 0;
+    padding: 75px 0;
     text-align: center;
     background-image: url("../images/header.jpg");
     background-position: center;
@@ -26,12 +28,11 @@ header h1 {
     /* Do not repeat the image */
     background-size: cover;
     /* Resize the background image to cover the entire container */
-    background-color: #e1b750;
 }
 
 main {
     position: relative;
-    top: 400px;
+    top: 300px;
     margin: 0 auto;
     max-width: 1200px;
     margin-bottom: 100px;
@@ -54,12 +55,6 @@ p {
 .hide {
     display: none;
 }
-
-
-/* .forms-container {
-    max-width: 960px;
-    margin: 50px auto;
-} */
 
 form {
     color: black;
@@ -101,7 +96,7 @@ form textarea {
 
 form a {
     text-align: center;
-    display: block;
+    display: inline-block;
     text-decoration: none;
     margin-bottom: 20px;
 }
@@ -120,6 +115,7 @@ form button,
 .homepage h2 {
     margin-bottom: 0;
     font-weight: 900;
+    /* text-align: left; */
 }
 
 figure,
@@ -143,19 +139,12 @@ figure img,
 
 .cards,
 .album {
-    margin-top: 50px;
+    margin-top: 25px;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
     align-content: center;
-}
-
-.cards {
-    margin-top: 25px;
-    border-top: 5px solid darkred;
-    /* background-color: hsla(0, 6%, 83%, 0.99); */
-    padding-top: 50px;
 }
 
 .card {
@@ -181,6 +170,7 @@ figure img,
 }
 
 .card-content {
+    padding: 5px 0 2px;
     letter-spacing: 2px;
     font-size: 80%;
     font-family: 'Indie Flower', cursive;
@@ -207,6 +197,7 @@ figure img,
     position: relative;
     max-width: 800px;
     margin: auto;
+    text-align: right;
 }
 
 .notebook img {
@@ -216,7 +207,7 @@ figure img,
 .journal-entry {
     display: block;
     margin: auto;
-    /* text-align: center; */
+    text-align: left;
     position: absolute;
     top: 25px;
     left: 15px;
@@ -233,10 +224,25 @@ figure img,
     padding: 10px 35px 10px 55px;
 }
 
+.notebook a {
+    font-size: 70%;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
 @media screen and (min-width: 320px) and (max-width: 620px) {
+    header h1 {
+        padding: 0;
+        height: 100px;
+        font-size: 2em;
+    }
+    main {
+        top: 120px;
+    }
     .cards,
     .album {
         justify-content: space-between;
+        margin-top: 50px;
     }
     .card,
     .album img {
@@ -272,5 +278,8 @@ figure img,
     }
     .journal-entry p {
         padding: 10px 10px 10px 15px;
+    }
+    .edit-journey {
+        margin-top: 50px;
     }
 }

@@ -17,19 +17,15 @@
         <h1>Epic Journey</h1>
     </header>
     <main role='main'>
-        <!-- <h2>Create journals for all of your trips in one easy to use app</h2>
 
-        <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
-        <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
- -->
-
-
-        <div class='forms-container hide'>
+        <section class='intro hide'>
             <h2>Create journals for all of your trips in one easy to use app</h2>
 
             <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
             <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
+
             <form id='login-form'>
+
 
                 <fieldset class='login-form-section hide'>
                     <legend>Sign In</legend>
@@ -40,10 +36,10 @@
                     <button role='button' type='submit' id='login-button'>Log In</button>
                     <p id='login-error'></p>
 
-                    <a class="buttonGhost" href="./#signup">create account</a>
+                    <p>Need an account? <a class="buttonGhost" href="./#signup">  create account</a> </p>
                 </fieldset>
 
-                <fieldset class='signup-form-section hide'>
+                <fieldset class='signup-form-section  '>
                     <legend>Sign Up</legend>
                     <label for='firstName'>First Name:</label>
                     <input type='text' id='firstName' name='firstName' required>
@@ -59,10 +55,16 @@
                     <input type='password' id='password-match' name='password-match' required>
 
                     <button role='button' type='submit' id='signUpButton'>Sign Up</button>
+                    <p>Already have an account? <a class="buttonGhost" href="./#signup">Sign In</a></p>
                     <p id='signup-error'></p>
                 </fieldset>
+            </form>
+        </section>
 
-                <fieldset class='create-journey'>
+        <section>
+            <form class="journey-form hide">
+
+                <fieldset class='create-journey '>
                     <legend>Create Journey</legend>
                     <label for='title'>Title:</label>
                     <input type='text' id='title' name='title' required>
@@ -71,26 +73,41 @@
                     <label for='dates'>Dates:</label>
                     <input type='text' id='dates' name='dates' required>
                     <label for='entry'>Journal Entry:</label>
-                    <textarea class='journal-entry'></textarea>
-                    <button role='button' type='submit' id='signUpButton'>Submit</button>
+                    <textarea class='journal-text'></textarea>
+                    <button role='button' type='submit' id='journal-text'>Submit</button>
                 </fieldset>
             </form>
-        </div>
+        </section>
 
-        <div class="homepage hide">
+        <section class="homepage hide ">
             <h2>Journeys</h2>
 
             <div class="cards">
 
 
             </div>
-        </div>
+            <button class="add-journey">Add Journey</button>
+        </section>
 
 
 
-        <div class="dashboard">
-            <div class="notebook"><img src="images/sketchBackground.jpg"></div>
-        </div>
+        <section class="dashboard ">
+            <div class="notebook"><img src="images/sketchBackground.jpg">
+                <a href="#edit-journey">Edit </a> |
+                <a href="#edit-journey">Delete </a>
+            </div>
+        </section>
+
+        <section class="add-photos hide ">
+            <h2>Add Photos</h2>
+        </section>
+
+        <section class="edit-journey hide">
+
+        </section>
+
+
+
 
         <div class="users hide">
 
