@@ -8,6 +8,8 @@ Home Page View | Sign Up Page
 ![Home Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signin.png)  |  ![Sign Up Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signup.png)
 User Dashboard | Add Entry
 ![User Dashboard](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/journeylist.png) |  ![Add Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/submitjourney.png) 
+Journal Page | Add Photos
+![Individual Journey Screen](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/journeyshow.png) |  ![Add Photos](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/submitjourney.png) 
 Edit Entry | Delete Entry
 ![Edit Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png) | ![Delete Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png)
 
