@@ -275,7 +275,7 @@ $('.signup-form').submit(function(event) {
 });
 
 // login API call
-$('login-form').submit(function(event) {
+$('.login-form').submit(function(event) {
     event.preventDefault();
     console.log("login form ran");
 
@@ -291,9 +291,10 @@ $('login-form').submit(function(event) {
     } else {
 
         const userObject = {
-            username = username,
-            password = password
+            username: username,
+            password: password
         };
+        console.log(userObject);
         $.ajax({
                 type: 'POST',
                 url: '/users/login',
