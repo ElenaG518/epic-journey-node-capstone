@@ -7,9 +7,9 @@ Home Page View | Login Page View #2
 :-------------------------:|:-------------------------:
 ![Home Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signin.png)  |  ![Sign Up Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signup.png)
 User Dashboard | Add Entry
-![User Dashboard](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/journeylist.png) 
+![User Dashboard](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/journeylist.png) |  ![Add Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/submitjourney.png) 
 Edit Entry  | Delete Entry
-![Add Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/submitjourney.png) | ![Edit Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png)
+| ![Edit Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png)
 Delete Entry |
 ![Delete Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png) |
 
