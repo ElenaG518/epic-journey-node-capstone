@@ -12,10 +12,12 @@ Edit Entry | Delete Entry
 ![Edit Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png) | ![Delete Entry](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/editingjourney.png)
 
 ### UI Flow
-![UI Flow handwritten draft](https://github.com/KatiLong/node-capstone/blob/master/github-images/node-capstone-user-flow.jpg)
+![UI Flow handwritten draft](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/flow.jpg)
 
-### Wireframe _main
-![Wireframe _Main](https://github.com/KatiLong/node-capstone/blob/master/github-images/wireframe-v1.jpg)
+### Wireframe 
+Create Journey| Edit Journey
+:-------------------------:|:-------------------------:
+![Create Journey](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/create.jpg)| ![Edit Journey](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/edit.jpg)
 
 ## Working Prototype
 You can access a working prototype of the app here: https://epic-journey.herokuapp.com/
