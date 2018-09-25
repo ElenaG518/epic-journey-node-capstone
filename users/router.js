@@ -137,69 +137,113 @@ router.post('/create', jsonParser, (req, res) => {
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also
 // verify this in the Mongo shell.
-// router.get('/', (req, res) => {
+router.get('/', (req, res) => {
+    return User.find()
+        .then(users => res.json(users.map(user => user.serialize())))
+        .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
 
+// POST to login a user
 
-//     return User.find()
-//         .then(users => res.json(users.map(user => user.serialize())))
-//         .catch(err => res.status(500).json({ message: 'Internal server error' }));
-// });
+router.post('/login', jsonParser, (req, res) => {
+            const requiredFields = ['username', 'password'];
+            const missingField = requiredFields.find(field => !(field in req.body));
 
+            if (missingField) {
+                return res.status(422).json({
+                    code: 422,
+                    reason: 'ValidationError',
+                    message: 'Missing field',
+                    location: missingField
+                });
+            };
 
-
-
-
-
-//using the mongoose DB schema, connect to the database and the user with the same username as above
-// return User.findOne({ username }, function(err, items) {
-
-// //if there is an error connecting to the DB
-// if (err) {
-
-//     //display it
-//     return res.status(500).json({
-//         message: "Internal server error"
-//     });
-// }
-// // if there are no users with that username
-// if (!items) {
-//     //display it
-//     return res.status(401).json({
-//         message: "Not found!"
-//     });
-// }
-// //if the username is found
-// else {
-
-//     //try to validate the password
-//     items.validatePassword(password, function(err, isValid) {
-
-//         //if the connection to the DB to validate the password is not working
-//         if (err) {
-
-//             //display error
-//             console.log('Could not connect to the DB to validate the password.');
-//         }
-
-//         //if the password is not valid
-//         if (!isValid) {
-
-//             //display error
-//             return res.status(401).json({
-//                 message: "Password Invalid"
-//             });
-//         }
-//         //if the password is valid
-//         else {
-//             //return the logged in user
-//             console.log(`User \`${username}\` logged in.`);
-//             return res.json(items);
-//         }
-//     });
-// };
-// });
-// });
+            let { username, password } = req.body;
+            let user;
+            User.findOne({ username: username })
+                .then(_user => {
+                    user = _user;
+                    if (!user) {
+                        // Return a rejected promise so we break out of the chain of .thens.
+                        // Any errors like this will be handled in the catch block.
+                        return Promise.reject({
+                            reason: 'LoginError',
+                            message: 'Incorrect username or password'
+                        });
+                    }
+                    return user.validatePassword(password);
+                })
+                .then(isValid => {
+                    if (!isValid) {
+                        return Promise.reject({
+                            reason: 'LoginError',
+                            message: 'Incorrect username or password'
+                        });
+                    }
+                    return res.json(user)
+                })
+                .catch(err => {
+                    if (err.reason === 'LoginError') {
+                        return res.status(500).json({
+                            message: message
+                        })
+                    } else {
+                        return res.status(500).json({
+                            message: "Internal server error"
+                        });
+                    }
+                })
 
 
 
-module.exports = router;
+
+
+
+
+
+            //using the mongoose DB schema, connect to the database and the user with the same username as above
+            // return User.findOne({ username }, function(err, items) {
+
+
+            // // if there are no users with that username
+            // if (!items) {
+            //     //display it
+            //     return res.status(401).json({
+            //         message: "Not found!"
+            //     });
+            // }
+            // //if the username is found
+            // else {
+
+            //     //try to validate the password
+            //     items.validatePassword(password, function(err, isValid) {
+
+            //         //if the connection to the DB to validate the password is not working
+            //         if (err) {
+
+            //             //display error
+            //             console.log('Could not connect to the DB to validate the password.');
+            //         }
+
+            //         //if the password is not valid
+            //         if (!isValid) {
+
+            //             //display error
+            //             return res.status(401).json({
+            //                 message: "Password Invalid"
+            //             });
+            //         }
+            //         //if the password is valid
+            //         else {
+            //             //return the logged in user
+            //             console.log(`User \`${username}\` logged in.`);
+            //             return res.json(items);
+            //         }
+            //     });
+            // };
+            // });
+            // });
+
+
+
+            module.exports = router;

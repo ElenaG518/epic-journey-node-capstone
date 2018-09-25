@@ -206,54 +206,6 @@ function editJourney(data) {
     );
 }
 
-// login API call
-$('login-form').submit(function(event) {
-    event.preventDefault();
-    console.log("login form ran");
-
-    const username = $('#login-username').val();
-    const password = $('#login-password').val();
-    console.log(username);
-    console.log(password);
-
-    if (username == "") {
-        alert('Please enter username');
-    } else if (password == "") {
-        alert('Please enter password');
-    };
-
-    //make the api call using the payload above
-    //     $.ajax({
-    //             type: 'POST',
-    //             url: '/auth/login',
-    //             dataType: 'json',
-    //             data: JSON.stringify(newUserObject),
-    //             contentType: 'application/json'
-    //         })
-    //         //if call is succefull
-    //         .done(function(result) {
-    //             console.log(result);
-    //             // $('section').hide();
-    //             // $('.navbar').show();
-    //             // $('#user-dashboard').show();
-    //             // $('#loggedInName').text(result.name);
-    //             // $('#loggedInUserName').val(result.username);
-    //             // //            htmlUserDashboard();
-    //             // populateUserDashboardDate(result.username); //AJAX call in here??
-    //             // //                noEntries();
-
-    //         })
-    //         //if the call is failing
-    //         .fail(function(jqXHR, error, errorThrown) {
-    //             console.log(jqXHR);
-    //             console.log(error);
-    //             console.log(errorThrown);
-    //             alert('Incorrect Username or Password');
-    //         });
-});
-
-
-
 // sign up API call
 $('.signup-form').submit(function(event) {
     event.preventDefault();
@@ -322,6 +274,46 @@ $('.signup-form').submit(function(event) {
     }
 });
 
+// login API call
+$('login-form').submit(function(event) {
+    event.preventDefault();
+    console.log("login form ran");
+
+    const username = $('#login-username').val();
+    const password = $('#login-password').val();
+    console.log(username);
+    console.log(password);
+
+    if (username == "") {
+        alert('Please enter username');
+    } else if (password == "") {
+        alert('Please enter password');
+    } else {
+
+        const userObject = {
+            username = username,
+            password = password
+        };
+        $.ajax({
+                type: 'POST',
+                url: '/users/login',
+                dataType: 'json',
+                data: JSON.stringify(userObject),
+                contentType: 'application/json'
+            })
+            .done(function(result) {
+                console.log(result);
+            })
+            // if the call is failing
+            .fail(function(jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+                alert('Incorrect Username or Password');
+            });
+
+    };
+});
 
 
 
