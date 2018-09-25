@@ -3,7 +3,7 @@ Epic Journey app helps users to keep track of the places they visit by adding lo
 
 ## Screenshots
 
-<!-- Home Page View | Login Page View #2 -->
+Home Page View | Login Page View #2
 :-------------------------:|:-------------------------:
 ![Home Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signin.png)  |  ![Sign Up Page](https://github.com/ElenaG518/epic-journey-node-capstone/blob/master/github-images/signup.png)
 User Dashboard | Add Entry
