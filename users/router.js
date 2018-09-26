@@ -1,11 +1,8 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const { User } = require('./models');
-
 const router = express.Router();
-
 const jsonParser = bodyParser.json();
 
 // Post to register a new user
@@ -160,92 +157,42 @@ router.post('/login', jsonParser, (req, res) => {
     };
 
     let { username, password } = req.body;
+    // console.log(username, password);
     let user;
-    User.findOne({ username: username })
+    User.findOne({ username })
         .then(_user => {
             user = _user;
+            console.log(user);
             if (!user) {
                 // Return a rejected promise so we break out of the chain of .thens.
                 // Any errors like this will be handled in the catch block.
+                console.log('username not found');
                 return Promise.reject({
-                    reason: 'LoginError',
-                    message: 'Incorrect username or password'
+                    reason: 'ValidationError',
+                    message: 'username not found'
                 });
             }
             return user.validatePassword(password);
         })
         .then(isValid => {
             if (!isValid) {
+                console.log('failed validation');
                 return Promise.reject({
-                    reason: 'LoginError',
-                    message: 'Incorrect username or password'
+                    reason: 'ValidationError',
+                    message: 'Incorrect password on validatePassword'
                 });
             }
-            return user;
+            console.log('validation successful');
+            return res.status(201).json(user.serialize());
         })
         .catch(err => {
-            if (err.reason === 'LoginError') {
-                return res.status(500).json({
-                    message: 'Incorrect username or password'
-                })
-            } else {
-                return res.status(500).json({
-                    message: "Internal server error"
-                });
+            // Forward validation errors on to the client, otherwise give a 500
+            // error because something unexpected has happened
+            if (err.reason === 'ValidationError') {
+                return res.status(err.code).json(err);
             }
-        })
+            res.status(500).json({ code: 500, message: 'Internal server error' });
+        });
 });
-
-
-
-
-
-
-
-
-//using the mongoose DB schema, connect to the database and the user with the same username as above
-// return User.findOne({ username }, function(err, items) {
-
-
-// // if there are no users with that username
-// if (!items) {
-//     //display it
-//     return res.status(401).json({
-//         message: "Not found!"
-//     });
-// }
-// //if the username is found
-// else {
-
-//     //try to validate the password
-//     items.validatePassword(password, function(err, isValid) {
-
-//         //if the connection to the DB to validate the password is not working
-//         if (err) {
-
-//             //display error
-//             console.log('Could not connect to the DB to validate the password.');
-//         }
-
-//         //if the password is not valid
-//         if (!isValid) {
-
-//             //display error
-//             return res.status(401).json({
-//                 message: "Password Invalid"
-//             });
-//         }
-//         //if the password is valid
-//         else {
-//             //return the logged in user
-//             console.log(`User \`${username}\` logged in.`);
-//             return res.json(items);
-//         }
-//     });
-// };
-// });
-// });
-
-
 
 module.exports = router;

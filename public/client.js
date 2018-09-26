@@ -251,7 +251,7 @@ $('.signup-form').submit(function(event) {
             //if call is succefull
             .done(function(result) {
                 console.log(result);
-                console.log(result.name);
+                // console.log(result.name);
                 // $('section').hide();
                 // $('.navbar').show();
                 // $('#user-dashboard').show();
