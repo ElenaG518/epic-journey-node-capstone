@@ -1,7 +1,7 @@
 'use strict';
 require('dotenv').config();
 const { User } = require('./users/models');
-const Entry = require('./models/entry');
+// const { Journal } = require('./journals/models');
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');

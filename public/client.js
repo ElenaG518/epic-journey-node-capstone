@@ -251,23 +251,13 @@ $('.signup-form').submit(function(event) {
             //if call is succefull
             .done(function(result) {
                 console.log(result);
-                // console.log(result.name);
-                // $('section').hide();
-                // $('.navbar').show();
-                // $('#user-dashboard').show();
-                // $('#loggedInName').text(result.name);
-                // $('#loggedInUserName').val(result.username);
-                // //            htmlUserDashboard();
-                // populateUserDashboardDate(result.username); //AJAX call in here??
-                // //                noEntries();
-
             })
             //if the call is failing
             .fail(function(jqXHR, error, errorThrown) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
-                alert('Incorrect Username or Password');
+                alert('OOPS can\'t connect');
             });
     }
 });
@@ -314,19 +304,91 @@ $('.login-form').submit(function(event) {
     };
 });
 
+$('.journey-form').submit(function(event) {
+    event.preventDefault();
+    console.log("journal entry form ran");
+    const title = $('#title').val();
+    const location = $('#location').val();
+    const dates = $('#dates').val();
+    const entry = $('#entry').val();
 
+    // console.log(title, location, dates, entry);
+    const journalObject = {
+        title: title,
+        location: location,
+        dates: dates,
+        entry: entry
+    };
+    console.log(journalObject);
+    // $.ajax({
+    //         type: 'POST',
+    //         url: '/journals/create',
+    //         dataType: 'json',
+    //         data: JSON.stringify(journalObject),
+    //         contentType: 'application/json'
+    //     })
+    //     .done(function(result) {
+    //         console.log(result);
+    //     })
+    //     // if the call is failing
+    //     .fail(function(jqXHR, error, errorThrown) {
+    //         console.log(jqXHR);
+    //         console.log(error);
+    //         console.log(errorThrown);
+    //         alert('something bad just happened at journals/create');
+    //     });
+});
 
+$('.dashboard').click('.add-pics', event => {
+    // event.preventDefault();
+    event.stopPropagation();
+    console.log("Add photos button pressed");
+});
+
+$('.notebook').click('#edit-journey', event => {
+    console.log("edit journey link pressed");
+    event.preventDefault();
+});
+
+$('.notebook').click('#delete-journey', event => {
+    console.log("delete journey link pressed");
+    event.preventDefault();
+});
 // this function's name and argument can stay the
 // same after we have a live API, but its internal
 // implementation will change. Instead of using a
 // timeout function that returns mock data, it will
 // use jQuery's AJAX functionality to make a call
 // to the server and then run the callbackFn
+// function getListofUsers(callbackFn) {
+//     // we use a `setTimeout` to make this asynchronous
+//     // as it would be with a real AJAX call.
+//     setTimeout(function() { callbackFn(MOCK_USERS) }, 1);
+// };
+
 function getListofUsers(callbackFn) {
-    // we use a `setTimeout` to make this asynchronous
-    // as it would be with a real AJAX call.
-    setTimeout(function() { callbackFn(MOCK_USERS) }, 1);
+    $('.get-users').click(event => {
+        console.log("getlistofusers function ran");
+        $.ajax({
+                type: 'GET',
+                url: '/users',
+                dataType: 'json',
+                // data: JSON.stringify(userObject),
+                contentType: 'application/json'
+            })
+            .done(function(result) {
+                console.log(result);
+            })
+            // if the call is failing
+            .fail(function(jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+                alert('didn\'t work');
+            });
+    })
 };
+
 
 // this function stays the same when we connect
 // to real API later
