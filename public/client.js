@@ -401,7 +401,7 @@ $('.login-form').submit(function(event) {
 
 //  on page load do this
 $(function() {
-    displayJourney();
+    // displayJourney();
     getAndDisplayUsers();
     // showHomePage();
     // getAndEditJourney();
