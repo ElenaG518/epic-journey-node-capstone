@@ -391,7 +391,7 @@ $('.login-form').submit(function(event) {
 
 //  on page load do this
 $(function() {
-    DisplayStatusUpdates();
+    displayStatusUpdates();
     getAndDisplayUsers();
     // showHomePage();
     // getAndEditJourney();
