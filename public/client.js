@@ -283,19 +283,19 @@ $('.journey-form').submit(function(event) {
     const title = $('#title').val();
     const location = $('#location').val();
     const dates = $('#dates').val();
-    const entry = $('#entry').val();
+    const description = $('#description').val();
 
     // console.log(title, location, dates, entry);
     const journalObject = {
         title: title,
         location: location,
         dates: dates,
-        entry: entry
+        description: description
     };
     console.log(journalObject);
     $.ajax({
             type: 'POST',
-            url: '/journals/create',
+            url: '/journeys/create',
             dataType: 'json',
             data: JSON.stringify(journalObject),
             contentType: 'application/json'

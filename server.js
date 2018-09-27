@@ -1,7 +1,7 @@
 'use strict';
 require('dotenv').config();
 const { User } = require('./users/models');
-// const { Journal } = require('./journals/models');
+const { Journey } = require('./journeys/models');
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -18,6 +18,7 @@ const passport = require('passport');
 // const BasicStrategy = require('passport-http').BasicStrategy;
 const { router: usersRouter } = require('./users');
 // const usersRouter = require('./users/router');
+const { router: journeysRouter } = require('./journeys');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 // const authRouter = require('./auth/router');
 // const { localStrategy, jwtStrategy } = require('./auth/strategies');
@@ -26,6 +27,7 @@ passport.use(jwtStrategy);
 
 app.use('/users/', usersRouter);
 app.use('/auth/', authRouter);
+app.use('/journeys/', journeysRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
@@ -109,38 +111,38 @@ if (require.main === module) {
 // -------------entry ENDPOINTS------------------------------------------------
 // POST -----------------------------------------
 // creating a new Entry
-app.post('/entry/create', (req, res) => {
-    let entryType = req.body.entryType;
-    let inputDate = req.body.inputDate;
-    let inputPlay = req.body.inputPlay;
-    let inputAuthor = req.body.inputAuthor;
-    let inputRole = req.body.inputRole;
-    let inputCo = req.body.inputCo;
-    let inputLocation = req.body.inputLocation;
-    let inputNotes = req.body.inputNotes;
-    let loggedInUserName = req.body.loggedInUserName;
+// app.post('/entry/create', (req, res) => {
+//     let entryType = req.body.entryType;
+//     let inputDate = req.body.inputDate;
+//     let inputPlay = req.body.inputPlay;
+//     let inputAuthor = req.body.inputAuthor;
+//     let inputRole = req.body.inputRole;
+//     let inputCo = req.body.inputCo;
+//     let inputLocation = req.body.inputLocation;
+//     let inputNotes = req.body.inputNotes;
+//     let loggedInUserName = req.body.loggedInUserName;
 
-    Entry.create({
-        entryType,
-        inputDate,
-        inputPlay,
-        inputAuthor,
-        inputRole,
-        inputCo,
-        inputLocation,
-        inputNotes,
-        loggedInUserName
-    }, (err, item) => {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        if (item) {
-            return res.json(item);
-        }
-    });
-});
+//     Entry.create({
+//         entryType,
+//         inputDate,
+//         inputPlay,
+//         inputAuthor,
+//         inputRole,
+//         inputCo,
+//         inputLocation,
+//         inputNotes,
+//         loggedInUserName
+//     }, (err, item) => {
+//         if (err) {
+//             return res.status(500).json({
+//                 message: 'Internal Server Error'
+//             });
+//         }
+//         if (item) {
+//             return res.json(item);
+//         }
+//     });
+// });
 
 // PUT --------------------------------------
 app.put('/entry/:id', function(req, res) {
