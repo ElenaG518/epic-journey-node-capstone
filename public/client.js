@@ -180,7 +180,7 @@ function displayStatusUpdates(data) {
             `
         );
     }
-}
+};
 
 $('.journey-form').submit(function(event) {
     event.preventDefault();
