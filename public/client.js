@@ -107,15 +107,19 @@ function getRecentStatusUpdates(callbackFn) {
 //     getRecentStatusUpdates(displayStatusUpdates);
 // }
 
+{
+    /* <picture class="thumbnail">
+                        <img src="${data.journeys[index].album[0].src}" alt="taking a stroll with dogs">
+                    </picture> */
+}
+
 function displayHomeResults(data) {
     for (index in data.journeys) {
         $('.cards').append(
             `<article class="card">
             <a href="#">
                 
-                <picture class="thumbnail">
-                    <img src="${data.journeys[index].album[0].src}" alt="taking a stroll with dogs">
-                </picture>
+                
                 <div class="card-content">
                     <p>${data.journeys[index].title}</p>
                 </div>
@@ -160,27 +164,31 @@ function editJourney(data) {
 
 function displayJourney(data) {
     console.log("displayStatusUpdates function ran");
-    for (index in data) {
-        console.log(data);
-        $('.notebook').append(
-            `<div class="journal-entry">
-                    <h2>${data[index].title}</h2>
-                    <p>${data[index].location}</p>
-                    <p>${data[index].dates}<p>
-                    <p>${data[index].description}</p>
+    // for (index in data) {
+    console.log(data);
+    $('.notebook').append(
+        `<div class="journal-entry">
+                    <h2>${data.title}</h2>
+                    <p>${data.location}</p>
+                    <p>${data.dates}<p>
+                    <p>${data.description}</p>
              </div>`
-        );
-        $('.dashboard').append(
-            `<div class="album">
-                <img src="${data.journeys[0].album[0].src}">
-                <img src="${data.journeys[0].album[1].src}"> 
-                <img src="${data.journeys[0].album[2].src}">
-                <img src="${data.journeys[0].album[3].src}">
-            </div>
-            <button class='add-pics'>Add Photos</button>
-            `
-        );
-    }
+    );
+
+    // const album = [];
+    // albumItems = data.album.length;
+    // if (!(albumItems == 0)) {
+    //     for (let i = 0; i < albumItems; i++) {
+    //         album.push(`<img src="${data.album[i].src}">`);
+    //     }
+    // };
+    // $('.dashboard').append(
+
+    //     '<div class=\"album\">' + album + '</div>' +
+
+    //     '<button class=\"add-pics\">Add Photos</button>'
+
+    // );
 };
 
 $('.journey-form').submit(function(event) {
