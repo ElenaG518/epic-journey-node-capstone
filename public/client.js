@@ -160,7 +160,8 @@ function editJourney(data) {
 
 function displayStatusUpdates(data) {
     console.log("displayStatusUpdates function ran");
-    for (index in data.journeys) {
+    for (index in data) {
+        console.log(data);
         $('.notebook').append(
             `<div class="journal-entry">
                     <h2>${data.journeys[index].title}</h2>
@@ -198,6 +199,7 @@ $('.journey-form').submit(function(event) {
         description: description
     };
     console.log(journalObject);
+
     $.ajax({
             type: 'POST',
             url: '/journeys/create',
