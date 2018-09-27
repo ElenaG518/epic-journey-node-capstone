@@ -99,34 +99,13 @@ function getRecentStatusUpdates(callbackFn) {
 
 // this function stays the same when we connect
 // to real API later
-function displayStatusUpdates(data) {
-    // for (index in data.journeys) {
-    $('.notebook').append(
-        `<div class="journal-entry">
-                <h2>${data.journeys[0].title}</h2>
-                <p>${data.journeys[0].location}</p>
-                <p>${data.journeys[0].dates}<p>
-                <p>${data.journeys[0].description}</p>
-         </div>`
-    );
-    $('.dashboard').append(
-        `<div class="album">
-            <img src="${data.journeys[0].album[0].src}">
-            <img src="${data.journeys[0].album[1].src}"> 
-            <img src="${data.journeys[0].album[2].src}">
-            <img src="${data.journeys[0].album[3].src}">
-        </div>
-        <button class='add-pics'>Add Photos</button>
-        `
-    );
-    // }
-}
+
 
 // this function can stay the same even when we
 // are connecting to real API
-function getAndDisplayStatusUpdates() {
-    getRecentStatusUpdates(displayStatusUpdates);
-}
+// function getAndDisplayStatusUpdates() {
+//     getRecentStatusUpdates(displayStatusUpdates);
+// }
 
 function displayHomeResults(data) {
     for (index in data.journeys) {
@@ -172,11 +151,144 @@ function editJourney(data) {
                         <label for='entry'>Journal Entry:</label>
                         <textarea class='journal-text'>${data.journeys[0].description}</textarea>
                         <button role='button' type='submit' id='journal-text'>Submit</button>
-                        
+
                     </fieldset>
                 </form>
         </div>`
     );
+}
+
+function displayStatusUpdates(data) {
+    console.log("displayStatusUpdates function ran");
+    for (index in data.journeys) {
+        $('.notebook').append(
+            `<div class="journal-entry">
+                    <h2>${data.journeys[index].title}</h2>
+                    <p>${data.journeys[index].location}</p>
+                    <p>${data.journeys[index].dates}<p>
+                    <p>${data.journeys[index].description}</p>
+             </div>`
+        );
+        $('.dashboard').append(
+            `<div class="album">
+                <img src="${data.journeys[0].album[0].src}">
+                <img src="${data.journeys[0].album[1].src}"> 
+                <img src="${data.journeys[0].album[2].src}">
+                <img src="${data.journeys[0].album[3].src}">
+            </div>
+            <button class='add-pics'>Add Photos</button>
+            `
+        );
+    }
+}
+
+$('.journey-form').submit(function(event) {
+    event.preventDefault();
+    console.log("journal entry form ran");
+    const title = $('#title').val();
+    const location = $('#location').val();
+    const dates = $('#dates').val();
+    const description = $('#description').val();
+
+    // console.log(title, location, dates, entry);
+    const journalObject = {
+        title: title,
+        location: location,
+        dates: dates,
+        description: description
+    };
+    console.log(journalObject);
+    $.ajax({
+            type: 'POST',
+            url: '/journeys/create',
+            dataType: 'json',
+            data: JSON.stringify(journalObject),
+            contentType: 'application/json'
+        })
+        .done(function(result) {
+            console.log(result);
+            displayStatusUpdates(result);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            alert('something bad just happened at journals/create');
+        });
+});
+
+// $('.dashboard').click('.add-pics', event => {
+//     // event.preventDefault();
+//     event.stopPropagation();
+//     console.log("Add photos button pressed");
+// });
+
+// $('.notebook').click('#edit-journey', event => {
+//     console.log("edit journey link pressed");
+//     event.preventDefault();
+// });
+
+// $('.notebook').click('#delete-journey', event => {
+//     console.log("delete journey link pressed");
+//     event.preventDefault();
+// });
+// this function's name and argument can stay the
+// same after we have a live API, but its internal
+// implementation will change. Instead of using a
+// timeout function that returns mock data, it will
+// use jQuery's AJAX functionality to make a call
+// to the server and then run the callbackFn
+
+// function getListofUsers(callbackFn) {
+//     // we use a `setTimeout` to make this asynchronous
+//     // as it would be with a real AJAX call.
+//     setTimeout(function() { callbackFn(MOCK_USERS) }, 1);
+// };
+
+function getListofUsers(callbackFn) {
+    console.log("getListofUsers function ran");
+    $('.get-users').click(event => {
+        console.log("getlistofusers function ran");
+        $.ajax({
+                type: 'GET',
+                url: '/users',
+                dataType: 'json',
+                // data: JSON.stringify(userObject),
+                contentType: 'application/json'
+            })
+            .done(function(result) {
+                console.log(result);
+                callbackFn(result);
+            })
+            // if the call is failing
+            .fail(function(jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+                alert('Check your connection');
+            });
+    })
+};
+
+// this function stays the same when we connect
+// to real API later
+function displayUserList(data) {
+    console.log("displauUserList function ran");
+    for (index in data.users) {
+        $('.users').append(
+            `<div class="user">
+            <p> ${data.users[index].firstName} ${data.users[index].lastName} </p>
+            <p>  ${data.users[index].userName} </p></div>`
+
+        );
+    }
+};
+
+// this function can stay the same even when we
+// are connecting to real API
+function getAndDisplayUsers() {
+    getListofUsers(displayUserList);
 }
 
 // sign up API call
@@ -277,116 +389,10 @@ $('.login-form').submit(function(event) {
     };
 });
 
-$('.journey-form').submit(function(event) {
-    event.preventDefault();
-    console.log("journal entry form ran");
-    const title = $('#title').val();
-    const location = $('#location').val();
-    const dates = $('#dates').val();
-    const description = $('#description').val();
-
-    // console.log(title, location, dates, entry);
-    const journalObject = {
-        title: title,
-        location: location,
-        dates: dates,
-        description: description
-    };
-    console.log(journalObject);
-    $.ajax({
-            type: 'POST',
-            url: '/journeys/create',
-            dataType: 'json',
-            data: JSON.stringify(journalObject),
-            contentType: 'application/json'
-        })
-        .done(function(result) {
-            console.log(result);
-        })
-        // if the call is failing
-        .fail(function(jqXHR, error, errorThrown) {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-            alert('something bad just happened at journals/create');
-        });
-});
-
-// $('.dashboard').click('.add-pics', event => {
-//     // event.preventDefault();
-//     event.stopPropagation();
-//     console.log("Add photos button pressed");
-// });
-
-// $('.notebook').click('#edit-journey', event => {
-//     console.log("edit journey link pressed");
-//     event.preventDefault();
-// });
-
-// $('.notebook').click('#delete-journey', event => {
-//     console.log("delete journey link pressed");
-//     event.preventDefault();
-// });
-// this function's name and argument can stay the
-// same after we have a live API, but its internal
-// implementation will change. Instead of using a
-// timeout function that returns mock data, it will
-// use jQuery's AJAX functionality to make a call
-// to the server and then run the callbackFn
-
-// function getListofUsers(callbackFn) {
-//     // we use a `setTimeout` to make this asynchronous
-//     // as it would be with a real AJAX call.
-//     setTimeout(function() { callbackFn(MOCK_USERS) }, 1);
-// };
-
-function getListofUsers(callbackFn) {
-    $('.get-users').click(event => {
-        console.log("getlistofusers function ran");
-        $.ajax({
-                type: 'GET',
-                url: '/users',
-                dataType: 'json',
-                // data: JSON.stringify(userObject),
-                contentType: 'application/json'
-            })
-            .done(function(result) {
-                console.log(result);
-            })
-            // if the call is failing
-            .fail(function(jqXHR, error, errorThrown) {
-                console.log(jqXHR);
-                console.log(error);
-                console.log(errorThrown);
-                alert('Check your connection');
-            });
-    })
-};
-
-
-// this function stays the same when we connect
-// to real API later
-function displayUserList(data) {
-    for (index in data.users) {
-        $('.users').append(
-            `<div class="user">
-            <p> ${data.users[index].firstName} ${data.users[index].lastName} </p>
-            <p>  ${data.users[index].userName} </p></div>`
-
-        );
-    }
-};
-
-// this function can stay the same even when we
-// are connecting to real API
-function getAndDisplayUsers() {
-    getListofUsers(displayUserList);
-}
-
 //  on page load do this
 $(function() {
-    getAndDisplayStatusUpdates();
+    DisplayStatusUpdates();
     getAndDisplayUsers();
-    showHomePage();
-    getAndEditJourney();
+    // showHomePage();
+    // getAndEditJourney();
 })
