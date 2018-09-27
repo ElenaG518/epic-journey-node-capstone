@@ -158,16 +158,16 @@ function editJourney(data) {
     );
 }
 
-function displayStatusUpdates(data) {
+function displayJourney(data) {
     console.log("displayStatusUpdates function ran");
     for (index in data) {
         console.log(data);
         $('.notebook').append(
             `<div class="journal-entry">
-                    <h2>${data.journeys[index].title}</h2>
-                    <p>${data.journeys[index].location}</p>
-                    <p>${data.journeys[index].dates}<p>
-                    <p>${data.journeys[index].description}</p>
+                    <h2>${data[index].title}</h2>
+                    <p>${data[index].location}</p>
+                    <p>${data[index].dates}<p>
+                    <p>${data[index].description}</p>
              </div>`
         );
         $('.dashboard').append(
@@ -209,7 +209,7 @@ $('.journey-form').submit(function(event) {
         })
         .done(function(result) {
             console.log(result);
-            displayStatusUpdates(result);
+            displayJourney(result);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -393,7 +393,7 @@ $('.login-form').submit(function(event) {
 
 //  on page load do this
 $(function() {
-    displayStatusUpdates();
+    displayJourney();
     getAndDisplayUsers();
     // showHomePage();
     // getAndEditJourney();
