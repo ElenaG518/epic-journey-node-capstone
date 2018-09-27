@@ -69,13 +69,13 @@
                 <fieldset class='create-journey '>
                     <legend>Create Journey</legend>
                     <label for='title'>Title:</label>
-                    <input type='text' id='title' name='title' required>
+                    <input type='text' id='title' name='title' value="Fabulous Utah" required>
                     <label for='location'>Location:</label>
-                    <input type='text' id='location' name='location' required>
+                    <input type='text' id='location' name='location' value="Utah, USA" required>
                     <label for='dates'>Dates:</label>
-                    <input type='text' id='dates' name='dates' required>
+                    <input type='text' id='dates' name='dates' value="dates are awesome" required>
                     <label for='entry'>Journal Entry:</label>
-                    <textarea class='journal-text'></textarea>
+                    <textarea class='journal-text' id='entry'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
                     <button role='button' type='submit' id='journal-text'>Submit</button>
                 </fieldset>
             </form>
@@ -95,14 +95,15 @@
 
         <section class="dashboard ">
             <div class="notebook"><img src="images/sketchBackground.jpg">
-                <a href="#edit-journey">Edit </a> |
-                <a href="#edit-journey">Delete </a>
+                <a href="#edit-journey" id="edit-journey">Edit </a> |
+                <a href="#delete-journey" id="delete-journey">Delete </a>
             </div>
+
         </section>
 
-        <section class="add-photos  ">
+        <!-- <section class="add-photos  ">
             <h2>Add Photos</h2>
-        </section>
+        </section> -->
 
         <section class="edit-journey ">
 
@@ -112,6 +113,7 @@
 
 
         <div class="users">
+            <button class="get-users">get users now!</button>
 
         </div>
     </main>
