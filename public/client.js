@@ -85,33 +85,6 @@ var MOCK_JOURNEY_ENTRIES = {
     ]
 };
 
-// this is mock data, but when we create our API
-// we'll have it return data that looks like this
-var MOCK_USERS = {
-    "users": [{
-            "id": "1111111",
-            "firstName": "Pera",
-            "lastName": "Olin",
-            "userName": "linda",
-            "password": "secret"
-        },
-        {
-            "id": "2222222",
-            "firstName": "Elena",
-            "lastName": "Granados",
-            "userName": "awesome",
-            "password": "secret2"
-        },
-        {
-            "id": "3333333",
-            "firstName": "Kenji",
-            "lastName": "Hawley",
-            "userName": "locote",
-            "password": "secretote"
-        }
-    ]
-};
-
 // this function's name and argument can stay the
 // same after we have a live API, but its internal
 // implementation will change. Instead of using a
@@ -320,46 +293,47 @@ $('.journey-form').submit(function(event) {
         entry: entry
     };
     console.log(journalObject);
-    // $.ajax({
-    //         type: 'POST',
-    //         url: '/journals/create',
-    //         dataType: 'json',
-    //         data: JSON.stringify(journalObject),
-    //         contentType: 'application/json'
-    //     })
-    //     .done(function(result) {
-    //         console.log(result);
-    //     })
-    //     // if the call is failing
-    //     .fail(function(jqXHR, error, errorThrown) {
-    //         console.log(jqXHR);
-    //         console.log(error);
-    //         console.log(errorThrown);
-    //         alert('something bad just happened at journals/create');
-    //     });
+    $.ajax({
+            type: 'POST',
+            url: '/journals/create',
+            dataType: 'json',
+            data: JSON.stringify(journalObject),
+            contentType: 'application/json'
+        })
+        .done(function(result) {
+            console.log(result);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            alert('something bad just happened at journals/create');
+        });
 });
 
-$('.dashboard').click('.add-pics', event => {
-    // event.preventDefault();
-    event.stopPropagation();
-    console.log("Add photos button pressed");
-});
+// $('.dashboard').click('.add-pics', event => {
+//     // event.preventDefault();
+//     event.stopPropagation();
+//     console.log("Add photos button pressed");
+// });
 
-$('.notebook').click('#edit-journey', event => {
-    console.log("edit journey link pressed");
-    event.preventDefault();
-});
+// $('.notebook').click('#edit-journey', event => {
+//     console.log("edit journey link pressed");
+//     event.preventDefault();
+// });
 
-$('.notebook').click('#delete-journey', event => {
-    console.log("delete journey link pressed");
-    event.preventDefault();
-});
+// $('.notebook').click('#delete-journey', event => {
+//     console.log("delete journey link pressed");
+//     event.preventDefault();
+// });
 // this function's name and argument can stay the
 // same after we have a live API, but its internal
 // implementation will change. Instead of using a
 // timeout function that returns mock data, it will
 // use jQuery's AJAX functionality to make a call
 // to the server and then run the callbackFn
+
 // function getListofUsers(callbackFn) {
 //     // we use a `setTimeout` to make this asynchronous
 //     // as it would be with a real AJAX call.
@@ -384,7 +358,7 @@ function getListofUsers(callbackFn) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
-                alert('didn\'t work');
+                alert('Check your connection');
             });
     })
 };
