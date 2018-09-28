@@ -5,9 +5,24 @@ const { Journey } = require('./models');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
+router.get('/', (req, res) => {
+    Journey
+        .find()
+        .then(journeys => {
+            res.json({
+                journeys: journeys.map(journey => journey.serialize())
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: "Could not retrieve journeys" });
+        });
+});
+
+
 
 router.post('/create', jsonParser, (req, res) => {
-    console.log(req.body.title, req.body.location, req.body.dates, req.body.description);
+    // console.log(req.body.title, req.body.location, req.body.dates, req.body.description);
     const requiredFields = ['title', 'location', 'dates', 'description'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];

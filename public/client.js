@@ -97,29 +97,42 @@ function getRecentStatusUpdates(callbackFn) {
     setTimeout(function() { callbackFn(MOCK_JOURNEY_ENTRIES) }, 1);
 }
 
-// this function stays the same when we connect
-// to real API later
-
+// make API call to database for Journeys and send results to callback
+// function to be displayed to client
+function getListOfJourneys(callbackFn) {
+    console.log("getListofJourneys function ran");
+    $.ajax({
+            type: 'GET',
+            url: '/journeys',
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function(result) {
+            console.log(result);
+            callbackFn(result);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            alert('Check your connection');
+        });
+}
 
 // this function can stay the same even when we
 // are connecting to real API
-// function getAndDisplayStatusUpdates() {
-//     getRecentStatusUpdates(displayStatusUpdates);
-// }
-
-{
-    /* <picture class="thumbnail">
-                        <img src="${data.journeys[index].album[0].src}" alt="taking a stroll with dogs">
-                    </picture> */
+function getAndDisplayJourneys() {
+    getListOfJourneys(displayJourneys);
 }
 
-function displayHomeResults(data) {
+function displayJourneys(data) {
     for (index in data.journeys) {
         $('.cards').append(
             `<article class="card">
             <a href="#">
                 
-                
+            
                 <div class="card-content">
                     <p>${data.journeys[index].title}</p>
                 </div>
@@ -127,11 +140,12 @@ function displayHomeResults(data) {
             </a>
         </article>`
         );
+        // {
+        //     /* <picture class="thumbnail">
+        //                         <img src="${data.journeys[index].album[0].src}" alt="taking a stroll with dogs">
+        //                     </picture> */
+        // }
     }
-}
-
-function showHomePage() {
-    getRecentStatusUpdates(displayHomeResults);
 }
 
 function getAndEditJourney() {
@@ -164,7 +178,7 @@ function editJourney(data) {
 
 function displayJourney(data) {
     console.log("displayStatusUpdates function ran");
-    // for (index in data) {
+
     console.log(data);
     $('.notebook').append(
         `<div class="journal-entry">
@@ -176,12 +190,10 @@ function displayJourney(data) {
     );
 
     // const album = [];
-    // albumItems = data.album.length;
-    // if (!(albumItems == 0)) {
-    //     for (let i = 0; i < albumItems; i++) {
-    //         album.push(`<img src="${data.album[i].src}">`);
+
+    // for (index in data.photos) {
+    //  album.push(`<img src="${data.album[i].src}">`);
     //     }
-    // };
     // $('.dashboard').append(
 
     //     '<div class=\"album\">' + album + '</div>' +
@@ -250,12 +262,10 @@ $('.journey-form').submit(function(event) {
 // use jQuery's AJAX functionality to make a call
 // to the server and then run the callbackFn
 
-// function getListofUsers(callbackFn) {
-//     // we use a `setTimeout` to make this asynchronous
-//     // as it would be with a real AJAX call.
-//     setTimeout(function() { callbackFn(MOCK_USERS) }, 1);
-// };
-
+// Never expose all your users like below in a prod application
+// we're just doing this so we have a quick way to see
+// if we're creating users. keep in mind, you can also
+// verify this in the Mongo shell.
 function getListofUsers(callbackFn) {
     console.log("getListofUsers function ran");
     $('.get-users').click(event => {
@@ -264,7 +274,6 @@ function getListofUsers(callbackFn) {
                 type: 'GET',
                 url: '/users',
                 dataType: 'json',
-                // data: JSON.stringify(userObject),
                 contentType: 'application/json'
             })
             .done(function(result) {
@@ -401,7 +410,7 @@ $('.login-form').submit(function(event) {
 
 //  on page load do this
 $(function() {
-    // displayJourney();
+    getAndDisplayJourneys();
     getAndDisplayUsers();
     // showHomePage();
     // getAndEditJourney();
