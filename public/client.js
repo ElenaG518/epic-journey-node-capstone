@@ -100,6 +100,14 @@ function getRecentStatusUpdates(callbackFn) {
 // make API call to database for Journeys and send results to callback
 // function to be displayed to client
 function getListOfJourneys(callbackFn) {
+    if ((username == "") || (username == undefined) || (username == null)) {
+        username = $('#loggedInUserName').val();
+    }
+    //create the payload object (what data we send to the api call)
+    const UserObject = {
+        user: username
+    };
+
     console.log("getListofJourneys function ran");
     $.ajax({
             type: 'GET',

@@ -9,7 +9,8 @@ const subJourneySchema = mongoose.Schema({
     // dates: { type: String, required: true },
     description: { type: String, required: true },
     created: { type: Date, default: Date.now },
-    // photos: {type: 'image'}
+    // photos: {type: 'image'},
+
 });
 
 
@@ -22,7 +23,8 @@ const journeySchema = mongoose.Schema({
     description: { type: String, required: true },
     created: { type: Date, default: Date.now },
     // photos: {type: 'image'},
-    sub_journeys: [subJourneySchema]
+    sub_journeys: [subJourneySchema],
+    loggedInUserName: { type: String, required: true }
 });
 
 journeySchema.methods.serialize = function() {
