@@ -6,9 +6,11 @@ const router = express.Router();
 const jsonParser = bodyParser.json();
 
 router.get('/:username', (req, res) => {
-    console.log('hey');
+    console.log('looking by username');
+
+    console.log(req.params.username);
     Journey
-        .find({ loggedInUserName: req.param.username })
+        .find({ loggedInUserName: req.params.username })
         .sort('created')
         .then(journeys => {
             // if (journey.loggedInUserName == req.params.user)
@@ -22,10 +24,24 @@ router.get('/:username', (req, res) => {
         });
 });
 
+router.get('/edit/:id', (req, res) => {
+    console.log('looking by id');
+
+    console.log(req.params.id);
+    Journey
+        .findById(req.params.id)
+        .then(journey => res.json(journey.serialize()))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: "Could not retrieve journeys" });
+        });
+});
+
+
 
 
 router.post('/create', jsonParser, (req, res) => {
-    // console.log(req.body.title, req.body.location, req.body.dates, req.body.description);
+    console.log(req.body.title, req.body.location, req.body.dates, req.body.description);
     const requiredFields = ['title', 'location', 'dates', 'description', 'loggedInUserName'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -54,32 +70,35 @@ router.post('/create', jsonParser, (req, res) => {
 
 router.put('/:id', function(req, res) {
     console.log(req.body.title);
-    // if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    //     const message = (
-    //         `Request path id (${req.params.id}) and request body id ` +
-    //         `(${req.body.id}) must match`);
-    //     console.error(message);
-    //     return res.status(400).json({ message: message });
-    // }
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        const message = (
+            `Request path id (${req.params.id}) and request body id ` +
+            `(${req.body.id}) must match`);
+        console.error(message);
+        return res.status(400).json({ message: message });
+    }
 
     const toUpdate = {};
-    // const updateableFields = ['title', 'location', 'dates', 'description'];
-    const updateableFields = ['title', 'location'];
+    const updateableFields = ['title', 'location', 'dates', 'description'];
+    // const updateableFields = ['title', 'location'];
     updateableFields.forEach(function(field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
     Journey
-        .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-        .then(journey => res.status(204).end())
-        .catch(err => res.status(500).json({ message: 'Internal server error' }));
+        .findByIdAndUpdate(req.params.id, { $set: toUpdate }, { new: true })
+        .then(journey => res.status(204).json({ message: 'success' }).end())
+        .catch(err => res.status(500).json({ message: 'couldn\'t update post' }));
 });
 
 router.delete('/:id', (req, res) => {
     Journey
         .findByIdAndRemove(req.params.id)
-        .then(journey => res.status(204).end())
+        .then(() => {
+            console.log(`Deleted blog post with id \`${req.params.id}\``);
+            res.status(204).end();
+        })
         .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 

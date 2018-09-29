@@ -3,15 +3,6 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
-const subJourneySchema = mongoose.Schema({
-    // subtitle: { type: String, required: true },
-    sub_location: { type: String, required: false },
-    // dates: { type: String, required: true },
-    description: { type: String, required: false },
-    created: { type: Date, default: Date.now },
-    // photos: {type: 'image'},
-
-});
 
 
 
@@ -23,7 +14,6 @@ const journeySchema = mongoose.Schema({
     description: { type: String, required: false },
     created: { type: Date, default: Date.now },
     // photos: {type: 'image'},
-    sub_journeys: [subJourneySchema],
     loggedInUserName: { type: String, required: true }
 });
 
@@ -35,7 +25,7 @@ journeySchema.methods.serialize = function() {
         dates: this.dates,
         description: this.description,
         created: this.created,
-        sub_journeys: this.sub_journeys
+        loggedInUserName: this.loggedInUserName
     }
 }
 
