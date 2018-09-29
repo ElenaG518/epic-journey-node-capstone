@@ -37,12 +37,12 @@
                     <button role='button' type='submit' id='login-button'>Log In</button>
                     <p id='login-error'></p>
 
-                    <a class="buttonGhost" href="">  Sign Up</a> </p>
+                    <a class="signup-anchor" href="">  Sign Up</a> </p>
                 </fieldset>
             </form>
 
-            <form class="signup-form" id="users">
-                <fieldset class='signup-form-section'>
+            <form class="signup-form hide" id="users">
+                <fieldset>
                     <legend>Sign Up</legend>
                     <label for='firstName'>First Name:</label>
                     <input type='text' id='firstName' name='firstName' value="Elena" required>
@@ -58,16 +58,16 @@
                     <input type='password' id='password-match' name='password-match' required> -->
 
                     <button role='button' type='submit' id='signUpButton'>Sign Up</button>
-                    <p>Already have an account? <a class="buttonGhost" href="./#signup">Sign In</a></p>
+                    <p>Already have an account? <a class="login-anchor" href="./#signup">Sign In</a></p>
                     <p id='signup-error'></p>
                 </fieldset>
             </form>
         </section>
 
-        <section>
-            <form class="journey-form ">
+        <section class="create-journey hide">
+            <form class="journey-form">
 
-                <fieldset class='create-journey '>
+                <fieldset>
                     <legend>Create Journey</legend>
                     <label for='title'>Title:</label>
                     <input type='text' id='title' name='title' value="Fabulous Utah" required>
@@ -77,12 +77,12 @@
                     <input type='text' id='dates' name='dates' value="dates are awesome" required>
                     <label for='description'>Journal Entry:</label>
                     <textarea class='journal-text' id='description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
-                    <button role='button' type='submit' id='journal-text'>Submit</button>
+                    <button role='button' type='submit' id='sumbit-journey'>Submit</button>
                 </fieldset>
             </form>
         </section>
 
-        <section class="homepage ">
+        <section class="homepage hide">
             <h2>Journeys</h2>
 
             <div class="cards">
@@ -94,7 +94,7 @@
 
 
 
-        <section class="dashboard ">
+        <section class="dashboard hide">
             <div class="notebook"><img src="images/sketchBackground.jpg">
                 <a href="#edit-journey" id="edit-journey">Edit </a> |
                 <a href="#delete-journey" id="delete-journey">Delete </a>

@@ -26,7 +26,7 @@ router.get('/:username', (req, res) => {
 
 router.post('/create', jsonParser, (req, res) => {
     // console.log(req.body.title, req.body.location, req.body.dates, req.body.description);
-    const requiredFields = ['title', 'location', 'dates', 'description'];
+    const requiredFields = ['title', 'location', 'dates', 'description', 'loggedInUserName'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -41,12 +41,13 @@ router.post('/create', jsonParser, (req, res) => {
             title: req.body.title,
             location: req.body.location,
             dates: req.body.dates,
-            description: req.body.description
+            description: req.body.description,
+            loggedInUserName: req.body.loggedInUserName
         })
         .then(journey => res.status(201).json(journey.serialize()))
         .catch(err => {
             console.error(err);
-            res.status(500).json({ error: 'Something went wrong' });
+            res.status(500).json({ error: 'Journey failed to create' });
         });
 
 });

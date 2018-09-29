@@ -1,101 +1,29 @@
-// this is mock data, but when we create our API
-// we'll have it return data that looks like this
-var MOCK_JOURNEY_ENTRIES = {
-    "journeys": [{
-            "id": "1111111",
-            "title": "Oaxaca Linda",
-            "location": "Oaxaca, Mexico",
-            "dates": "Sept 12 - Sept 28, 2018",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "album": [{
-                    "photoid": "1234",
-                    "src": "images/pic1.jpg",
-                    "caption": "so pretty"
-                },
-                {
-                    "photoid": "567",
-                    "src": "images/pic2.jpg",
-                    "caption": "so prettier"
-                },
-                {
-                    "photoid": "35456",
-                    "src": "images/pic7.jpg",
-                    "caption": "sublime"
-                },
-                {
-                    "photoid": "764832",
-                    "src": "images/pic8.jpg",
-                    "caption": "ultimate"
-                }
-            ]
-        },
-        {
-            "id": "2222222",
-            "title": "Chiapas Linda",
-            "location": "Chiapas, Mexico",
-            "dates": "Aug 12 - Aug 28, 2018",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "album": [{
-                    "photoid": "1234",
-                    "src": "images/pic3.jpg",
-                    "caption": "even better"
-                },
-                {
-                    "photoid": "567",
-                    "src": "images/pic4.jpg",
-                    "caption": "better than the last one"
-                }
-            ]
-        },
-        {
-            "id": "3333333",
-            "title": "Yucatan Linda",
-            "location": "Yucatan, Mexico",
-            "dates": "Jul 12 - Jul 28, 2018",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "album": [{
-                    "photoid": "4523",
-                    "src": "images/pic5.jpg",
-                    "caption": "gorgeous"
-                },
-                {
-                    "photoid": "7648",
-                    "src": "images/pic6.jpg",
-                    "caption": "nothing compares"
-                }
-            ]
-        },
-        {
-            "id": "4444444",
-            "title": "Guatemala Linda",
-            "location": "Guatemala, Guatemala",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "album": [{
-                    "photoid": "35456",
-                    "src": "images/pic7.jpg",
-                    "caption": "sublime"
-                },
-                {
-                    "photoid": "764832",
-                    "src": "images/pic8.jpg",
-                    "caption": "ultimate"
-                }
-            ]
-        }
-    ]
-};
+// 'use strict';
 
-// this function's name and argument can stay the
-// same after we have a live API, but its internal
-// implementation will change. Instead of using a
-// timeout function that returns mock data, it will
-// use jQuery's AJAX functionality to make a call
-// to the server and then run the callbackFn
-function getRecentStatusUpdates(callbackFn) {
-    // we use a `setTimeout` to make this asynchronous
-    // as it would be with a real AJAX call.
-    setTimeout(function() { callbackFn(MOCK_JOURNEY_ENTRIES) }, 1);
-}
+// form event listeners
+
+$('.signup-anchor').click(event => {
+    event.preventDefault();
+    console.log("got to sign up");
+    $('.login-form').addClass('hide');
+    $('.signup-form').removeClass('hide');
+});
+
+$('.login-anchor').click(event => {
+    event.preventDefault();
+    console.log("got to login");
+    $('.signup-form').addClass('hide');
+    $('.login-form').removeClass('hide');
+});
+
+$('.add-journey').click(event => {
+    event.preventDefault();
+    console.log("add journey button clicked");
+    $('.create-journey').removeClass('hide');
+    $('.homepage').hide();
+});
+
+
 
 // make API call to database for Journeys and send results to callback
 // function to be displayed to client
@@ -129,6 +57,8 @@ function getListOfJourneys(username) {
 
 
 function displayJourneys(data) {
+    $('.intro').hide();
+    $('.homepage').removeClass('hide');
     for (index in data.journeys) {
         $('.cards').append(
             `<article class="card">
@@ -154,33 +84,36 @@ function getAndEditJourney() {
     getRecentStatusUpdates(editJourney);
 }
 
-function editJourney(data) {
-    console.log(data.journeys[0]);
-    $('.edit-journey').append(
-        `<div class="edit-entry">
-                <h2>Editing journey ${data.journeys[0].title}</h2>
-                <form>
-                    <fieldset class='edit-journey '>
-                        <legend>Edit Journey</legend>
-                        <label for='title'>Title:</label>
-                        <input type='text' id='title' name='title' value ="${data.journeys[0].title}" required>
-                        <label for='location'>Location:</label>
-                        <input type='text' id='location' name='location' value ="${data.journeys[0].location}" required>
-                        <label for='dates'>Dates:</label>
-                        <input type='text' id='dates' name='dates' value ="${data.journeys[0].dates}" required>
-                        <label for='entry'>Journal Entry:</label>
-                        <textarea class='journal-text'>${data.journeys[0].description}</textarea>
-                        <button role='button' type='submit' id='journal-text'>Submit</button>
+// function editJourney(data) {
+// $('.')
+// console.log(data);
+// $('.edit-journey').append(
+//     `<div class="edit-entry">
+//                 <h2>Editing journey ${data.journeys[0].title}</h2>
+//                 <form>
+//                     <fieldset class='edit-journey '>
+//                         <legend>Edit Journey</legend>
+//                         <label for='title'>Title:</label>
+//                         <input type='text' id='title' name='title' value ="${data.journeys[0].title}" required>
+//                         <label for='location'>Location:</label>
+//                         <input type='text' id='location' name='location' value ="${data.journeys[0].location}" required>
+//                         <label for='dates'>Dates:</label>
+//                         <input type='text' id='dates' name='dates' value ="${data.journeys[0].dates}" required>
+//                         <label for='entry'>Journal Entry:</label>
+//                         <textarea class='journal-text'>${data.journeys[0].description}</textarea>
+//                         <button role='button' type='submit' id='journal-text'>Submit</button>
 
-                    </fieldset>
-                </form>
-        </div>`
-    );
-}
+//                     </fieldset>
+//                 </form>
+//         </div>`
+// );
+// }
+
 
 function displayJourney(data) {
-    console.log("displayStatusUpdates function ran");
-
+    console.log("displayJourney function ran");
+    $('.dashboard').removeClass('hide');
+    $('.create-journey').hide();
     console.log(data);
     $('.notebook').append(
         `<div class="journal-entry">
@@ -212,17 +145,14 @@ $('.journey-form').submit(function(event) {
     const location = $('#location').val();
     const dates = $('#dates').val();
     const description = $('#description').val();
+    const username = $('#loggedInUserName').val();
 
-    if ((username == "") || (username == undefined) || (username == null)) {
-        username = $('#loggedInUserName').val();
-    }
-
-    // console.log(title, location, dates, entry);
     const journalObject = {
         title: title,
         location: location,
         dates: dates,
-        description: description
+        description: description,
+        loggedInUserName: username
     };
     console.log(journalObject);
 
