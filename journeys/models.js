@@ -5,9 +5,9 @@ mongoose.Promise = global.Promise;
 
 const subJourneySchema = mongoose.Schema({
     // subtitle: { type: String, required: true },
-    sub_location: { type: String, required: true },
+    sub_location: { type: String, required: false },
     // dates: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     created: { type: Date, default: Date.now },
     // photos: {type: 'image'},
 
@@ -17,10 +17,10 @@ const subJourneySchema = mongoose.Schema({
 
 // this is our schema to represent a journey
 const journeySchema = mongoose.Schema({
-    title: { type: String, required: true },
-    location: { type: String, required: true },
-    dates: { type: String, required: true },
-    description: { type: String, required: true },
+    title: { type: String, required: false },
+    location: { type: String, required: false },
+    dates: { type: String, required: false },
+    description: { type: String, required: false },
     created: { type: Date, default: Date.now },
     // photos: {type: 'image'},
     sub_journeys: [subJourneySchema],

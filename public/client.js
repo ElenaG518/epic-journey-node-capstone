@@ -99,25 +99,21 @@ function getRecentStatusUpdates(callbackFn) {
 
 // make API call to database for Journeys and send results to callback
 // function to be displayed to client
-function getListOfJourneys(callbackFn) {
+function getListOfJourneys(username) {
     if ((username == "") || (username == undefined) || (username == null)) {
         username = $('#loggedInUserName').val();
     }
-    //create the payload object (what data we send to the api call)
-    const UserObject = {
-        user: username
-    };
 
-    console.log("getListofJourneys function ran");
+    console.log(username);
     $.ajax({
             type: 'GET',
-            url: '/journeys',
+            url: `/journeys/${username}`,
             dataType: 'json',
             contentType: 'application/json'
         })
         .done(function(result) {
             console.log(result);
-            callbackFn(result);
+            displayJourneys(result);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -130,9 +126,7 @@ function getListOfJourneys(callbackFn) {
 
 // this function can stay the same even when we
 // are connecting to real API
-function getAndDisplayJourneys() {
-    getListOfJourneys(displayJourneys);
-}
+
 
 function displayJourneys(data) {
     for (index in data.journeys) {
@@ -218,6 +212,10 @@ $('.journey-form').submit(function(event) {
     const location = $('#location').val();
     const dates = $('#dates').val();
     const description = $('#description').val();
+
+    if ((username == "") || (username == undefined) || (username == null)) {
+        username = $('#loggedInUserName').val();
+    }
 
     // console.log(title, location, dates, entry);
     const journalObject = {
@@ -362,6 +360,8 @@ $('.signup-form').submit(function(event) {
             })
             //if call is succefull
             .done(function(result) {
+                $('#loggedInUserName').val(result.username);
+                getListOfJourneys(result.username);
                 console.log(result);
             })
             //if the call is failing
@@ -403,6 +403,8 @@ $('.login-form').submit(function(event) {
                 contentType: 'application/json'
             })
             .done(function(result) {
+                $('#loggedInUserName').val(result.username);
+                getListOfJourneys(result.username);
                 console.log(result);
             })
             // if the call is failing
@@ -418,8 +420,8 @@ $('.login-form').submit(function(event) {
 
 //  on page load do this
 $(function() {
-    getAndDisplayJourneys();
-    getAndDisplayUsers();
+
+
     // showHomePage();
     // getAndEditJourney();
 })
