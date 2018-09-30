@@ -24,6 +24,20 @@ router.get('/:username', (req, res) => {
         });
 });
 
+router.get('/id/:id', (req, res) => {
+    console.log('looking by id');
+
+    console.log(req.params.id);
+    Journey
+        .findById(req.params.id)
+        .then(journey => res.json(journey.serialize()))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: "Could not retrieve journeys" });
+        });
+});
+
+
 router.get('/edit/:id', (req, res) => {
     console.log('looking by id');
 
@@ -68,8 +82,10 @@ router.post('/create', jsonParser, (req, res) => {
 
 });
 
-router.put('/:id', function(req, res) {
-    console.log(req.body.title);
+router.put('/update/:id', function(req, res) {
+    console.log("call to put");
+    console.log(req.params.id);
+    console.log(req.body.id);
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         const message = (
             `Request path id (${req.params.id}) and request body id ` +
@@ -79,9 +95,9 @@ router.put('/:id', function(req, res) {
     }
 
     const toUpdate = {};
-    const updateableFields = ['title', 'location', 'dates', 'description'];
-    // const updateableFields = ['title', 'location'];
-    updateableFields.forEach(function(field) {
+    // const updateableFields = ['title', 'location', 'dates', 'description'];
+    const updateableFields = ['title', 'location'];
+    updateableFields.forEach(field => {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }

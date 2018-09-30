@@ -118,7 +118,6 @@ router.post('/create', jsonParser, (req, res) => {
             });
         })
         .then(user => {
-
             return res.status(201).json(user.serialize());
         })
         .catch(err => {
