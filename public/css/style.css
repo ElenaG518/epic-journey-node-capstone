@@ -95,8 +95,9 @@ form textarea {
 }
 
 form a {
+    font-size: 80%;
     text-align: center;
-    display: inline-block;
+    display: block;
     text-decoration: none;
     margin-bottom: 20px;
 }
@@ -109,7 +110,7 @@ form button,
     padding: 15px 25px;
     background-color: #ffc3a0;
     display: block;
-    margin: 15px auto;
+    margin: 50px auto;
 }
 
 .homepage h2 {

@@ -82,7 +82,7 @@ router.post('/create', jsonParser, (req, res) => {
 
 });
 
-router.put('/update/:id', function(req, res) {
+router.put('/update/:id', jsonParser, function(req, res) {
     console.log("call to put");
     console.log(req.params.id);
     console.log(req.body.id);
@@ -95,8 +95,8 @@ router.put('/update/:id', function(req, res) {
     }
 
     const toUpdate = {};
-    // const updateableFields = ['title', 'location', 'dates', 'description'];
-    const updateableFields = ['title', 'location'];
+    const updateableFields = ['title', 'location', 'dates', 'description'];
+    // const updateableFields = ['title', 'location'];
     updateableFields.forEach(field => {
         if (field in req.body) {
             toUpdate[field] = req.body[field];

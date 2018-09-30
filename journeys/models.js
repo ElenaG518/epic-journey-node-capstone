@@ -10,6 +10,8 @@ mongoose.Promise = global.Promise;
 const journeySchema = mongoose.Schema({
     title: { type: String, required: false },
     location: { type: String, required: false },
+    startDates: { type: String, required: false },
+    endDates: { type: String, required: false },
     dates: { type: String, required: false },
     description: { type: String, required: false },
     created: { type: Date, default: Date.now },

@@ -49,7 +49,7 @@ router.post('/create', jsonParser, (req, res) => {
         return res.status(422).json({
             code: 422,
             reason: 'ValidationError',
-            message: 'Cannot start or end with whitespace',
+            message: 'Required fields cannot start or end with whitespace',
             location: nonTrimmedField
         });
     }
@@ -165,7 +165,6 @@ router.post('/login', jsonParser, (req, res) => {
             if (!user) {
                 // Return a rejected promise so we break out of the chain of .thens.
                 // Any errors like this will be handled in the catch block.
-                console.log('username not found');
                 return Promise.reject({
                     reason: 'ValidationError',
                     message: 'username not found'
@@ -178,7 +177,7 @@ router.post('/login', jsonParser, (req, res) => {
                 console.log('failed validation');
                 return Promise.reject({
                     reason: 'ValidationError',
-                    message: 'Incorrect password on validatePassword'
+                    message: 'Incorrect password'
                 });
             }
             console.log('validation successful');
@@ -187,8 +186,9 @@ router.post('/login', jsonParser, (req, res) => {
         .catch(err => {
             // Forward validation errors on to the client, otherwise give a 500
             // error because something unexpected has happened
+            console.log(err.message);
             if (err.reason === 'ValidationError') {
-                return res.status(err.code).json(err);
+                return res.status(400).json(err);
             }
             res.status(500).json({ code: 500, message: 'Internal server error' });
         });

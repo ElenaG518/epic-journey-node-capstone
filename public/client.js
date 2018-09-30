@@ -24,7 +24,7 @@ $('.login-anchor').click(event => {
 $('.add-journey').click(event => {
     event.preventDefault();
     console.log("add journey button clicked");
-    $('.create-journey').removeClass('hide');
+    $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
 
 });
@@ -84,7 +84,8 @@ $('.signup-form').submit(function(event) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
-                alert('OOPS can\'t connect');
+                const message = jqXHR.responseJSON.message;
+                alert(message);
             });
     }
 });
@@ -127,7 +128,8 @@ $('.login-form').submit(function(event) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
-                alert('Incorrect Username or Password');
+                const message = jqXHR.responseJSON.message;
+                alert(message);
             });
 
     };
@@ -163,6 +165,7 @@ $('.journey-form').submit(function(event) {
         })
         .done(function(result) {
             console.log(result);
+            $('.journal-entry').empty();
             displayJourney(result);
         })
         // if the call is failing
@@ -240,6 +243,7 @@ $('.cards').on('click', '.link-to-journey', event => {
         })
         .done(function(result) {
             console.log(result);
+            $('.journal-entry').empty();
             displayJourney(result);
         })
         // if the call is failing
@@ -249,8 +253,6 @@ $('.cards').on('click', '.link-to-journey', event => {
             console.log(errorThrown);
             alert('Check your connection');
         });
-
-
 })
 
 // display journey after it has been created or when it has been clicked from the homepage
@@ -258,11 +260,13 @@ function displayJourney(data) {
     console.log("displayJourney function ran");
     $('.dashboard').removeClass('hide').show();
     $('.homepage').hide();
+
     $('.create-journey').hide();
     // get journey id in case of edit or delete
     journey_id = data.id;
     console.log(data);
     console.log(journey_id);
+
     $('.notebook').append(
         `<div class="journal-entry">
                     <h2>${data.title}</h2>
@@ -303,6 +307,7 @@ function displayJourney(data) {
 // home anchor
 $('.home-anchor').click(event => {
     console.log("home anchor clicked");
+    $('.journal-entry').empty();
     event.preventDefault();
     const username = $('#loggedInUserName').val();
     console.log(username);
@@ -336,7 +341,6 @@ function deleteJourney(id) {
             const username = $('#loggedInUserName').val();
             console.log(username);
             $('.cards').empty();
-            alert("Journey deletion successful");
             getListOfJourneys(username);
         })
         // if the call is failing
@@ -359,10 +363,7 @@ $('.edit-journey-anchor').click(event => {
     editJourney(journeyId);
 });
 
-
-
-
-// edit journey API call
+// fetch journey to edit API call
 function editJourney(id) {
     console.log("editJourney function ran");
     console.log(id);
@@ -385,7 +386,7 @@ function editJourney(id) {
         });
 };
 
-// edit journey form
+// edit journey form poplulated with result from editJourney function
 function displayEditJourneyForm(data) {
     console.log("displayEditJourneyForm function ran");
     $('.dashboard').hide();
@@ -394,14 +395,14 @@ function displayEditJourneyForm(data) {
          <form class="edit-form">
             <fieldset >
                 <legend>Edit Journey</legend>
-                    <label for='title'>Title:</label>
-                    <input type='text' id='title' name='title' value ="${data.title}" >
-                    <label for='location'>Location:</label>
-                    <input type='text' id='location' name='location' value ="${data.location}" >
-                    <label for='dates'>Dates:</label>
-                    <input type='text' id='dates' name='dates' value ="${data.dates}" >
-                    <label for='entry'>Journal Entry:</label>
-                    <textarea class='journal-text'>${data.description}</textarea>
+                    <label for='edit-title'>Title:</label>
+                    <input type='text' id='edit-title' name='title' value ="${data.title}" >
+                    <label for='edit-location'>Location:</label>
+                    <input type='text' id='edit-location' name='location' value ="${data.location}" >
+                    <p>Starting Date: <input type="text" id="datepicker" class="edit-start-dates"></p>
+                    <p>Ending Date: <input type="text" id="datepicker" class="edit-end-dates"></p>
+                    <label for='edit-description'>Journal Entry:</label>
+                    <textarea class='journal-text' id="edit-description">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
             </fieldset>
         </form>`
@@ -414,19 +415,21 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     console.log("journal-edit-btn has been pressed");
 
     const id = journey_id;
-    const title = "new title";
-    const location = "new location";
-    const dates = $('#dates').val();
-    const description = $('#description').val();
+    const title = $('#edit-title').val();
+    const location = $('#edit-location').val();
+    const startDates = $('#edit-start-dates').val();
+    const endDates = $('#edit-end-dates').val();
+    const description = $('#edit-description').val();
     const username = $('#loggedInUserName').val();
 
     const editJournalObject = {
-        id: id,
         title: title,
         location: location,
-        dates: dates,
+        startDates: startDates,
+        endDates: endDates,
         description: description,
-        loggedInUserName: username
+        loggedInUserName: username,
+        id: id
     };
     console.log(editJournalObject);
 
@@ -438,7 +441,12 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
             contentType: 'application/json'
         })
         .done(function(result) {
-            console.log(result);
+            $('.journal-entry').empty();
+            const username = $('#loggedInUserName').val();
+            console.log(username);
+            $('.cards').empty();
+            $('.edit-journey').hide();
+            getListOfJourneys(username);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -482,19 +490,17 @@ $('.get-users').click(event => {
 // to real API later
 function displayUserList(data) {
     console.log("displayUserList function ran");
-    console.log(data[0]);
-    for (index in data.users) {
+    console.log(data);
+    for (var index in data) {
         $('.users').append(
             `<div class ="user">
-                <p>${data.users[index].firstName} ${ data.users[index].lastName }</p>
-                <p>${ data.users[index].username }</p></div>`
+                <p>${data[index].firstName} ${ data[index].lastName }</p>
+                <p>${ data[index].username }</p></div>`
 
         );
     }
 };
 
-
-//  on page load do this
 $(function() {
-
-})
+    $("#datepicker").datepicker();
+});
