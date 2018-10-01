@@ -55,8 +55,8 @@ router.get('/edit/:id', (req, res) => {
 
 
 router.post('/create', jsonParser, (req, res) => {
-    console.log(req.body.title, req.body.location, req.body.dates, req.body.description);
-    const requiredFields = ['title', 'location', 'dates', 'description', 'loggedInUserName'];
+    console.log(req.body.title, req.body.location, req.body.startDates, req.body.endDates, req.body.description);
+    const requiredFields = ['title', 'location', 'startDates', 'endDates', 'description', 'loggedInUserName'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -70,7 +70,8 @@ router.post('/create', jsonParser, (req, res) => {
         .create({
             title: req.body.title,
             location: req.body.location,
-            dates: req.body.dates,
+            startDates: req.body.startDates,
+            endDates: req.body.endDates,
             description: req.body.description,
             loggedInUserName: req.body.loggedInUserName
         })
@@ -95,7 +96,7 @@ router.put('/update/:id', jsonParser, function(req, res) {
     }
 
     const toUpdate = {};
-    const updateableFields = ['title', 'location', 'dates', 'description'];
+    const updateableFields = ['title', 'location', 'startDates', 'endDates', 'description'];
     // const updateableFields = ['title', 'location'];
     updateableFields.forEach(field => {
         if (field in req.body) {

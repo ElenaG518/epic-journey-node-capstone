@@ -38,6 +38,56 @@ main {
     margin-bottom: 100px;
 }
 
+nav {
+    line-height: 2.5em;
+    display: block;
+    background-color: #2b2b2b;
+    width: 100%;
+}
+
+.dashboard-nav {
+    max-width: 800px;
+    margin: auto;
+    text-align: right;
+    background-color: transparent;
+    line-height: 0.5em;
+}
+
+.dashboard-nav ul {
+    display: block;
+}
+
+.dashboard-nav li {
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.dashboard-nav a {
+    color: black;
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+nav li {
+    flex: 0 0 calc(50% - .5em);
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
 h2 {
     font-family: 'Playfair Display', serif;
     text-align: center;
@@ -82,15 +132,22 @@ label {
     margin: 0 auto;
 }
 
-form input,
-form textarea {
+form input {
     display: block;
     margin: 0 auto 25px;
     width: 280px;
 }
 
-form textarea {
-    max-width: 380px;
+.journey-form,
+.edit-form {
+    max-width: 620px;
+}
+
+.journal-text,
+.edit-journal-text {
+    display: block;
+    margin: 0 auto 25px;
+    max-width: 580px;
     height: 350px;
 }
 
@@ -198,7 +255,6 @@ figure img,
     position: relative;
     max-width: 800px;
     margin: auto;
-    text-align: right;
 }
 
 .notebook img {
@@ -227,23 +283,30 @@ figure img,
 
 .notebook a {
     font-size: 70%;
+    margin: auto;
+    display: inline-block;
+    padding: 20px;
+    text-align: center;
     text-decoration: none;
-    padding-right: 10px;
 }
 
 @media screen and (min-width: 320px) and (max-width: 620px) {
+    nav {
+        line-height: 1.5em;
+        font-size: 80%;
+    }
     header h1 {
-        padding: 0;
+        padding: 25px 0;
         height: 100px;
-        font-size: 2em;
+        font-size: 1.8em;
     }
     main {
-        top: 120px;
+        top: 150px;
     }
     .cards,
     .album {
         justify-content: space-between;
-        margin-top: 50px;
+        /* margin-top: 50px; */
     }
     .card,
     .album img {
@@ -253,13 +316,14 @@ figure img,
     main {
         margin-bottom: 25px;
     }
-    form {
-        max-width: 280px;
+    form,
+    .journey-form {
+        max-width: 300px;
     }
     form input,
     form label,
-    form textarea {
-        width: 220px;
+    .journey-form textarea {
+        width: 250px;
     }
     .thumbnail img {
         width: 250px;
@@ -271,12 +335,12 @@ figure img,
     .notebook img {
         height: 650px;
     }
-    .journal-entry {
+    /* .journal-entry {
         position: absolute;
         top: 25px;
         left: 15px;
         font-size: 90%;
-    }
+    } */
     .journal-entry p {
         padding: 10px 10px 10px 15px;
     }

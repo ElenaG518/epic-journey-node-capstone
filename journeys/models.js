@@ -3,21 +3,22 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
-
-
-
 // this is our schema to represent a journey
 const journeySchema = mongoose.Schema({
     title: { type: String, required: false },
     location: { type: String, required: false },
     startDates: { type: String, required: false },
     endDates: { type: String, required: false },
-    dates: { type: String, required: false },
     description: { type: String, required: false },
     created: { type: Date, default: Date.now },
     // photos: {type: 'image'},
     loggedInUserName: { type: String, required: true }
 });
+
+journeySchema.virtual('dates').get(function() {
+    return `${this.startDates} - ${this.endDates}`.trim();
+});
+
 
 journeySchema.methods.serialize = function() {
     return {

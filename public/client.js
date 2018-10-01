@@ -5,6 +5,28 @@ const API_KEY = "448714965531915";
 const IMG_UPLOAD_ENDPOINT = "https://api.cloudinary.com/v1_1/elenag518/image/upload";
 const DOMAIN = window.location.origin;
 
+// home anchor
+$('.home-anchor').click(event => {
+    console.log("home anchor clicked");
+
+    event.preventDefault();
+    const username = $('#loggedInUserName').val();
+    console.log(username);
+    $('.journal-entry').empty();
+    $('.cards').empty();
+    $('.create-journey').hide();
+    getListOfJourneys(username);
+});
+
+// logout anchor
+$('.logout-anchor').click(event => {
+    console.log("logout anchor clicked");
+    event.preventDefault();
+    $('#loggedInUserName').val("");
+    location.reload();
+});
+
+
 // form event listeners
 
 $('.signup-anchor').click(event => {
@@ -26,7 +48,6 @@ $('.add-journey').click(event => {
     console.log("add journey button clicked");
     $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
-
 });
 
 // API calls to users router
@@ -51,8 +72,6 @@ $('.signup-form').submit(function(event) {
         alert('Please add an user name');
     } else if (password == "") {
         alert('Please add a password');
-        // } else if (password !== passwordMatch) {
-        //     alert('Password entries must match')
     }
     //if the input is valid
     else {
@@ -76,6 +95,7 @@ $('.signup-form').submit(function(event) {
             //if call is succefull
             .done(function(result) {
                 $('#loggedInUserName').val(result.username);
+                $('nav').removeClass('hide');
                 getListOfJourneys(result.username);
                 console.log(result);
             })
@@ -121,6 +141,7 @@ $('.login-form').submit(function(event) {
             .done(function(result) {
                 $('#loggedInUserName').val(result.username);
                 console.log(result.username);
+                $('nav').removeClass('hide');
                 getListOfJourneys(result.username);
             })
             // if the call is failing
@@ -135,22 +156,24 @@ $('.login-form').submit(function(event) {
     };
 });
 
-// API calls to journeys router
+// Journey API calls
 
-// API call to create journeys
+// CREATE journeys API call
 $('.journey-form').submit(function(event) {
     event.preventDefault();
     console.log("journal entry form ran");
     const title = $('#title').val();
     const location = $('#location').val();
-    const dates = $('#dates').val();
+    const startDates = $('.start').val();
+    const endDates = $('.end').val();
     const description = $('#description').val();
     const username = $('#loggedInUserName').val();
 
     const journalObject = {
         title: title,
         location: location,
-        dates: dates,
+        startDates: startDates,
+        endDates: endDates,
         description: description,
         loggedInUserName: username
     };
@@ -230,6 +253,7 @@ function displayJourneys(data) {
     }
 }
 
+// API call to fetch only selected journey 
 $('.cards').on('click', '.link-to-journey', event => {
     event.preventDefault();
     console.log("clicked it");
@@ -300,58 +324,7 @@ function displayJourney(data) {
 //     console.log("Add photos button pressed");
 // });
 
-
-
-// Journey anchors and API calls
-
-// home anchor
-$('.home-anchor').click(event => {
-    console.log("home anchor clicked");
-    $('.journal-entry').empty();
-    event.preventDefault();
-    const username = $('#loggedInUserName').val();
-    console.log(username);
-    $('.cards').empty();
-    getListOfJourneys(username);
-});
-
-
-// DELETE journey
-
-// delete journey listener
-$('.delete-journey-anchor').click(event => {
-    console.log("delete journey clicked");
-    event.preventDefault();
-    const journeyId = journey_id;
-    journey_id = "";
-    console.log(journeyId);
-    deleteJourney(journeyId);
-});
-
-// delete journey API call
-function deleteJourney(id) {
-    console.log(id);
-    $.ajax({
-            type: 'DELETE',
-            url: `/journeys/${id}`,
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-        .done(function(message) {
-            const username = $('#loggedInUserName').val();
-            console.log(username);
-            $('.cards').empty();
-            getListOfJourneys(username);
-        })
-        // if the call is failing
-        .fail(function(jqXHR, error, errorThrown) {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-            alert('could not delete journey');
-        });
-
-}
+// EDIT journey
 
 // edit journey anchor
 $('.edit-journey-anchor').click(event => {
@@ -390,6 +363,7 @@ function editJourney(id) {
 function displayEditJourneyForm(data) {
     console.log("displayEditJourneyForm function ran");
     $('.dashboard').hide();
+
     $('.edit-journey').append(
         `<h2>Editing ${data.title}</h2>
          <form class="edit-form">
@@ -402,7 +376,7 @@ function displayEditJourneyForm(data) {
                     <p>Starting Date: <input type="text" id="datepicker" class="edit-start-dates"></p>
                     <p>Ending Date: <input type="text" id="datepicker" class="edit-end-dates"></p>
                     <label for='edit-description'>Journal Entry:</label>
-                    <textarea class='journal-text' id="edit-description">${data.description}</textarea>
+                    <textarea class='edit-journal-text' id="edit-description">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
             </fieldset>
         </form>`
@@ -413,7 +387,7 @@ function displayEditJourneyForm(data) {
 $('.edit-journey').on('submit', '.edit-form', function(event) {
     event.preventDefault();
     console.log("journal-edit-btn has been pressed");
-
+    $('.edit-journey').removeClass('hide').show();
     const id = journey_id;
     const title = $('#edit-title').val();
     const location = $('#edit-location').val();
@@ -457,8 +431,41 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
         });
 });
 
+// DELETE journey
 
+// delete journey listener
+$('.delete-journey-anchor').click(event => {
+    console.log("delete journey clicked");
+    event.preventDefault();
+    const journeyId = journey_id;
+    journey_id = "";
+    console.log(journeyId);
+    deleteJourney(journeyId);
+});
 
+// delete journey API call
+function deleteJourney(id) {
+    console.log(id);
+    $.ajax({
+            type: 'DELETE',
+            url: `/journeys/${id}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function(message) {
+            const username = $('#loggedInUserName').val();
+            console.log(username);
+            $('.cards').empty();
+            getListOfJourneys(username);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            alert('could not delete journey');
+        });
+}
 
 // Never expose all your users like below in a prod application
 // we're just doing this so we have a quick way to see

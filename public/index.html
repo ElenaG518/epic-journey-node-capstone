@@ -19,10 +19,16 @@
 
     <header>
         <h1>Epic Journey</h1>
+        <nav class="hide">
+            <ul>
+                <li> <a href="#home" class="home-anchor">Home</a></li>
+                <li> <a href="#login" class="logout-anchor">log out</a> </li>
+            </ul>
+        </nav>
     </header>
     <main role='main'>
 
-        <section class='intro'>
+        <section class='intro' id="login">
             <h2>Create journals for all of your trips in one easy to use app</h2>
 
             <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
@@ -34,7 +40,7 @@
                 <fieldset class='login-form-section'>
                     <legend>Sign In</legend>
                     <label for='login-username'>Username:</label>
-                    <input type='text' id='login-username' name='login-username' value="elenaG" required>
+                    <input type='text' id='login-username' name='login-username' value="kenji2" required>
                     <label for='login-password'>Password:</label>
                     <input type='password' id='login-password' name='login-password' value="password" required>
                     <button role='button' type='submit' id='login-button'>Log In</button>
@@ -76,8 +82,8 @@
                     <label for='location'>Location:</label>
                     <input type='text' id='location' name='location' value="Utah, USA" required>
                     <!-- <label for='datepicker'>Dates:</label> -->
-                    <p>Starting Date: <input type="text" id="datepicker" class="start"></p>
-                    <p>Ending Date: <input type="text" id="datepicker" class="end"></p>
+                    <label for="datepicker">Starting Date:</label> <input type="text" id="datepicker" class="start">
+                    <label>Ending Date: </label> <input type="text" id="datepicker" class="end">
                     <!-- <label for='datepicker'>Dates:</label> -->
                     <!-- <p>Ending Date: <input type="text" id="datepicker-ending"></p> -->
                     <!-- <input type='text' id='dates' name='dates' value="dates are awesome" required> -->
@@ -88,7 +94,9 @@
             </form>
         </section>
 
-        <section class="homepage hide">
+
+
+        <section class="homepage hide" id="home">
             <h2>Journeys</h2>
 
             <div class="cards">
@@ -101,12 +109,17 @@
 
 
         <section class="dashboard hide">
-            <a href="#" class="home-anchor">Home</a> |
-            <a href="#" class="delete-journey-anchor">Delete </a> |
-            <a href="#" class="edit-journey-anchor">Edit </a>
 
-            <div class="notebook"><img src="images/sketchBackground.jpg">
 
+            <div class="notebook">
+
+                <img src="images/sketchBackground.jpg">
+                <nav class="dashboard-nav">
+                    <ul>
+                        <li><a href="#" class="delete-journey-anchor">Delete </a> |</li>
+                        <li><a href="#" class="edit-journey-anchor">Edit </a></li>
+                    </ul>
+                </nav>
             </div>
 
         </section>
