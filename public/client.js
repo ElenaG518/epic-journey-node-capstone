@@ -351,7 +351,7 @@ function displayJourney(data) {
         cloudinary.openUploadWidget(payload,
             function(error, result) {
                 console.log(error, result);
-                // addPhotos(result);
+                addPhotos(result);
             });
     }, false);
 }
