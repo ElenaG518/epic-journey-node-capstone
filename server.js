@@ -31,6 +31,8 @@ app.use('/journeys/', journeysRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
+
+
 // A protected endpoint which needs a valid JWT to access it
 // app.get('/api/protected', jwtAuth, (req, res) => {
 //     return res.json({
@@ -39,6 +41,8 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 // });
 
 
+
+// ADD PHOTOS
 
 const { PORT, DATABASE_URL } = require('./config');
 

@@ -2,8 +2,43 @@
 
 let journey_id;
 const API_KEY = "448714965531915";
-const IMG_UPLOAD_ENDPOINT = "https://api.cloudinary.com/v1_1/elenag518/image/upload";
-const DOMAIN = window.location.origin;
+const IMG_UPLOAD_ENDPOINT = "https://api.cloudinary.com/v1_1/elenag518";
+// // const DOMAIN = window.location.origin;
+
+
+
+$('#list-images').click(event => {
+        console.log('working');
+        const username = $('#loggedInUserName').val();
+        listImages(username);
+    })
+    // list journey pics API call
+function listImages(username) {
+    console.log("listImages function ran", username);
+    event.preventDefault();
+
+
+    // $.ajax({
+    //         type: 'GET',
+    //         url: `${IMG_UPLOAD_ENDPOINT}/resources/image/upload`,
+    //         // prefix: `${username}_${journey}`,
+    //         dataType: 'json',
+    //         contentType: 'application/json'
+    //     })
+    //     .done(function(result) {
+    //         console.log(result);
+    //         // displayEditJourneyForm(result);
+    //     })
+    //     // if the call is failing
+    //     .fail(function(jqXHR, error, errorThrown) {
+    //         console.log(jqXHR);
+    //         console.log(error);
+    //         console.log(errorThrown);
+    //         alert('something bad   at listImages');
+    //     });
+};
+
+// ANCHORS
 
 // home anchor
 $('.home-anchor').click(event => {
@@ -15,6 +50,7 @@ $('.home-anchor').click(event => {
     $('.journal-entry').empty();
     $('.cards').empty();
     $('.create-journey').hide();
+    $('.edit-journey').empty().hide();
     getListOfJourneys(username);
 });
 
@@ -300,29 +336,75 @@ function displayJourney(data) {
              </div>`
     );
 
+    document.getElementById("upload_widget_opener").addEventListener("click", function() {
+        const folder = $('#loggedInUserName').val();
+        const tags = `${data.title}`
+        console.log("open upload widget opener", folder, tags);
+        cloudinary.setCloudName('elenag518');
+        const payload = {
+            upload_preset: 'pachirili',
+            resource_type: 'image',
+            folder: folder,
+            tags: tags
+        };
+        console.log(payload);
+        cloudinary.openUploadWidget(payload,
+            function(error, result) {
+                console.log(error, result);
+                // addPhotos(result);
+            });
+    }, false);
+}
+
+// cloudinarywidgetsuccess - Global success event binding
+$(document).on('cloudinarywidgetsuccess', function(e, data) {
+    console.log("Global success", e, data);
+});
+
+// cloudinarywidgeterror - Upload error event binding
+$(document).on('cloudinarywidgeterror', function(e, data) {
+    console.log("Error", data);
+});
+
+// cloudinarywidgetdeleted - Image deletion event binding
+$(document).on('cloudinarywidgetdeleted', function(e, data) {
+    console.log("Public ID", data.public_id);
+});
+
+// cloudinarywidgetclosed - Close widget event binding
+$(document).on('cloudinarywidgetclosed', function(e, data) {
+    console.log("Widget closed", data);
+});
 
 
-    // const album = [];
-
-    // for (index in data.photos) {
-    //  album.push(`<img src="${data.album[i].src}">`);
-    //     }
-    // $('.dashboard').append(
-
-    //     '<div class=\"album\">' + album + '</div>' +
-
-    //     '<button class=\"add-pics\">Add Photos</button>'
-
-    // );
+function addPhotos(img) {
+    for (var index in img) {
+        $('.album').append(`<img src="${img[index].thumbnail_url}">`);
+    }
 };
 
-
-
-// $('.dashboard').click('.add-pics', event => {
-//     // event.preventDefault();
-//     event.stopPropagation();
-//     console.log("Add photos button pressed");
-// });
+// fetch journey to edit API call
+function editJourney(id) {
+    console.log("editJourney function ran");
+    console.log(id);
+    $.ajax({
+            type: 'GET',
+            url: `/resources/image`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function(result) {
+            console.log(result);
+            displayEditJourneyForm(result);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            alert('something bad just happened at journals/create');
+        });
+};
 
 // EDIT journey
 
@@ -331,8 +413,8 @@ $('.edit-journey-anchor').click(event => {
     console.log("edit journey clicked");
     event.preventDefault();
     const journeyId = journey_id;
-    // journey_id = "";
     console.log(journeyId);
+    $('.edit-journey').empty().show();
     editJourney(journeyId);
 });
 
@@ -391,8 +473,8 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     const id = journey_id;
     const title = $('#edit-title').val();
     const location = $('#edit-location').val();
-    const startDates = $('#edit-start-dates').val();
-    const endDates = $('#edit-end-dates').val();
+    const startDates = $('.edit-start-dates').val();
+    const endDates = $('.edit-end-dates').val();
     const description = $('#edit-description').val();
     const username = $('#loggedInUserName').val();
 
@@ -509,5 +591,5 @@ function displayUserList(data) {
 };
 
 $(function() {
-    $("#datepicker").datepicker();
+    // $("#datepicker").datepicker();
 });

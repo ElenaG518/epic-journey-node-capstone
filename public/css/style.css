@@ -45,6 +45,10 @@ nav {
     width: 100%;
 }
 
+.dashboard {
+    margin-top: 45px;
+}
+
 .dashboard-nav {
     max-width: 800px;
     margin: auto;
@@ -173,7 +177,6 @@ form button,
 .homepage h2 {
     margin-bottom: 0;
     font-weight: 900;
-    /* text-align: left; */
 }
 
 figure,
@@ -214,6 +217,11 @@ figure img,
     box-shadow: 0px 2px black;
 }
 
+.card:hover {
+    box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
+    padding: 10px;
+}
+
 .card a {
     color: black;
     text-decoration: none;
@@ -221,10 +229,6 @@ figure img,
     text-align: left;
     background-color: #ffc3a000;
     padding: 10px 15px;
-}
-
-.card a:hover {
-    box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
 }
 
 .card-content {
@@ -282,7 +286,7 @@ figure img,
 }
 
 .notebook a {
-    font-size: 70%;
+    font-size: 85%;
     margin: auto;
     display: inline-block;
     padding: 20px;
@@ -291,10 +295,10 @@ figure img,
 }
 
 @media screen and (min-width: 320px) and (max-width: 620px) {
-    nav {
+    /* nav {
         line-height: 1.5em;
         font-size: 80%;
-    }
+    } */
     header h1 {
         padding: 25px 0;
         height: 100px;
