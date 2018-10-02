@@ -5,6 +5,10 @@ const API_KEY = "448714965531915";
 const IMG_UPLOAD_ENDPOINT = "https://api.cloudinary.com/v1_1/elenag518";
 // // const DOMAIN = window.location.origin;
 
+function apiSignature(timestamp, uid) {
+    let signatureString = "public_id=" + uid + "&timestamp=" + timestamp + "n8nI8YLJ4-KvRDeDVxWFc-c6Hlc";
+    return $.sha1(signatureString);
+}
 
 
 $('#list-images').click(event => {
@@ -335,23 +339,24 @@ function displayJourney(data) {
                     <p class = "description">${data.description}</p>
              </div>`
     );
+    displayAllImages(journey_id);
 
     document.getElementById("upload_widget_opener").addEventListener("click", function() {
-        const folder = $('#loggedInUserName').val();
+        const username = $('#loggedInUserName').val();
         const tags = `${data.title}`
-        console.log("open upload widget opener", folder, tags);
+        console.log("open upload widget opener");
         cloudinary.setCloudName('elenag518');
         const payload = {
             upload_preset: 'pachirili',
             resource_type: 'image',
-            folder: folder,
+            // folder: folder,
             tags: tags
         };
         console.log(payload);
         cloudinary.openUploadWidget(payload,
             function(error, result) {
                 console.log(error, result);
-                addPhotos(result);
+                addPhotos(results.thumbnail_url, username, journey_id);
             });
     }, false);
 }
@@ -377,34 +382,84 @@ $(document).on('cloudinarywidgetclosed', function(e, data) {
 });
 
 
-function addPhotos(img) {
-    for (var index in img) {
-        $('.album').append(`<img src="${img[index].thumbnail_url}">`);
-    }
-};
-
-// fetch journey to edit API call
-function editJourney(id) {
-    console.log("editJourney function ran");
-    console.log(id);
+function addPhotos(img_url, username, journey_id) {
+    console.log("Add photos funct", img_url, username, journey_id);
+    const imgObject = {
+        imgAddress: img_url,
+        username: username,
+        journeyId: journey_id
+    };
     $.ajax({
-            type: 'GET',
-            url: `/resources/image`,
+            type: "POST",
+            url: `/journeys/add-img`,
             dataType: 'json',
-            contentType: 'application/json'
+            contentType: 'application/json',
+            data: JSON.stringify(imgObject),
         })
         .done(function(result) {
             console.log(result);
-            displayEditJourneyForm(result);
+            displayJourneyPhoto(result.imgAddress);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
-            alert('something bad just happened at journals/create');
+            // alert('something bad just happened img');
         });
 };
+
+function displayJourneyPhoto(imgsrc) {
+    console.log("displayJourneyPhotos func ran", imgsrc);
+    $('.album').append(`<img src="${imgsrc}">`);
+}
+
+function displayAllImages(journeyId) {
+    console.log("function displayAllImages", journeyId);
+
+    $.ajax({
+            type: 'GET',
+            url: `/journeys/images/${journeyId}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function(result) {
+            console.log(result);
+            // $('.journal-entry').empty();
+            // displayJourney(result);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+
+        });
+
+}
+
+// // fetch journey to edit API call
+// function editJourney(id) {
+//     console.log("editJourney function ran");
+//     console.log(id);
+//     $.ajax({
+//             type: 'GET',
+//             url: `/resources/image`,
+//             dataType: 'json',
+//             contentType: 'application/json'
+//         })
+//         .done(function(result) {
+//             console.log(result);
+//             displayEditJourneyForm(result);
+//         })
+//         // if the call is failing
+//         .fail(function(jqXHR, error, errorThrown) {
+//             console.log(jqXHR);
+//             console.log(error);
+//             console.log(errorThrown);
+//             alert('something bad just happened at journals/create');
+//         });
+// };
 
 // EDIT journey
 
@@ -590,6 +645,6 @@ function displayUserList(data) {
     }
 };
 
-$(function() {
-    // $("#datepicker").datepicker();
-});
+// $(function() {
+
+// });

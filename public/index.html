@@ -86,8 +86,10 @@
                     <label for='location'>Location:</label>
                     <input type='text' id='location' name='location' value="Utah, USA" required>
                     <!-- <label for='datepicker'>Dates:</label> -->
-                    <label for="datepicker">Starting Date:</label> <input type="text" id="datepicker" class="start">
-                    <label>Ending Date: </label> <input type="text" id="datepicker" class="end">
+                    <label for="datepicker">Starting Date:</label>
+                    <input type="text" id="datepicker-start" class="start">
+                    <label>Ending Date: </label>
+                    <input type="text" id="datepicker-stop" class="end">
                     <!-- <label for='datepicker'>Dates:</label> -->
                     <!-- <p>Ending Date: <input type="text" id="datepicker-ending"></p> -->
                     <!-- <input type='text' id='dates' name='dates' value="dates are awesome" required> -->
@@ -150,17 +152,23 @@
     </main>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="client.js"></script>
-    <!-- datepicker scripts -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <!-- cloudinary scripts -->
     <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript">
-    </script>
+    <!-- datepicker scripts -->
+    <script src="jquery-2.2.3.min.js"></script>
+    <script src="jquery-ui.js"></script>
+    <!-- <script>
+        $(function() {
+            $("#datepicker-start").datepicker();
+            $("#datepicker-stop").datepicker();
+        });
+    </script> -->
 
+    <!-- local js file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="client.js"></script>
 </body>
 
 </html>

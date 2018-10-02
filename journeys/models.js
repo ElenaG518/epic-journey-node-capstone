@@ -10,10 +10,20 @@ const journeySchema = mongoose.Schema({
     startDates: { type: String, required: false },
     endDates: { type: String, required: false },
     description: { type: String, required: false },
-    created: { type: Date, default: Date.now },
+    created: { type: Date, default: Date.now, required: false },
     // photos: {type: 'image'},
     loggedInUserName: { type: String, required: true }
 });
+
+const journeyImageSchema = mongoose.Schema({
+    imgAddress: { type: String, required: true },
+    journeyId: { type: String, required: true },
+    username: { type: String, required: true }
+});
+
+journeyImageSchema.methods.serialize = function() {
+    return { imgAddress: this.imgAddress }
+}
 
 journeySchema.virtual('dates').get(function() {
     return `${this.startDates} - ${this.endDates}`.trim();
@@ -33,5 +43,6 @@ journeySchema.methods.serialize = function() {
 }
 
 const Journey = mongoose.model('Journey', journeySchema);
+const Image = mongoose.model('Image', journeyImageSchema);
 
-module.exports = { Journey };
+module.exports = { Journey, Image };
