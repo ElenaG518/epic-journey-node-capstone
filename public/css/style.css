@@ -310,7 +310,7 @@ figure img,
     .cards,
     .album {
         justify-content: space-between;
-        /* margin-top: 50px; */
+        margin-top: 50px;
     }
     .card,
     .album img {
@@ -334,7 +334,7 @@ figure img,
     }
     .notebook {
         position: relative;
-        height: 650px;
+        height: 680px;
     }
     .notebook img {
         height: 650px;

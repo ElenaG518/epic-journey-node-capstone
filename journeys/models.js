@@ -12,7 +12,8 @@ const journeySchema = mongoose.Schema({
     description: { type: String, required: false },
     created: { type: Date, default: Date.now, required: false },
     // photos: {type: 'image'},
-    loggedInUserName: { type: String, required: true }
+    loggedInUserName: { type: String, required: true },
+    // photos: [journeyImageSchema]
 });
 
 const journeyImageSchema = mongoose.Schema({
