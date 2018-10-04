@@ -38,7 +38,7 @@ main {
     top: 300px;
     margin: 0 auto;
     max-width: 1200px;
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
 }
 
 nav {
@@ -57,19 +57,22 @@ nav ul {
 }
 
 nav li {
-    flex: 0 0 calc(15%);
+    flex: 0 0 calc(10%);
     list-style: none;
-    /* display: inline-block; */
-    text-align: center;
+    text-align: left;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
 }
 
 .header-nav li:hover {
     background-color: darkolivegreen;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
+.header-nav ul {
+    text-align: center;
 }
 
 h2 {
@@ -214,15 +217,13 @@ form button,
 }
 
 .dashboard-nav {
-    /* max-width: 800px; */
-    margin: auto;
-    text-align: right;
     background-color: transparent;
-    line-height: 0.5em;
+    line-height: 0.2em;
 }
 
 .dashboard-nav ul {
     display: block;
+    text-align: center;
 }
 
 .dashboard-nav li {
@@ -239,11 +240,6 @@ form button,
 picture {
     flex: 0 1 calc(40% - 2em);
 }
-
-
-/* .thumbnail {
-    flex: 0 1 calc(10% - .5em);
-} */
 
 .album img {
     border: 2px inset silver;
@@ -269,7 +265,7 @@ picture {
     font-size: 85%;
     margin: auto;
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
 }
