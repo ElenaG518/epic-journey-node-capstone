@@ -275,9 +275,7 @@ function displayJourneys(data) {
                     
                     
                 </div>
-                <picture class="thumbnail">
-                          <img src="images//pic1.jpg" alt="taking a stroll with dogs">
-                      </picture>
+                
                 
             </a>
         </article>`
@@ -414,15 +412,22 @@ function getAllImages(journeyId) {
 function displayAllImages(imgArray) {
     console.log("function displayAllImages");
     const imgArrayString = [];
-    // if (!imgArray == null) {
+
     for (let index in imgArray.images) {
         // imgArrayString.push(`${imgArray.images[index].imgAddress}`);
-        imgArrayString.push(`<img src="${imgArray.images[index].imgAddress}">`);
+        imgArrayString.push(
+            `<picture class="thumbnail">
+            <img src="${imgArray.images[index].imgAddress}">
+            </picture>`);
     }
-    // }
+
     console.log(imgArrayString);
     $('.album').append(imgArrayString);
 }
+
+
+
+
 
 
 

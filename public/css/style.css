@@ -45,33 +45,6 @@ nav {
     width: 100%;
 }
 
-.dashboard {
-    margin-top: 45px;
-}
-
-.dashboard-nav {
-    max-width: 800px;
-    margin: auto;
-    text-align: right;
-    background-color: transparent;
-    line-height: 0.5em;
-}
-
-.dashboard-nav ul {
-    display: block;
-}
-
-.dashboard-nav li {
-    list-style: none;
-    display: inline-block;
-    text-align: center;
-}
-
-.dashboard-nav a {
-    color: black;
-    text-decoration: none;
-}
-
 nav ul {
     display: flex;
     flex-flow: row nowrap;
@@ -151,8 +124,8 @@ form input {
 .edit-journal-text {
     display: block;
     margin: 0 auto 25px;
-    max-width: 580px;
-    height: 350px;
+    /* max-width: 580px;
+    height: 350px; */
 }
 
 form a {
@@ -179,25 +152,6 @@ form button,
     font-weight: 900;
 }
 
-figure,
-figure img,
-.thumbnail img {
-    display: inline-block;
-    width: 300px;
-    height: auto;
-    border: 2px inset #b8b3b38c;
-}
-
-.img-placeholder {
-    background-color: white;
-}
-
-.album img {
-    display: inline-block;
-    width: 200px;
-    height: auto;
-}
-
 .cards,
 .album {
     margin-top: 25px;
@@ -206,6 +160,10 @@ figure img,
     justify-content: flex-start;
     align-items: center;
     align-content: center;
+}
+
+.album {
+    justify-content: space-evenly;
 }
 
 .card {
@@ -219,7 +177,7 @@ figure img,
 
 .card:hover {
     box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
-    padding: 10px;
+    padding: 1px;
 }
 
 .card a {
@@ -238,13 +196,38 @@ figure img,
     font-family: 'Indie Flower', cursive;
 }
 
-
-/* .journal h2 {
-    text-align: left;
+.dashboard {
     max-width: 800px;
+    margin: auto auto 100px;
+    margin-top: 45px;
+}
+
+.dashboard-nav {
+    /* max-width: 800px; */
     margin: auto;
-    padding: 0 15px;
-} */
+    text-align: right;
+    background-color: transparent;
+    line-height: 0.5em;
+}
+
+.dashboard-nav ul {
+    display: block;
+}
+
+.dashboard-nav li {
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.dashboard-nav a {
+    color: black;
+    text-decoration: none;
+}
+
+picture {
+    flex: 0 1 calc(33% - .5em);
+}
 
 .album img {
     border: 2px inset silver;
@@ -253,6 +236,7 @@ figure img,
     background: white;
     margin-bottom: 2em;
     box-shadow: 0px 0px 1px 0px lightgrey;
+    padding: 10px;
 }
 
 .notebook {
@@ -263,6 +247,15 @@ figure img,
 
 .notebook img {
     height: 450px;
+}
+
+.notebook a {
+    font-size: 85%;
+    margin: auto;
+    display: inline-block;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
 }
 
 .journal-entry {
@@ -287,20 +280,7 @@ figure img,
     padding: 10px 35px 10px 55px;
 }
 
-.notebook a {
-    font-size: 85%;
-    margin: auto;
-    display: inline-block;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-}
-
 @media screen and (min-width: 320px) and (max-width: 620px) {
-    /* nav {
-        line-height: 1.5em;
-        font-size: 80%;
-    } */
     header h1 {
         padding: 25px 0;
         height: 100px;
@@ -308,19 +288,20 @@ figure img,
     }
     main {
         top: 150px;
+        margin-bottom: 150px;
     }
     .cards,
-    .album {
+    {
         justify-content: space-between;
         margin-top: 50px;
+    }
+    .album {
+        margin-top: 50px
     }
     .card,
     .album img {
         width: 300px;
         margin-bottom: 1em;
-    }
-    main {
-        margin-bottom: 25px;
     }
     form,
     .journey-form {
@@ -331,22 +312,10 @@ figure img,
     .journey-form textarea {
         width: 250px;
     }
-    .thumbnail img {
-        width: 250px;
-    }
     .notebook {
         position: relative;
-        height: 680px;
+        height: 480px;
     }
-    /* .notebook img {
-        height: 650px;
-    } */
-    /* .journal-entry {
-        position: absolute;
-        top: 25px;
-        left: 15px;
-        font-size: 90%;
-    } */
     .journal-entry p {
         padding: 10px 10px 10px 15px;
     }
