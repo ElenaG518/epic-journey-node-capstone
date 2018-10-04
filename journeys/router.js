@@ -74,6 +74,7 @@ router.post('/create', jsonParser, (req, res) => {
             endDates: req.body.endDates,
             description: req.body.description,
             loggedInUserName: req.body.loggedInUserName
+
         })
         .then(journey => res.status(201).json(journey.serialize()))
         .catch(err => {
@@ -98,6 +99,24 @@ router.get('/images/:journeyId', (req, res) => {
             console.error(err);
             res.status(500).json({ message: 'couldnot retrieve images' });
         });
+});
+
+router.get('/images/all/:username', (req, res) => {
+    console.log('getting all images for username journey');
+    console.log(req.params.username);
+    Image
+        .find({ username: req.params.username })
+        .then(images => {
+            res.json({
+                images: images.map(image => image.serialize())
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'couldnot retrieve images' });
+        });
+
+
 });
 
 router.post('/add-img', jsonParser, (req, res) => {

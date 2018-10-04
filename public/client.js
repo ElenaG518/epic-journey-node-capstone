@@ -164,8 +164,8 @@ $('.journey-form').submit(function(event) {
     console.log("journal entry form ran");
     const title = $('#title').val();
     const location = $('#location').val();
-    const startDates = $('.start').val();
-    const endDates = $('.end').val();
+    const startDates = $('#datepicker-start').val();
+    const endDates = $('#datepicker-end').val();
     const description = $('#description').val();
     const username = $('#loggedInUserName').val();
 
@@ -207,7 +207,6 @@ function getListOfJourneys(username) {
     if ((username == "") || (username == undefined) || (username == null)) {
         username = $('#loggedInUserName').val();
     }
-
     console.log(username);
     $.ajax({
             type: 'GET',
@@ -218,6 +217,8 @@ function getListOfJourneys(username) {
         .done(function(result) {
             console.log(result);
             displayJourneys(result);
+            // getListofImages();
+
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -228,17 +229,42 @@ function getListOfJourneys(username) {
         });
 }
 
+// get all images for user
+// function getListofImages() {
+//     const username = $('#loggedInUserName').val();
+
+//     console.log(username);
+//     $.ajax({
+//             type: 'GET',
+//             url: `/journeys/images/all/${username}`,
+//             dataType: 'json',
+//             contentType: 'application/json'
+//         })
+//         .done(function(result) {
+//             console.log(result);
+//             // imgArray(result);
+//         })
+//         // if the call is failing
+//         .fail(function(jqXHR, error, errorThrown) {
+//             console.log(jqXHR);
+//             console.log(error);
+//             console.log(errorThrown);
+
+//         });
+// }
+
 // display all journeys to client
 function displayJourneys(data) {
+    console.log("fuction displayJourneys ran");
     $('.intro').hide();
     $('.homepage').removeClass('hide').show();
     if (!$('.dashboard').hasClass('hide')) {
         $('.dashboard').hide();
     };
 
-    // const journeyIdArray = [];
     for (var index in data.journeys) {
-        getPicsByJourneyId(data.journeys[index].id);
+        console.log(getAllImages(data.journeys[index].id));
+
         $('.cards').append(
             `<article class="card">
             <a href="#" class="link-to-journey" id="${data.journeys[index].id}">
@@ -246,7 +272,7 @@ function displayJourneys(data) {
             
                 <div class="card-content">
                     <p>${data.journeys[index].title}</p>
-                    <p>${data.journeys[index].id}</p>
+                    
                     
                 </div>
                 <picture class="thumbnail">
@@ -257,10 +283,6 @@ function displayJourneys(data) {
         </article>`
         );
     }
-}
-
-function getPicsByJourneyId(journey_id) {
-    console.log("function getPicsByJourneyId ran", journey_id);
 }
 
 // API call to fetch only selected journey 
@@ -312,11 +334,6 @@ function displayJourney(data) {
     );
     getAllImages(journey_id);
 }
-// $('#list-images').click(event => {
-//     event.preventDefault();
-//     console.log('list-images link is working');
-//     getAllImages(journey_id);
-// })
 
 cloudinary.applyUploadWidget(
     document.getElementById('upload_widget_opener'), { cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server', button_caption: 'Upload & crop image' },
@@ -336,30 +353,8 @@ cloudinary.applyUploadWidget(
         $(document).on('cloudinarywidgetclosed', function(e, data) {
             console.log("Widget closed", data);
         });
-    });
-
-
-// document.getElementById("upload_widget_opener").addEventListener("click", function() {
-//     console.log("open upload widget opener");
-//     const payload = {
-//         cloud_name: 'elenag518',
-//         upload_preset: 'pachirili',
-//         cropping: 'server'
-
-//     };
-//     console.log(payload);
-
-
-//     // cloudinary.openUploadWidget(
-//     cloudinary.applyUploadWidget(
-//         payload,
-//         function(error, result) {
-//             console.log(error, result);
-//             addPhotos(result[0].thumbnail_url, username, journey_id);
-
-//         });
-// });
-
+    }
+);
 
 function addPhotos(img_url, username, journey_id) {
     console.log("Add photos funct", img_url, username, journey_id);
@@ -406,7 +401,6 @@ function getAllImages(journeyId) {
         .done(function(result) {
             console.log(result);
             displayAllImages(result);
-
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -418,6 +412,7 @@ function getAllImages(journeyId) {
 }
 
 function displayAllImages(imgArray) {
+    console.log("function displayAllImages");
     const imgArrayString = [];
     // if (!imgArray == null) {
     for (let index in imgArray.images) {

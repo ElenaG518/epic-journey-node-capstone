@@ -38,10 +38,10 @@ function generateUserData() {
     };
 }
 
-function generateImages(journeyId, imgaddress) {
+function generateImages(journeyId) {
     return {
         journeyId: journeyId,
-        imgAddress: imgaddress
+        // imgAddress: imgaddress
 
     }
 }
@@ -66,7 +66,7 @@ function generateJourneyData() {
         description: faker.lorem.paragraph(),
         created: faker.date.past(),
         loggedInUserName: "elenaG",
-        images: "../images/pic2.jpg"
+        // images: "../images/pic2.jpg"
     };
 }
 
@@ -116,9 +116,9 @@ describe('User router API resource', function() {
         return seedUserData();
     });
 
-    // afterEach(function() {
-    //     return tearDownDb();
-    // });
+    afterEach(function() {
+        return tearDownDb();
+    });
 
     after(function() {
         return closeServer();
@@ -163,17 +163,18 @@ describe('User router API resource', function() {
         it('should create a new user', function() {
 
             const newUser = {
-                firstName: "Afirstname",
-                lastName: "Alastname",
-                username: "somethingfunny",
-                password: "1234abcd"
+                username: "elenag",
+                firstName: "Elena",
+                lastName: "Granados",
+                password: "password"
             };
-            console.log(newUser);
+
+            // console.log("this is new user", newUser);
             return chai.request(app)
                 .post('/users/create')
                 .send(newUser)
                 .then(function(res) {
-                    console.log(res.body);
+                    // console.log(res.body);
                     expect(res).to.have.status(201);
                     expect(res).to.be.json;
                     expect(res.body).to.be.a('object');
@@ -214,9 +215,9 @@ describe('Journey router API resource', function() {
         return seedJourneyData();
     });
 
-    // afterEach(function() {
-    //     return tearDownDb();
-    // });
+    afterEach(function() {
+        return tearDownDb();
+    });
 
     after(function() {
         return closeServer();
@@ -278,14 +279,15 @@ describe('Journey router API resource', function() {
 
         it('should return images for a specific journey', function() {
 
-            let journey;
             return Journey
                 .findOne()
                 .then(function(journey) {
+                    console.log("this is", journey);
+                    generateImages(journey_id, imgAddress);
                     chai.request(app)
                         .get(`journeys/images/${journey._id}`)
-
-                    .then(function(res) {
+                        .then(function(res) {
+                            console.log("here", res.body);
                             expect(res).to.be.json;
                             expect(res.body).to.include.keys(
                                 'journeyId', 'imgAddress');
@@ -294,11 +296,14 @@ describe('Journey router API resource', function() {
                         })
                         .catch(err => {
                             console.error(err);
-                            res.status(500).json({ message: 'couldnot retrieve images' });
+                            // res.status(500).json({ message: 'couldnot retrieve images' });
                         });
                 })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).json({ message: 'couldnot retrieve images' });
+                });
         });
-
 
         it('should return journeys with right fields', function() {
             // Strategy: Get back all journeys, and ensure they have expected keys
@@ -348,7 +353,7 @@ describe('Journey router API resource', function() {
                     .send(newJourney)
                     .then(function(res) {
 
-                        console.log("hey", res.body.id);
+                        console.log("hey", res.body);
                         generateImages(res.body.id, res.body.imgAddress);
                         expect(res).to.have.status(201);
                         expect(res).to.be.json;
