@@ -238,6 +238,7 @@ function displayJourneys(data) {
     if (!$('.dashboard').hasClass('hide')) {
         $('.dashboard').hide();
     };
+    data.journeys.sort((a, b) => b.title - a.title);
 
     for (var index in data.journeys) {
         console.log("for", data.journeys[index].id, data.journeys[index].title);
