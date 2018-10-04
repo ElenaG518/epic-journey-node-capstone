@@ -59,12 +59,12 @@ nav ul {
 nav li {
     flex: 0 0 calc(10%);
     list-style: none;
-    text-align: left;
 }
 
 nav a {
     color: white;
     text-decoration: none;
+    text-align: center;
 }
 
 .header-nav li:hover {
@@ -322,11 +322,11 @@ picture {
         margin-top: 50px
     }
     .card {
-        flex: 0 1 calc(100% - .5em);
+        flex: 0 1 calc(85% - .5em);
+        margin-bottom: 1em;
     }
-    .card,
     .album img {
-        width: 300px;
+        width: 250px;
         margin-bottom: 1em;
     }
     form,
