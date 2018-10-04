@@ -38,6 +38,14 @@ function generateUserData() {
     };
 }
 
+function generateImages(journeyId, imgaddress) {
+    return {
+        journeyId: journeyId,
+        imgAddress: imgaddress
+
+    }
+}
+
 // GENERATE AND SEED DATA FOR JOURNEYS 
 function seedJourneyData() {
     console.info('seeding journey data');
@@ -57,9 +65,12 @@ function generateJourneyData() {
         endDates: faker.date.recent(),
         description: faker.lorem.paragraph(),
         created: faker.date.past(),
-        loggedInUserName: "elenaG"
+        loggedInUserName: "elenaG",
+        images: "../images/pic2.jpg"
     };
 }
+
+
 
 // this function deletes the entire database.
 // we'll call it in an `afterEach` block below
@@ -105,9 +116,9 @@ describe('User router API resource', function() {
         return seedUserData();
     });
 
-    afterEach(function() {
-        return tearDownDb();
-    });
+    // afterEach(function() {
+    //     return tearDownDb();
+    // });
 
     after(function() {
         return closeServer();
@@ -186,31 +197,7 @@ describe('User router API resource', function() {
         });
     });
 
-    // describe('DELETE endpoint for user', function() {
-    //     // strategy:
-    //     //  1. get a user
-    //     //  2. make a DELETE request for that user's id
-    //     //  3. assert that response has right status code
-    //     //  4. prove that restaurant with the id doesn't exist in db anymore
-    //     it('delete a user by id', function() {
 
-    //         let user;
-
-    //         return User
-    //             .findOne()
-    //             .then(function(_user) {
-    //                 user = _user;
-    //                 return chai.request(app).delete(`/users/${user.id}`);
-    //             })
-    //             .then(function(res) {
-    //                 expect(res).to.have.status(204);
-    //                 return User.findById(user.id);
-    //             })
-    //             .then(function(_user) {
-    //                 expect(_user).to.be.null;
-    //             });
-    //     });
-    // });
 });
 
 describe('Journey router API resource', function() {
@@ -227,9 +214,9 @@ describe('Journey router API resource', function() {
         return seedJourneyData();
     });
 
-    afterEach(function() {
-        return tearDownDb();
-    });
+    // afterEach(function() {
+    //     return tearDownDb();
+    // });
 
     after(function() {
         return closeServer();
@@ -265,6 +252,54 @@ describe('Journey router API resource', function() {
                 });
         });
 
+        it('should return journey with specific id', function() {
+
+            return Journey
+                .findOne()
+                .then(function(journey) {
+                    return chai.request(app)
+                        .get(`/journeys/id/${journey.id}`)
+                        .then(function(res) {
+                            // expect(res).to.be.json;
+                            expect(res.body).to.be.a('object');
+                            expect(res.body).to.include.keys(
+                                'id', 'title', 'location', 'dates', 'description', 'created', 'loggedInUserName');
+                            expect(res.body.id).to.equal(journey.id);
+                            expect(res.body.title).to.equal(journey.title);
+                            expect(res.body.location).to.equal(journey.location);
+                            expect(res.body.dates).to.equal(journey.dates);
+                            expect(res.body.description).to.equal(journey.description);
+                            expect(res.body.loggedInUserName).to.equal(journey.loggedInUserName);
+
+                        })
+                });
+        });
+
+
+        it('should return images for a specific journey', function() {
+
+            let journey;
+            return Journey
+                .findOne()
+                .then(function(journey) {
+                    chai.request(app)
+                        .get(`journeys/images/${journey._id}`)
+
+                    .then(function(res) {
+                            expect(res).to.be.json;
+                            expect(res.body).to.include.keys(
+                                'journeyId', 'imgAddress');
+                            expect(res.body.journeyId).to.equal(journey.journeyId);
+                            expect(res.body.imgAddress).to.equal(journey.imgAddress);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            res.status(500).json({ message: 'couldnot retrieve images' });
+                        });
+                })
+        });
+
+
         it('should return journeys with right fields', function() {
             // Strategy: Get back all journeys, and ensure they have expected keys
 
@@ -296,6 +331,8 @@ describe('Journey router API resource', function() {
                 });
         });
 
+
+
         describe('POST endpoint', function() {
             // strategy: make a POST request with data,
             // then prove that the journey we get back has
@@ -310,6 +347,9 @@ describe('Journey router API resource', function() {
                     .post('/journeys/create')
                     .send(newJourney)
                     .then(function(res) {
+
+                        console.log("hey", res.body.id);
+                        generateImages(res.body.id, res.body.imgAddress);
                         expect(res).to.have.status(201);
                         expect(res).to.be.json;
                         expect(res.body).to.be.a('object');

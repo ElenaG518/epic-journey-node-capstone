@@ -266,6 +266,8 @@ figure img,
 }
 
 .journal-entry {
+    height: 410px;
+    overflow-y: auto;
     display: block;
     margin: auto;
     text-align: left;
@@ -336,9 +338,9 @@ figure img,
         position: relative;
         height: 680px;
     }
-    .notebook img {
+    /* .notebook img {
         height: 650px;
-    }
+    } */
     /* .journal-entry {
         position: absolute;
         top: 25px;
