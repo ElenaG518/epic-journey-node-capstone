@@ -6,7 +6,8 @@ mongoose.Promise = global.Promise;
 const journeyImageSchema = mongoose.Schema({
     imgAddress: { type: String, required: true },
     journeyId: { type: String, required: true },
-    username: { type: String, required: true }
+    username: { type: String, required: true },
+    journeyTitle: { type: String, required: true }
 });
 
 // this is our schema to represent a journey
@@ -21,12 +22,11 @@ const journeySchema = mongoose.Schema({
     // images: [journeyImageSchema]
 });
 
-
-
 journeyImageSchema.methods.serialize = function() {
     return {
         journeyId: this.journeyId,
-        imgAddress: this.imgAddress
+        imgAddress: this.imgAddress,
+        journeyTitle: this.journeyTitle
     }
 }
 

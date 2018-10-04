@@ -1,6 +1,7 @@
 'use strict';
 
 let journey_id;
+let journey_title;
 
 // ANCHORS
 
@@ -229,33 +230,9 @@ function getListOfJourneys(username) {
         });
 }
 
-// get all images for user
-// function getListofImages() {
-//     const username = $('#loggedInUserName').val();
-
-//     console.log(username);
-//     $.ajax({
-//             type: 'GET',
-//             url: `/journeys/images/all/${username}`,
-//             dataType: 'json',
-//             contentType: 'application/json'
-//         })
-//         .done(function(result) {
-//             console.log(result);
-//             // imgArray(result);
-//         })
-//         // if the call is failing
-//         .fail(function(jqXHR, error, errorThrown) {
-//             console.log(jqXHR);
-//             console.log(error);
-//             console.log(errorThrown);
-
-//         });
-// }
-
 // display all journeys to client
 function displayJourneys(data) {
-    console.log("fuction displayJourneys ran");
+    console.log("fuction displayJourneys ran", data);
     $('.intro').hide();
     $('.homepage').removeClass('hide').show();
     if (!$('.dashboard').hasClass('hide')) {
@@ -263,25 +240,66 @@ function displayJourneys(data) {
     };
 
     for (var index in data.journeys) {
-        console.log(getAllImages(data.journeys[index].id));
+        console.log("for", data.journeys[index].id, data.journeys[index].title);
+        getOneImage(data.journeys[index].id, data.journeys[index].title);
+    }
+}
 
+
+function getOneImage(journeyId, journeyTitle) {
+    console.log("function getOneImage", journeyId);
+    journey_id = journeyId;
+    journey_title = journeyTitle;
+    console.log("here", journey_id, journey_title);
+    $.ajax({
+            type: 'GET',
+            url: `/journeys/images/single/${journeyId}`,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function(result) {
+            console.log(result);
+            createThumb(result, journey_id, journey_title);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+function createThumb(thumb_info, journey_id, journey_title) {
+    console.log("function createThumb", thumb_info);
+    if (thumb_info == null) {
+        console.log(journey_id, journey_title);
         $('.cards').append(
             `<article class="card">
-            <a href="#" class="link-to-journey" id="${data.journeys[index].id}">
-                
+            <a href="#" class="link-to-journey" id="${journey_id}">
+            <div class="card-content">
+                <p>${journey_title}</p>
+            </div>
             
-                <div class="card-content">
-                    <p>${data.journeys[index].title}</p>
-                    
-                    
-                </div>
-                
-                
+            </a>
+        </article>`
+        )
+    } else {
+        $('.cards').append(
+            `<article class="card">
+            <a href="#" class="link-to-journey" id="${thumb_info.journeyId}">
+            <picture class="thumbnail">
+                <img src="${thumb_info.imgAddress}">
+            </picture> 
+            <div class="card-content">
+                <p>${thumb_info.journeyTitle}</p>
+            </div>
+            
             </a>
         </article>`
         );
     }
 }
+
 
 // API call to fetch only selected journey 
 $('.cards').on('click', '.link-to-journey', event => {
@@ -289,6 +307,10 @@ $('.cards').on('click', '.link-to-journey', event => {
     console.log("clicked it");
     journey_id = $(event.currentTarget).attr('id');
     console.log(journey_id);
+    getJourneyById(journey_id);
+});
+
+function getJourneyById(journey_id) {
     $.ajax({
             type: 'GET',
             url: `/journeys/id/${journey_id}`,
@@ -307,7 +329,7 @@ $('.cards').on('click', '.link-to-journey', event => {
             console.log(errorThrown);
             alert('Check your connection');
         });
-})
+};
 
 // display journey after it has been created or when it has been clicked from the homepage
 function displayJourney(data) {
@@ -321,7 +343,7 @@ function displayJourney(data) {
     const username = $('#loggedInUserName').val();
     console.log(data);
     console.log(journey_id);
-
+    journey_title = `${data.title}`;
     $('.notebook').append(
         `<div class="journal-entry">
                     <h2>${data.title}</h2>
@@ -338,7 +360,8 @@ cloudinary.applyUploadWidget(
     function(error, result) {
         console.log(error, result);
         const username = $('#loggedInUserName').val();
-        addPhotos(result[0].thumbnail_url, username, journey_id);
+
+        addPhotos(result[0].url, username, journey_id);
         $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
             console.log("Single file success", e, data);
         });
@@ -359,8 +382,10 @@ function addPhotos(img_url, username, journey_id) {
     const imgObject = {
         imgAddress: img_url,
         username: username,
-        journeyId: journey_id
+        journeyId: journey_id,
+        journeyTitle: journey_title
     };
+    console.log(imgObject);
     $.ajax({
             type: "POST",
             url: `/journeys/add-img`,
@@ -370,7 +395,7 @@ function addPhotos(img_url, username, journey_id) {
         })
         .done(function(result) {
             console.log(result);
-            displayJourneyPhoto(result.imgAddress);
+            getJourneyById(journey_id);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -382,14 +407,9 @@ function addPhotos(img_url, username, journey_id) {
 };
 
 // API call to get all images in a journey
-function displayJourneyPhoto(imgsrc) {
-    console.log("displayJourneyPhoto func ran", imgsrc);
-    $('.album').append(`<img src="${imgsrc}">`);
-}
 
 function getAllImages(journeyId) {
     console.log("function getAllImages", journeyId);
-
     $.ajax({
             type: 'GET',
             url: `/journeys/images/${journeyId}`,
@@ -405,29 +425,23 @@ function getAllImages(journeyId) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
-
         });
 }
+
+
 
 function displayAllImages(imgArray) {
     console.log("function displayAllImages");
     const imgArrayString = [];
-
     for (let index in imgArray.images) {
         // imgArrayString.push(`${imgArray.images[index].imgAddress}`);
-        imgArrayString.push(
-            `<picture class="thumbnail">
+        imgArrayString.push(`<picture>
             <img src="${imgArray.images[index].imgAddress}">
             </picture>`);
     }
-
     console.log(imgArrayString);
     $('.album').append(imgArrayString);
 }
-
-
-
-
 
 
 

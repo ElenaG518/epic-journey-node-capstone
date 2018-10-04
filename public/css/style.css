@@ -1,6 +1,11 @@
 body {
-    background-image: url("../images/mustard.jpg");
-    background-color: #ffc3a0;
+    background-image: url("https://nancieteresa.files.wordpress.com/2015/01/grunge-travel-background-239421341.jpg?w=810");
+    background-position: center;
+    /* Center the image */
+    background-repeat: repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    background-color: #ffc3a042;
     font-family: 'Lato', sans-serif;
 }
 
@@ -21,7 +26,8 @@ header h1 {
     font-size: 3em;
     padding: 75px 0;
     text-align: center;
-    background-image: url("../images/header.jpg");
+    color: #48470e;
+    background-image: url("../images/mustard.jpg");
     background-position: center;
     /* Center the image */
     background-repeat: no-repeat;
@@ -48,16 +54,20 @@ nav {
 nav ul {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     align-content: center;
 }
 
 nav li {
-    flex: 0 0 calc(50% - .5em);
+    flex: 0 0 calc(15%);
     list-style: none;
-    display: inline-block;
+    /* display: inline-block; */
     text-align: center;
+}
+
+nav li:hover {
+    background-color: darkolivegreen;
 }
 
 nav a {
@@ -124,8 +134,6 @@ form input {
 .edit-journal-text {
     display: block;
     margin: 0 auto 25px;
-    /* max-width: 580px;
-    height: 350px; */
 }
 
 form a {
@@ -148,26 +156,32 @@ form button,
 }
 
 .homepage h2 {
-    margin-bottom: 0;
+    margin-bottom: 50px;
+    color: darkslategray;
     font-weight: 900;
 }
 
-.cards,
-.album {
+.cards {
     margin-top: 25px;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
+    align-items: baseline;
+    align-content: flex-start;
+}
+
+.album {
+    margin-top: 25px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
     align-items: center;
     align-content: center;
 }
 
-.album {
-    justify-content: space-evenly;
-}
-
 .card {
-    flex: 0 1 calc(22% - .5em);
+    display: flex;
+    flex: 0 1 calc(25% - 1em);
     margin: auto;
     background: white;
     margin-bottom: 2em;
@@ -226,8 +240,13 @@ form button,
 }
 
 picture {
-    flex: 0 1 calc(33% - .5em);
+    flex: 0 1 calc(40% - 2em);
 }
+
+
+/* .thumbnail {
+    flex: 0 1 calc(10% - .5em);
+} */
 
 .album img {
     border: 2px inset silver;
@@ -293,17 +312,22 @@ picture {
         height: 100px;
         font-size: 1.8em;
     }
+    nav li {
+        flex: 0 0 calc(25%);
+    }
     main {
         top: 150px;
-        margin-bottom: 150px;
+        /* margin-bottom: 150px; */
     }
     .cards,
     {
-        justify-content: space-between;
         margin-top: 50px;
     }
     .album {
         margin-top: 50px
+    }
+    .card {
+        flex: 0 1 calc(100% - .5em);
     }
     .card,
     .album img {

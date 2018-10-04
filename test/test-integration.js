@@ -5,7 +5,7 @@ const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
 
-const { Journey } = require('../journeys/models');
+const { Journey, Image } = require('../journeys/models');
 const { User } = require('../users/models');
 
 const { app, runServer, closeServer } = require('../server');
@@ -31,18 +31,30 @@ function seedUserData() {
 
 function generateUserData() {
     return {
-        firstName: faker.name.firstName(),
+        firstName: faker.name.firstName,
         lastName: faker.name.lastName(),
-        username: faker.lorem.word(),
+        username: faker.hacker.noun(),
         password: faker.random.alphaNumeric()
     };
 }
 
-function generateImages(journeyId) {
-    return {
-        journeyId: journeyId,
-        // imgAddress: imgaddress
+// GENERATE AND SEED IMAGES FOR JOURNEYS 
+function seedImageData(id, title, user) {
+    console.info('seeding image data');
+    const seedData = [];
+    for (let i = 1; i <= 5; i++) {
+        seedData.push(generateImageData());
+    }
+    // this will return a promise
+    return Image.insertMany(seedData);
+}
 
+function generateImageData() {
+    return {
+        journeyId: faker.random.uuid(),
+        imgAddress: faker.image.imageUrl(),
+        username: "elenaG",
+        journeyTitle: faker.lorem.sentence(),
     }
 }
 
@@ -53,7 +65,7 @@ function seedJourneyData() {
     for (let i = 1; i <= 5; i++) {
         seedData.push(generateJourneyData());
     }
-    // this will return a promise
+
     return Journey.insertMany(seedData);
 }
 
@@ -66,7 +78,6 @@ function generateJourneyData() {
         description: faker.lorem.paragraph(),
         created: faker.date.past(),
         loggedInUserName: "elenaG",
-        // images: "../images/pic2.jpg"
     };
 }
 
@@ -101,6 +112,8 @@ describe('GET endpoint', function() {
 
     });
 });
+
+
 
 describe('User router API resource', function() {
 
@@ -214,10 +227,12 @@ describe('Journey router API resource', function() {
     beforeEach(function() {
         return seedJourneyData();
     });
-
-    afterEach(function() {
-        return tearDownDb();
-    });
+    // beforeEach(function() {
+    //     return seedImageData();
+    // });
+    // afterEach(function() {
+    //     return tearDownDb();
+    // });
 
     after(function() {
         return closeServer();
@@ -276,35 +291,6 @@ describe('Journey router API resource', function() {
                 });
         });
 
-
-        it('should return images for a specific journey', function() {
-
-            return Journey
-                .findOne()
-                .then(function(journey) {
-                    console.log("this is", journey);
-                    generateImages(journey_id, imgAddress);
-                    chai.request(app)
-                        .get(`journeys/images/${journey._id}`)
-                        .then(function(res) {
-                            console.log("here", res.body);
-                            expect(res).to.be.json;
-                            expect(res.body).to.include.keys(
-                                'journeyId', 'imgAddress');
-                            expect(res.body.journeyId).to.equal(journey.journeyId);
-                            expect(res.body.imgAddress).to.equal(journey.imgAddress);
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            // res.status(500).json({ message: 'couldnot retrieve images' });
-                        });
-                })
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).json({ message: 'couldnot retrieve images' });
-                });
-        });
-
         it('should return journeys with right fields', function() {
             // Strategy: Get back all journeys, and ensure they have expected keys
 
@@ -336,8 +322,6 @@ describe('Journey router API resource', function() {
                 });
         });
 
-
-
         describe('POST endpoint', function() {
             // strategy: make a POST request with data,
             // then prove that the journey we get back has
@@ -353,8 +337,8 @@ describe('Journey router API resource', function() {
                     .send(newJourney)
                     .then(function(res) {
 
-                        console.log("hey", res.body);
-                        generateImages(res.body.id, res.body.imgAddress);
+                        // console.log("hey", res.body);
+                        seedJourneyData(res.body.id, res.body.title, res.body.loggedInUserName);
                         expect(res).to.have.status(201);
                         expect(res).to.be.json;
                         expect(res.body).to.be.a('object');
@@ -445,4 +429,67 @@ describe('Journey router API resource', function() {
             });
         });
     });
+});
+
+describe('Journey router API resource for Image', function() {
+
+    // we need each of these hook functions to return a promise
+    // otherwise we'd need to call a `done` callback. `runServer`,
+    // `seedJourneyData` and `tearDownDb` each return a promise,
+    // so we return the value returned by these function calls.
+    before(function() {
+        return runServer(TEST_DATABASE_URL);
+    });
+
+    // beforeEach(function() {
+    //     return seedImageData();
+    // });
+
+    afterEach(function() {
+        return tearDownDb();
+    });
+
+    after(function() {
+        return closeServer();
+    });
+
+    describe('POST endpoint for image', function() {
+        // strategy: make a POST request with data,
+        // then prove that the user we get back has
+        // right keys, and that `id` is there (which means
+        // the data was inserted into db)
+        it('should create a new image', function() {
+
+            const newImage = generateImageData();
+
+            // console.log("this is new image", newImage);
+            return chai.request(app)
+                .post('/journeys/add-img')
+                .send(newImage)
+                .then(function(res) {
+                    // console.log(res.body);
+                    expect(res).to.have.status(201);
+                    expect(res).to.be.json;
+                    expect(res.body).to.be.a('object');
+                    expect(res.body).to.include.keys(
+                        'journeyId', 'username', 'imgAddress', 'journeyTitle');
+                    // cause Mongo should have created id on insertion
+                    expect(res.body._id).to.not.be.null;
+                    console.log(res.body._id);
+                    expect(res.body.username).to.equal(newImage.username);
+                    expect(res.body.journeyId).to.equal(newImage.journeyId);
+                    expect(res.body.journeyTitle).to.equal(newImage.journeyTitle);
+                    expect(res.body.imgAddress).to.equal(newImage.imgAddress);
+                    return Image.findById(res.body._id);
+                })
+                .then(function(image) {
+                    expect(image.username).to.equal(newImage.username);
+                    expect(image.journeyId).to.equal(newImage.journeyId);
+                    expect(image.journeyTitle).to.equal(newImage.journeyTitle);
+                    expect(image.imgAddress).to.equal(newImage.imgAddress);
+
+                });
+        });
+    });
+
 });

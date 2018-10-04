@@ -37,7 +37,6 @@ router.get('/id/:id', (req, res) => {
         });
 });
 
-
 router.get('/edit/:id', (req, res) => {
     console.log('looking by id');
 
@@ -50,9 +49,6 @@ router.get('/edit/:id', (req, res) => {
             res.status(500).json({ error: "Could not retrieve journeys" });
         });
 });
-
-
-
 
 router.post('/create', jsonParser, (req, res) => {
     console.log(req.body.title, req.body.location, req.body.startDates, req.body.endDates, req.body.description);
@@ -80,66 +76,6 @@ router.post('/create', jsonParser, (req, res) => {
         .catch(err => {
             console.error(err);
             res.status(500).json({ error: 'Journey failed to create' });
-        });
-
-});
-
-router.get('/images/:journeyId', (req, res) => {
-    console.log('getting all images for username journey');
-    console.log(req.params.journeyId);
-
-    Image
-        .find({ journeyId: req.params.journeyId })
-        .then(images => {
-            res.json({
-                images: images.map(image => image.serialize())
-            });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ message: 'couldnot retrieve images' });
-        });
-});
-
-router.get('/images/all/:username', (req, res) => {
-    console.log('getting all images for username journey');
-    console.log(req.params.username);
-    Image
-        .find({ username: req.params.username })
-        .then(images => {
-            res.json({
-                images: images.map(image => image.serialize())
-            });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ message: 'couldnot retrieve images' });
-        });
-
-
-});
-
-router.post('/add-img', jsonParser, (req, res) => {
-    console.log(req.body.imgAddress, req.body.username, req.body.journeyId);
-    const requiredFields = ['imgAddress', 'username', 'journeyId'];
-    for (let i = 0; i < requiredFields.length; i++) {
-        const field = requiredFields[i];
-        if (!(field in req.body)) {
-            const message = `Missing \`${field}\` in request body`;
-            console.error(message);
-            return res.status(400).send(message);
-        }
-    }
-    Image
-        .create({
-            imgAddress: req.body.imgAddress,
-            journeyId: req.body.journeyId,
-            username: req.body.username
-        })
-        .then(image => res.status(201).json(image))
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ error: 'image failed to create' });
         });
 
 });
@@ -181,6 +117,60 @@ router.delete('/:id', (req, res) => {
 });
 
 
+// 
+router.post('/add-img', jsonParser, (req, res) => {
+    console.log(req.body.imgAddress, req.body.username, req.body.journeyId, req.body.journeyTitle);
+    const requiredFields = ['imgAddress', 'username', 'journeyId', 'journeyTitle'];
+    for (let i = 0; i < requiredFields.length; i++) {
+        const field = requiredFields[i];
+        if (!(field in req.body)) {
+            const message = `Missing \`${field}\` in request body`;
+            console.error(message);
+            return res.status(400).send(message);
+        }
+    }
+    Image
+        .create({
+            imgAddress: req.body.imgAddress,
+            journeyId: req.body.journeyId,
+            username: req.body.username,
+            journeyTitle: req.body.journeyTitle
+        })
+        .then(image => res.status(201).json(image))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: 'image failed to create' });
+        });
 
+});
+
+router.get('/images/:journeyId', (req, res) => {
+    console.log('getting all images for username journey');
+    console.log(req.params.journeyId);
+
+    Image
+        .find({ journeyId: req.params.journeyId })
+        .then(images => {
+            res.json({
+                images: images.map(image => image)
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'couldnot retrieve images' });
+        });
+});
+
+router.get('/images/single/:journeyId', (req, res) => {
+    console.log('getting all images for username journey');
+    console.log(req.params.journeyId);
+    Image
+        .findOne({ journeyId: req.params.journeyId })
+        .then(image => res.json(image))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'couldnot retrieve images' });
+        });
+});
 
 module.exports = router;
