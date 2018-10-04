@@ -286,7 +286,7 @@ picture {
     .homepage,
     .dashboard,
     .edit-journey {
-        margin-bottom: 100px;
+        padding-bottom: 100px;
     }
     header h1 {
         padding: 25px 0;
