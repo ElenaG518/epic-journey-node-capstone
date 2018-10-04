@@ -9,7 +9,7 @@ let journey_title;
 $('.home-anchor').click(event => {
     console.log("home anchor clicked");
 
-    event.preventDefault();
+    // event.preventDefault();
     const username = $('#loggedInUserName').val();
     console.log(username);
     $('.journal-entry').empty();
@@ -288,7 +288,7 @@ function createThumb(thumb_info, journey_id, journey_title) {
             `<article class="card">
             <a href="#" class="link-to-journey" id="${thumb_info.journeyId}">
             <picture class="thumbnail">
-                <img src="${thumb_info.imgAddress}">
+                <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
             </picture> 
             <div class="card-content">
                 <p>${thumb_info.journeyTitle}</p>
@@ -355,27 +355,51 @@ function displayJourney(data) {
     getAllImages(journey_id);
 }
 
-cloudinary.applyUploadWidget(
-    document.getElementById('upload_widget_opener'), { cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server', button_caption: 'Upload & crop image' },
-    function(error, result) {
-        console.log(error, result);
-        const username = $('#loggedInUserName').val();
+document.getElementById('upload_widget_opener').addEventListener('click', function() {
+    cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server' },
+        function(error, result) {
+            console.log(error, result);
+            const username = $('#loggedInUserName').val();
+            addPhotos(result[0].url, username, journey_id);
+        }, false);
 
-        addPhotos(result[0].url, username, journey_id);
-        $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
-            console.log("Single file success", e, data);
-        });
-        $(document).on('cloudinarywidgeterror', function(e, data) {
-            console.log("Error", data);
-        });
-        $(document).on('cloudinarywidgetdeleted', function(e, data) {
-            console.log("Public ID", data.public_id);
-        });
-        $(document).on('cloudinarywidgetclosed', function(e, data) {
-            console.log("Widget closed", data);
-        });
-    }
-);
+    $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
+        console.log("Single file success", e, data);
+    });
+    $(document).on('cloudinarywidgeterror', function(e, data) {
+        console.log("Error", data);
+    });
+    $(document).on('cloudinarywidgetdeleted', function(e, data) {
+        console.log("Public ID", data.public_id);
+    });
+    $(document).on('cloudinarywidgetclosed', function(e, data) {
+        console.log("Widget closed", data);
+    });
+});
+
+
+
+// cloudinary.openUploadWidget(
+//     document.getElementById('upload_widget_opener'), { cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server', button_caption: 'Upload & crop image' },
+//     function(error, result) {
+//         console.log(error, result);
+//         const username = $('#loggedInUserName').val();
+
+//         addPhotos(result[0].url, username, journey_id);
+//         $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
+//             console.log("Single file success", e, data);
+//         });
+//         $(document).on('cloudinarywidgeterror', function(e, data) {
+//             console.log("Error", data);
+//         });
+//         $(document).on('cloudinarywidgetdeleted', function(e, data) {
+//             console.log("Public ID", data.public_id);
+//         });
+//         $(document).on('cloudinarywidgetclosed', function(e, data) {
+//             console.log("Widget closed", data);
+//         });
+//     }
+// );
 
 function addPhotos(img_url, username, journey_id) {
     console.log("Add photos funct", img_url, username, journey_id);
@@ -428,22 +452,18 @@ function getAllImages(journeyId) {
         });
 }
 
-
-
 function displayAllImages(imgArray) {
     console.log("function displayAllImages");
     const imgArrayString = [];
     for (let index in imgArray.images) {
         // imgArrayString.push(`${imgArray.images[index].imgAddress}`);
         imgArrayString.push(`<picture>
-            <img src="${imgArray.images[index].imgAddress}">
+            <img src="${imgArray.images[index].imgAddress}" alt="${imgArray.images[index].journeyTitle}">
             </picture>`);
     }
     console.log(imgArrayString);
     $('.album').append(imgArrayString);
 }
-
-
 
 // EDIT journey
 
@@ -630,7 +650,3 @@ function displayUserList(data) {
         );
     }
 };
-
-// $(function() {
-
-// })

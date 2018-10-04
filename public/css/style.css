@@ -1,9 +1,8 @@
 body {
-    background-image: url("https://nancieteresa.files.wordpress.com/2015/01/grunge-travel-background-239421341.jpg?w=810");
-    background-position: center;
+    background-image: url("../images/travel.jpg");
+    background-position: top left;
     /* Center the image */
-    background-repeat: repeat;
-    /* Do not repeat the image */
+    background-repeat: repeat-y;
     background-size: cover;
     background-color: #ffc3a042;
     font-family: 'Lato', sans-serif;
@@ -30,10 +29,8 @@ header h1 {
     background-image: url("../images/mustard.jpg");
     background-position: center;
     /* Center the image */
-    background-repeat: no-repeat;
-    /* Do not repeat the image */
-    background-size: cover;
-    /* Resize the background image to cover the entire container */
+    background-repeat: repeat;
+    /* background-size: cover; */
 }
 
 main {
@@ -66,7 +63,7 @@ nav li {
     text-align: center;
 }
 
-nav li:hover {
+.header-nav li:hover {
     background-color: darkolivegreen;
 }
 
@@ -317,7 +314,9 @@ picture {
     }
     main {
         top: 150px;
-        /* margin-bottom: 150px; */
+    }
+    .homepage h2 {
+        margin-top: 50px;
     }
     .cards,
     {

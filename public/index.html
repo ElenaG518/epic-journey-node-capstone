@@ -23,9 +23,9 @@
 <body>
     <input type="hidden" id="loggedInUserName" value="">
 
-    <header>
+    <header role="banner">
         <h1>Epic Journey</h1>
-        <nav class="hide">
+        <nav class="hide header-nav" role="navigation">
             <ul>
                 <li> <a href="#home" class="home-anchor">Home</a></li>
                 <li> <a href="#login" class="logout-anchor">Log Out</a> </li>
@@ -34,7 +34,7 @@
     </header>
     <main role='main'>
 
-        <section class='intro' id="login">
+        <section role="region" class='intro' id="login">
             <h2>Create journals for all of your trips in one easy to use app</h2>
 
             <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
@@ -78,7 +78,7 @@
             </form>
         </section>
 
-        <section class="create-journey hide">
+        <section role="region" class="create-journey hide">
             <form class="journey-form">
 
                 <fieldset>
@@ -95,7 +95,7 @@
                     <!-- <p>Ending Date: <input type="text" id="datepicker-ending"></p> -->
                     <!-- <input type='text' id='dates' name='dates' value="dates are awesome" required> -->
                     <label for='description'>Journal Entry:</label>
-                    <textarea class='journal-text' id='description' rows="30" cols="50">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
+                    <textarea class='journal-text' id='description' rows="10" cols="50">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</textarea>
                     <button role='button' type='submit' id='sumbit-journey'>Submit</button>
                 </fieldset>
             </form>
@@ -103,7 +103,7 @@
 
 
 
-        <section class="homepage hide" id="home">
+        <section role="region" class="homepage hide" id="home">
             <h2>My Journeys</h2>
 
             <div class="cards">
@@ -115,16 +115,17 @@
 
 
 
-        <section class="dashboard hide">
+        <section role="region" class="dashboard hide">
 
 
             <div class="notebook">
 
                 <img src="images/sketchBackground.jpg">
-                <nav class="dashboard-nav">
+                <nav role="navigation" class="dashboard-nav">
                     <ul>
-                        <li><a href="#" class="delete-journey-anchor">Delete </a> |</li>
-                        <li><a href="#" class="edit-journey-anchor">Edit </a></li>
+                        <li><a href="#" id="upload_widget_opener">Upload image</a>|</li>
+                        <li><a href="#" class="edit-journey-anchor">Edit</a>|</li>
+                        <li><a href="#" class="delete-journey-anchor">Delete</a> |</li>
                     </ul>
                 </nav>
             </div>
@@ -133,11 +134,11 @@
 
 
 
-            <a href="#" id="upload_widget_opener">Upload image</a>
+
 
         </section>
 
-        <section class="edit-journey">
+        <section role="region" class="edit-journey">
 
         </section>
 
