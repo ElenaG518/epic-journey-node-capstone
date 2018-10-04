@@ -281,6 +281,13 @@ picture {
 }
 
 @media screen and (min-width: 320px) and (max-width: 620px) {
+    .intro,
+    .create-journey,
+    .homepage,
+    .dashboard,
+    .edit-journey {
+        margin-bottom: 100px;
+    }
     header h1 {
         padding: 25px 0;
         height: 100px;
