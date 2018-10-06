@@ -500,40 +500,5 @@ describe('Journey router API resource for Image', function() {
         });
     });
 
-    describe('GET endpoint for image', function() {
-        // strategy: make a GET request to get one journey, then send journeyId and JourneyTitle to 
-        //GenerateImagebyJourneyId function to create image. then retrieve image by journeyId
-        // then prove that the user we get back has
-        // right keys, and that `id` is there (which means
-        // the data was inserted into db)
-        it('should return image by journey id', function() {
 
-            let img = {};
-
-            Journey.findOne()
-                .then(function(res) {
-                    // console.log("hello", res._id, res.title);
-                    const newImage = generateImageData();
-                    img = seedOneImage(res._id, res.title);
-                    console.log("what", img);
-                    return chai.request(app)
-                        .post('/journeys/add-img')
-                        .send(img)
-                })
-                .then(function(res) {
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.error(err);
-
-                });
-
-
-
-
-
-
-
-        });
-    });
 });
