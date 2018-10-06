@@ -1,9 +1,11 @@
 'use strict';
+// cryptjs for hashing and validation passwords
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+// DEFINE USER SCHEMA
 const UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -18,6 +20,7 @@ const UserSchema = mongoose.Schema({
     lastName: { type: String, default: '' }
 });
 
+// RETURN USER ITEM BUT DO NOT INCLUDE PASSWORD
 UserSchema.methods.serialize = function() {
     return {
         id: this._id,

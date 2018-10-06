@@ -100,7 +100,7 @@ $('.signup-form').submit(function(event) {
     const lastName = $('#lastName').val();
     const username = $('#username').val();
     const password = $('#password').val();
-    // const passwordMatch = $('$password-match').val();
+
 
     //validate the input
     if (firstName == "") {
@@ -131,7 +131,7 @@ $('.signup-form').submit(function(event) {
                 data: JSON.stringify(newUserObject),
                 contentType: 'application/json'
             })
-            //if call is succefull
+            //if call is successfull
             .done(function(result) {
                 $('#loggedInUserName').val(result.username);
                 $('nav').removeClass('hide');
@@ -164,12 +164,13 @@ $('.login-form').submit(function(event) {
     } else if (password == "") {
         alert('Please enter password');
     } else {
-
+        //create the payload object (what data we send to the api call)
         const userObject = {
             username: username,
             password: password
         };
         console.log(userObject);
+        //make the api call using the payload above
         $.ajax({
                 type: 'POST',
                 url: '/users/login',
@@ -177,6 +178,7 @@ $('.login-form').submit(function(event) {
                 data: JSON.stringify(userObject),
                 contentType: 'application/json'
             })
+            //if call is successfull
             .done(function(result) {
                 $('#loggedInUserName').val(result.username);
                 console.log(result.username);
@@ -200,6 +202,7 @@ $('.login-form').submit(function(event) {
 // CREATE journeys API call
 $('.journey-form').submit(function(event) {
     event.preventDefault();
+    // capture values for journey
     console.log("journal entry form ran");
     const title = $('#title').val();
     const location = $('#location').val();
@@ -207,7 +210,7 @@ $('.journey-form').submit(function(event) {
     const endDates = $('#datepicker-end').val();
     const description = $('#description').val();
     const username = $('#loggedInUserName').val();
-
+    //create the payload object (what data we send to the api call)
     const journalObject = {
         title: title,
         location: location,
@@ -217,7 +220,7 @@ $('.journey-form').submit(function(event) {
         loggedInUserName: username
     };
     console.log(journalObject);
-
+    //make the api call using the payload above
     $.ajax({
             type: 'POST',
             url: '/journeys/create',
@@ -225,6 +228,7 @@ $('.journey-form').submit(function(event) {
             data: JSON.stringify(journalObject),
             contentType: 'application/json'
         })
+        //if call is successfull
         .done(function(result) {
             console.log(result);
             $('.journal-entry').empty();
@@ -247,17 +251,17 @@ function getListOfJourneys(username) {
         username = $('#loggedInUserName').val();
     }
     console.log(username);
+    //make the api call using the payload above
     $.ajax({
             type: 'GET',
             url: `/journeys/${username}`,
             dataType: 'json',
             contentType: 'application/json'
         })
+        //if call is successfull
         .done(function(result) {
             console.log(result);
             displayJourneys(result);
-            // getListofImages();
-
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -278,25 +282,27 @@ function displayJourneys(data) {
         $('.dashboard').hide();
     };
     data.journeys.sort((a, b) => b.title - a.title);
-
+    // get one image per journey to show on homepages
     for (var index in data.journeys) {
-        console.log("for", data.journeys[index].id, data.journeys[index].title);
+        // console.log("for", data.journeys[index].id, data.journeys[index].title);
         getOneImage(data.journeys[index].id, data.journeys[index].title);
     }
 }
 
-
+// make API call for one image
 function getOneImage(journeyId, journeyTitle) {
     console.log("function getOneImage", journeyId);
     journey_id = journeyId;
     journey_title = journeyTitle;
     console.log("here", journey_id, journey_title);
+    //make the api call using the payload above
     $.ajax({
             type: 'GET',
             url: `/journeys/images/single/${journeyId}`,
             dataType: 'json',
             contentType: 'application/json'
         })
+        //if call is successfull
         .done(function(result) {
             console.log(result);
             createThumb(result, journey_id, journey_title);
@@ -309,12 +315,14 @@ function getOneImage(journeyId, journeyTitle) {
         });
 }
 
+// create thumbnails for the each journey displayed on homepage
 function createThumb(thumb_info, journey_id, journey_title) {
     console.log("function createThumb", thumb_info);
+    // if there are no image in the database for a journey
     if (thumb_info == null) {
         console.log(journey_id, journey_title);
         $('.cards').append(
-            `<article class="card">
+                `<article class="card">
             <a href="#${journey_title}" class="link-to-journey" id="${journey_id}">
             <div class="card-content">
                 <p>${journey_title}</p>
@@ -322,7 +330,8 @@ function createThumb(thumb_info, journey_id, journey_title) {
             
             </a>
         </article>`
-        )
+            )
+            // else create thumbnail with the image returned by API get call
     } else {
         $('.cards').append(
             `<article class="card">
@@ -350,12 +359,14 @@ $('.cards').on('click', '.link-to-journey', event => {
 });
 
 function getJourneyById(journey_id) {
+    //make the api call using the payload above
     $.ajax({
             type: 'GET',
             url: `/journeys/id/${journey_id}`,
             dataType: 'json',
             contentType: 'application/json'
         })
+        //if call is successfull
         .done(function(result) {
             console.log(result);
             $('.journal-entry').empty();
@@ -389,9 +400,11 @@ function displayJourney(data) {
          <p class="dates">${data.dates}</p>
          <p class = "description">${data.description}</p>`
     );
+    // call function to get all images by the id of the journey
     getAllImages(journey_id);
 }
 
+// CREATE CLOUDINARY WIDGET TO UPLOAD PICTURES
 document.getElementById('upload_widget_opener').addEventListener('click', function() {
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server' },
         function(error, result) {
@@ -414,7 +427,7 @@ document.getElementById('upload_widget_opener').addEventListener('click', functi
     });
 });
 
-
+// add pictures for journeys to the database
 function addPhotos(img_url, username, journey_id) {
     console.log("Add photos funct", img_url, username, journey_id);
     const imgObject = {
@@ -424,6 +437,7 @@ function addPhotos(img_url, username, journey_id) {
         journeyTitle: journey_title
     };
     console.log(imgObject);
+    //make the api call using the payload above
     $.ajax({
             type: "POST",
             url: `/journeys/add-img`,
@@ -448,6 +462,7 @@ function addPhotos(img_url, username, journey_id) {
 
 function getAllImages(journeyId) {
     console.log("function getAllImages", journeyId);
+    //make the api call using the payload above
     $.ajax({
             type: 'GET',
             url: `/journeys/images/${journeyId}`,
@@ -544,6 +559,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     event.preventDefault();
     console.log("journal-edit-btn has been pressed");
     $('.edit-journey').removeClass('hide').show();
+    // capture values from form
     const id = journey_id;
     const title = $('#edit-title').val();
     const location = $('#edit-location').val();
@@ -552,6 +568,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     const description = $('#edit-description').val();
     const username = $('#loggedInUserName').val();
 
+    // create paylode object
     const editJournalObject = {
         title: title,
         location: location,
@@ -562,7 +579,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
         id: id
     };
     console.log(editJournalObject);
-
+    //make the api call using the payload above
     $.ajax({
             type: 'PUT',
             url: `/journeys/update/${id}`,
@@ -570,6 +587,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
             data: JSON.stringify(editJournalObject),
             contentType: 'application/json'
         })
+        // if the call is successful
         .done(function(result) {
             $('.journal-entry').empty();
             const username = $('#loggedInUserName').val();
@@ -603,12 +621,14 @@ $('.delete-journey-anchor').click(event => {
 // delete journey API call
 function deleteJourney(id) {
     console.log(id);
+    //make the api call to delete specific journey
     $.ajax({
             type: 'DELETE',
             url: `/journeys/${id}`,
             dataType: 'json',
             contentType: 'application/json'
         })
+        // if the call is successful
         .done(function(message) {
             const username = $('#loggedInUserName').val();
             console.log(username);

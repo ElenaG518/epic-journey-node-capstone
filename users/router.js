@@ -45,6 +45,7 @@ router.post('/create', jsonParser, (req, res) => {
         field => req.body[field].trim() !== req.body[field]
     );
 
+    // get rid of all empty space
     if (nonTrimmedField) {
         return res.status(422).json({
             code: 422,
@@ -54,6 +55,7 @@ router.post('/create', jsonParser, (req, res) => {
         });
     }
 
+    // define size of username and password
     const sizedFields = {
         username: {
             min: 1
@@ -167,7 +169,7 @@ router.post('/login', jsonParser, (req, res) => {
                 // Any errors like this will be handled in the catch block.
                 return Promise.reject({
                     reason: 'ValidationError',
-                    message: 'username not found'
+                    message: 'Incorrect username or password'
                 });
             }
             return user.validatePassword(password);
@@ -177,7 +179,7 @@ router.post('/login', jsonParser, (req, res) => {
                 console.log('failed validation');
                 return Promise.reject({
                     reason: 'ValidationError',
-                    message: 'Incorrect password'
+                    message: 'Incorrect username or password'
                 });
             }
             console.log('validation successful');

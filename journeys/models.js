@@ -3,6 +3,7 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
+// this is our schema to represent an image
 const journeyImageSchema = mongoose.Schema({
     imgAddress: { type: String, required: true },
     journeyId: { type: String, required: true },
@@ -22,6 +23,7 @@ const journeySchema = mongoose.Schema({
     // images: [journeyImageSchema]
 });
 
+// how image will be represented when method is called
 journeyImageSchema.methods.serialize = function() {
     return {
         journeyId: this.journeyId,
@@ -30,11 +32,12 @@ journeyImageSchema.methods.serialize = function() {
     }
 }
 
+// combined both dates
 journeySchema.virtual('dates').get(function() {
     return `${this.startDates} - ${this.endDates}`.trim();
 });
 
-
+// how journey will be represented when method is called
 journeySchema.methods.serialize = function() {
     return {
         id: this._id,

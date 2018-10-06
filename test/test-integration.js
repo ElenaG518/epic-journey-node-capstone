@@ -10,7 +10,7 @@ const { User } = require('../users/models');
 
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-// const { app } = require('../server');
+
 // this makes the expect syntax available throughout
 // this module
 const expect = chai.expect;

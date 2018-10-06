@@ -27,19 +27,6 @@ app.use('/auth/', authRouter);
 app.use('/journeys/', journeysRouter);
 
 
-
-
-// A protected endpoint which needs a valid JWT to access it
-// app.get('/api/protected', jwtAuth, (req, res) => {
-//     return res.json({
-//         data: 'rosebud'
-//     });
-// });
-
-
-
-// ADD PHOTOS
-
 const { PORT, DATABASE_URL } = require('./config');
 
 app.use(bodyParser.json());
