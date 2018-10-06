@@ -12,12 +12,12 @@ const journeyImageSchema = mongoose.Schema({
 
 // this is our schema to represent a journey
 const journeySchema = mongoose.Schema({
-    title: { type: String, required: false },
-    location: { type: String, required: false },
+    title: { type: String, required: true },
+    location: { type: String, required: true },
     startDates: { type: String, required: false },
     endDates: { type: String, required: false },
-    description: { type: String, required: false },
-    created: { type: Date, default: Date.now, required: false },
+    description: { type: String, required: true },
+    created: { type: Date, default: Date.now, required: true },
     loggedInUserName: { type: String, required: true },
     // images: [journeyImageSchema]
 });
