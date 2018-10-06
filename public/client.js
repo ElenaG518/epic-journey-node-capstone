@@ -80,6 +80,14 @@ $('.add-journey').click(event => {
     console.log("add journey button clicked");
     $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
+    const title = $('#title').val("");
+    const location = $('#location').val("");
+    const startDates = $('#datepicker-start').val("");
+    const endDates = $('#datepicker-end').val("");
+    const description = $('#description').val("");
+    const username = $('#loggedInUserName').val();
+
+
 });
 
 // API calls to users router
