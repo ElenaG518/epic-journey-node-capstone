@@ -1,354 +1,381 @@
-body {
-    background-image: url("../images/travel.jpg");
-    background-position: top left;
-    /* Center the image */
-    background-repeat: repeat-y;
-    background-size: cover;
-    background-color: #ffc3a042;
-    font-family: 'Lato', sans-serif;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100px;
-    background-color: #85c738;
-}
-
-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 900;
-    margin: 0;
-    font-size: 3em;
-    padding: 75px 0;
-    text-align: center;
-    color: #48470e;
-    background-image: url("../images/mustard.jpg");
-    background-position: center;
-    /* Center the image */
-    background-repeat: repeat;
-    /* background-size: cover; */
-}
-
-main {
-    position: relative;
-    top: 300px;
-    margin: 0 auto;
-    max-width: 1200px;
-    /* margin-bottom: 100px; */
-}
-
-nav {
-    line-height: 2.5em;
-    display: block;
-    background-color: #2b2b2b;
-    width: 100%;
-}
-
-nav ul {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
-    align-items: center;
-    align-content: center;
-}
-
-nav li {
-    flex: 0 0 calc(10%);
-    list-style: none;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    text-align: center;
-}
-
-.header-nav li:hover {
-    background-color: darkolivegreen;
-}
-
-.header-nav ul {
-    text-align: center;
-}
-
-h2 {
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    margin-bottom: 50px;
-    padding: 0 15px;
-}
-
-p {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 10px 15px;
-    line-height: 1.5em;
-}
-
-.hide {
-    display: none;
-}
-
-form {
-    color: black;
-    background-color: hsla(0, 6%, 83%, 0.99);
-    max-width: 400px;
-    border: 3px solid white;
-    border-radius: 10px;
-    margin: 50px auto;
-}
-
-form fieldset {
-    border: 0;
-}
-
-form legend {
-    text-align: center;
-    padding: 30px 0 20px;
-    font-size: larger;
-}
-
-label {
-    max-width: 280px;
-    display: block;
-    padding: 5px 0px;
-    margin: 0 auto;
-}
-
-form input {
-    display: block;
-    margin: 0 auto 25px;
-    width: 280px;
-}
-
-.journey-form,
-.edit-form {
-    max-width: 620px;
-}
-
-.journal-text,
-.edit-journal-text {
-    display: block;
-    margin: 0 auto 25px;
-}
-
-form a {
-    font-size: 80%;
-    text-align: center;
-    display: block;
-    text-decoration: none;
-    margin-bottom: 20px;
-}
-
-form button,
-.add-journey,
-.add-pics {
-    border: 5px solid white;
-    border-radius: 5px;
-    padding: 15px 25px;
-    background-color: #ffc3a0;
-    display: block;
-    margin: 50px auto;
-}
-
-.homepage h2 {
-    margin-bottom: 50px;
-    color: darkslategray;
-    font-weight: 900;
-}
-
-.cards {
-    margin-top: 25px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: baseline;
-    align-content: flex-start;
-}
-
-.card {
-    display: flex;
-    flex: 0 1 calc(25% - 1em);
-    margin: auto;
-    background: white;
-    margin-bottom: 2em;
-    border: 1px solid darkgrey;
-    box-shadow: 0px 2px black;
-}
-
-picture {
-    margin: auto;
-    padding: 3px;
-    display: block;
-}
-
-.card:hover {
-    box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
-    padding: 1px;
-}
-
-.card a {
-    color: black;
-    /* text-decoration: none; */
-    display: block;
-    text-align: left;
-    background-color: #ffc3a000;
-    margin: auto;
-    /* padding: 10px 15px; */
-}
-
-.card-content {
-    padding: 5px 0 2px;
-    letter-spacing: 2px;
-    font-size: 80%;
-    font-family: 'Indie Flower', cursive;
-}
-
-.dashboard {
-    max-width: 800px;
-    margin: auto auto 100px;
-    margin-top: 45px;
-}
-
-.dashboard-nav {
-    background-color: transparent;
-    line-height: 0.2em;
-    padding: 60px;
-}
-
-.dashboard-nav ul {
-    display: block;
-    text-align: center;
-}
-
-.dashboard-nav li {
-    list-style: none;
-    display: inline-block;
-    text-align: center;
-}
-
-.dashboard-nav a {
-    padding: 0 10px;
-    color: black;
-    text-decoration: none;
-}
-
-.notebook {
-    background-image: url("../images/sketchBackground.jpg");
-    background-size: cover;
-    position: relative;
-    max-width: 800px;
-    margin: auto;
-}
-
-.notebook a {
-    font-size: 85%;
-    margin: auto;
-    display: inline-block;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-}
-
-.journal-entry {
-    height: 450px;
-    overflow-y: auto;
-    display: block;
-    margin: auto;
-    text-align: left;
-    padding: 30px;
-    font-size: 90%;
-    font-family: 'Indie Flower', cursive;
-}
-
-.journal-entry h2 {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.journal-entry p {
-    padding: 10px 35px 10px 55px;
-}
-
-.album {
-    margin: 25px 0;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    align-content: center;
-    /* height: 410px; */
-    /* overflow-y: auto; */
-}
-
-.album picture {
-    border: 2px inset silver;
-    flex: 0 1 calc(40% - 2em);
-    margin: auto;
-    background: white;
-    margin-bottom: 2em;
-    box-shadow: 0px 0px 1px 0px lightgrey;
-    padding: 10px;
-}
-
-@media screen and (min-width: 320px) and (max-width: 620px) {
-    .intro,
-    .create-journey,
-    .homepage,
-    .dashboard,
-    .edit-journey {
-        padding-bottom: 100px;
+    body {
+        background-image: url("../images/travel.jpg");
+        background-position: top left;
+        /* Center the image */
+        background-repeat: repeat-y;
+        background-size: cover;
+        background-color: #ffc3a042;
+        font-family: 'Lato', sans-serif;
     }
-    header h1 {
-        padding: 25px 0;
+    
+    header {
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        width: 100%;
         height: 100px;
-        font-size: 1.8em;
+        background-color: #85c738;
     }
-    nav li {
-        flex: 0 0 calc(25%);
+    
+    header h1 {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-weight: 900;
+        margin: 0;
+        font-size: 3em;
+        padding: 75px 0;
+        text-align: center;
+        color: #48470e;
+        background-image: url("../images/mustard.jpg");
+        background-position: center;
+        /* Center the image */
+        background-repeat: repeat;
+        /* background-size: cover; */
     }
+    
     main {
-        top: 150px;
-    }
-    .homepage h2 {
-        margin-top: 50px;
-    }
-    .cards,
-    {
-        margin-top: 50px;
-    }
-    .album {
-        margin-top: 50px
-    }
-    .card {
-        flex: 0 1 calc(85% - .5em);
-        margin-bottom: 1em;
-    }
-    .album img {
-        width: 250px;
-        margin-bottom: 1em;
-    }
-    form,
-    .journey-form {
-        max-width: 300px;
-    }
-    form input,
-    form label,
-    .journey-form textarea {
-        width: 250px;
-    }
-    .notebook {
         position: relative;
-        /* height: 480px; */
+        top: 300px;
+        margin: 0 auto;
+        max-width: 1200px;
+        /* margin-bottom: 100px; */
     }
+    
+    nav {
+        line-height: 2.5em;
+        display: block;
+        background-color: #2b2b2b;
+        width: 100%;
+    }
+    
+    nav ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        align-content: center;
+    }
+    
+    nav li {
+        flex: 0 0 calc(15%);
+        list-style: none;
+    }
+    
+    nav a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    }
+    
+    .header-nav li:hover {
+        background-color: darkolivegreen;
+    }
+    
+    .header-nav ul {
+        text-align: center;
+    }
+    
+    h2 {
+        font-family: 'Playfair Display', serif;
+        text-align: center;
+        margin-bottom: 50px;
+        padding: 0 15px;
+    }
+    
+    p {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px 15px;
+        line-height: 1.5em;
+    }
+    
+    .hide {
+        display: none;
+    }
+    
+    form {
+        color: black;
+        background-color: hsla(0, 6%, 83%, 0.99);
+        max-width: 400px;
+        border: 3px solid white;
+        border-radius: 10px;
+        margin: 50px auto;
+    }
+    
+    form fieldset {
+        border: 0;
+    }
+    
+    form legend {
+        text-align: center;
+        padding: 30px 0 20px;
+        font-size: larger;
+    }
+    
+    label {
+        max-width: 280px;
+        display: block;
+        padding: 5px 0px;
+        margin: 0 auto;
+    }
+    
+    form input {
+        display: block;
+        margin: 0 auto 25px;
+        width: 280px;
+    }
+    
+    .journey-form,
+    .edit-form {
+        max-width: 620px;
+    }
+    
+    .journal-text,
+    .edit-journal-text {
+        display: block;
+        margin: 0 auto 25px;
+    }
+    
+    form a {
+        font-size: 80%;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        margin-bottom: 20px;
+    }
+    
+    form button,
+    .add-journey,
+    .add-pics {
+        border: 5px solid white;
+        border-radius: 5px;
+        padding: 15px 25px;
+        background-color: #ffc3a0;
+        display: block;
+        margin: 50px auto;
+    }
+    
+    .homepage h2 {
+        margin-bottom: 50px;
+        color: darkslategray;
+        font-weight: 900;
+    }
+    
+    .cards {
+        margin-top: 25px;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: baseline;
+        align-content: flex-start;
+    }
+    
+    .card {
+        display: flex;
+        flex: 0 1 calc(25% - 1em);
+        margin: auto;
+        background: white;
+        margin-bottom: 2em;
+        border: 1px solid darkgrey;
+        box-shadow: 0px 2px black;
+    }
+    
+    picture {
+        margin: auto;
+        padding: 3px;
+        display: block;
+    }
+    
+    .card:hover {
+        box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
+        padding: 1px;
+    }
+    
+    .card a {
+        color: black;
+        /* text-decoration: none; */
+        display: block;
+        text-align: left;
+        background-color: #ffc3a000;
+        /* margin: auto; */
+        padding: 10px 15px;
+    }
+    
+    .card-content {
+        padding: 5px 0 2px;
+        letter-spacing: 2px;
+        font-size: 80%;
+        font-family: 'Indie Flower', cursive;
+    }
+    
+    .thubmnail {
+        flex: 0 1 calc(40% - 2em);
+    }
+    
+    .dashboard {
+        max-width: 800px;
+        margin: auto auto 100px;
+        margin-top: 45px;
+    }
+    
+    .dashboard-nav {
+        background-color: transparent;
+        line-height: 0.2em;
+        padding: 60px;
+    }
+    
+    .dashboard-nav ul {
+        display: block;
+        text-align: center;
+    }
+    
+    .dashboard-nav li {
+        list-style: none;
+        display: inline-block;
+        text-align: center;
+        text-decoration: underline;
+    }
+    
+    .dashboard-nav a {
+        padding: 0 10px;
+        color: black;
+        text-decoration: none;
+    }
+    
+    .notebook {
+        background-image: url("../images/sketchBackground.jpg");
+        background-size: cover;
+        position: relative;
+        max-width: 800px;
+        margin: auto;
+    }
+    
+    .notebook a {
+        font-size: 85%;
+        margin: auto;
+        display: inline-block;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+    }
+    
+    .journal-entry {
+        height: 450px;
+        overflow-y: auto;
+        display: block;
+        margin: auto;
+        text-align: left;
+        padding: 30px;
+        font-size: 90%;
+        font-family: 'Indie Flower', cursive;
+    }
+    
+    .journal-entry h2 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
     .journal-entry p {
-        padding: 10px 10px 10px 15px;
+        padding: 10px 35px 10px 55px;
     }
-    .edit-journey {
-        margin-top: 50px;
+    
+    .album {
+        margin: 25px 0;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        align-content: center;
+        /* height: 410px; */
+        /* overflow-y: auto; */
     }
-}
+    
+    .album picture {
+        border: 2px inset silver;
+        flex: 0 1 calc(40% - 2em);
+        margin: auto;
+        background: white;
+        margin-bottom: 2em;
+        box-shadow: 0px 0px 1px 0px lightgrey;
+        padding: 10px;
+    }
+    
+    @media screen and (max-width: 720px) and (min-width: 620px) {
+        .card {
+            flex: 0 1 calc(33% - 1em);
+        }
+    }
+    
+    @media screen and (max-width: 620px) and (min-width: 420px) {
+        .card {
+            flex: 0 1 calc(65% - 1em);
+            margin-bottom: 1em;
+        }
+    }
+    
+    @media screen and (max-width: 419px) and (min-width: 320px) {
+        .card {
+            flex: 0 1 calc(85% - 1em);
+            margin-bottom: 1em;
+        }
+    }
+    
+    @media screen and (min-width: 320px) and (max-width: 620px) {
+        .intro,
+        .create-journey,
+        .homepage,
+        .dashboard,
+        .edit-journey {
+            padding-bottom: 100px;
+        }
+        header h1 {
+            padding: 25px 0;
+            height: 100px;
+            font-size: 1.8em;
+        }
+        nav li {
+            flex: 0 0 calc(25%);
+        }
+        main {
+            top: 150px;
+        }
+        .homepage h2 {
+            margin-top: 50px;
+        }
+        .cards,
+        {
+            margin-top: 50px;
+        }
+        .album {
+            margin-top: 50px
+        }
+        .card {
+            margin-bottom: 1em;
+        }
+        .album img {
+            width: 250px;
+            margin-bottom: 1em;
+        }
+        form,
+        .journey-form {
+            max-width: 300px;
+        }
+        form input,
+        form label,
+        .journey-form textarea {
+            width: 250px;
+        }
+        .notebook {
+            position: relative;
+            /* height: 480px; */
+        }
+        .journal-entry p {
+            padding: 10px 10px 10px 15px;
+        }
+        .edit-journey {
+            margin-top: 50px;
+        }
+        .dashboard-nav {
+            padding: 0;
+        }
+    }

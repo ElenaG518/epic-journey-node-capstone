@@ -302,19 +302,15 @@ function createThumb(thumb_info, journey_id, journey_title) {
     } else {
         $('.cards').append(
             `<article class="card">
-            
-                
+            <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
             <picture class="thumbnail">
                 <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
             </picture> 
-            <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
             <div class="card-content">
             <p>${thumb_info.journeyTitle}</p>
-                
             </div>
             </a> 
-           
-        </article>`
+            </article>`
         );
     }
 }
@@ -366,7 +362,7 @@ function displayJourney(data) {
     $('.journal-entry').append(
         `<h2>${data.title}</h2>
          <p class="location">${data.location}</p>
-         <p class="dates">${data.dates}<p>
+         <p class="dates">${data.dates}</p>
          <p class = "description">${data.description}</p>`
     );
     getAllImages(journey_id);
@@ -394,29 +390,6 @@ document.getElementById('upload_widget_opener').addEventListener('click', functi
     });
 });
 
-
-
-// cloudinary.openUploadWidget(
-//     document.getElementById('upload_widget_opener'), { cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server', button_caption: 'Upload & crop image' },
-//     function(error, result) {
-//         console.log(error, result);
-//         const username = $('#loggedInUserName').val();
-
-//         addPhotos(result[0].url, username, journey_id);
-//         $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
-//             console.log("Single file success", e, data);
-//         });
-//         $(document).on('cloudinarywidgeterror', function(e, data) {
-//             console.log("Error", data);
-//         });
-//         $(document).on('cloudinarywidgetdeleted', function(e, data) {
-//             console.log("Public ID", data.public_id);
-//         });
-//         $(document).on('cloudinarywidgetclosed', function(e, data) {
-//             console.log("Widget closed", data);
-//         });
-//     }
-// );
 
 function addPhotos(img_url, username, journey_id) {
     console.log("Add photos funct", img_url, username, journey_id);
