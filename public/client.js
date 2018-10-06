@@ -5,11 +5,15 @@ let journey_title;
 
 // ANCHORS
 
+// var headerHeight = $('.anchor-container').height();
+// $('html, body').animate({
+//     scrollTop: $($.attr(this, 'href')).offset().top - headerHeight
+// }, 500);
+
 // home anchor
 $('.home-anchor').click(event => {
     console.log("home anchor clicked");
-
-    // event.preventDefault();
+    event.preventDefault();
     const username = $('#loggedInUserName').val();
     console.log(username);
     $('.journal-entry').empty();
@@ -32,6 +36,11 @@ $('.logout-anchor').click(event => {
 
 $('.signup-anchor').click(event => {
     event.preventDefault();
+    var headerHeight = $('.signup-form').height();
+    console.log(headerHeight);
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'signup')).offset().top - headerHeight
+    }, 500);
     console.log("got to sign up");
     $('.login-form').addClass('hide');
     $('.signup-form').removeClass('hide');
@@ -39,6 +48,11 @@ $('.signup-anchor').click(event => {
 
 $('.login-anchor').click(event => {
     event.preventDefault();
+    var headerHeight = $('.login-form').height();
+    console.log(headerHeight);
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'login')).offset().top - headerHeight
+    }, 500);
     console.log("got to login");
     $('.signup-form').addClass('hide');
     $('.login-form').removeClass('hide');
@@ -46,6 +60,7 @@ $('.login-anchor').click(event => {
 
 $('.add-journey').click(event => {
     event.preventDefault();
+
     console.log("add journey button clicked");
     $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
@@ -57,7 +72,6 @@ $('.add-journey').click(event => {
 $('.signup-form').submit(function(event) {
     event.preventDefault();
     console.log("signup form ran");
-
     const firstName = $('#firstName').val();
     const lastName = $('#lastName').val();
     const username = $('#username').val();
@@ -233,6 +247,7 @@ function getListOfJourneys(username) {
 // display all journeys to client
 function displayJourneys(data) {
     console.log("fuction displayJourneys ran", data);
+
     $('.intro').hide();
     $('.homepage').removeClass('hide').show();
     if (!$('.dashboard').hasClass('hide')) {
@@ -276,7 +291,7 @@ function createThumb(thumb_info, journey_id, journey_title) {
         console.log(journey_id, journey_title);
         $('.cards').append(
             `<article class="card">
-            <a href="#" class="link-to-journey" id="${journey_id}">
+            <a href="#${journey_title}" class="link-to-journey" id="${journey_id}">
             <div class="card-content">
                 <p>${journey_title}</p>
             </div>
@@ -287,15 +302,18 @@ function createThumb(thumb_info, journey_id, journey_title) {
     } else {
         $('.cards').append(
             `<article class="card">
-            <a href="#" class="link-to-journey" id="${thumb_info.journeyId}">
+            
+                
             <picture class="thumbnail">
                 <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
             </picture> 
+            <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
             <div class="card-content">
-                <p>${thumb_info.journeyTitle}</p>
+            <p>${thumb_info.journeyTitle}</p>
+                
             </div>
-            
-            </a>
+            </a> 
+           
         </article>`
         );
     }
@@ -345,13 +363,11 @@ function displayJourney(data) {
     console.log(data);
     console.log(journey_id);
     journey_title = `${data.title}`;
-    $('.notebook').append(
-        `<div class="journal-entry">
-                    <h2>${data.title}</h2>
-                    <p class="location">${data.location}</p>
-                    <p class="dates">${data.dates}<p>
-                    <p class = "description">${data.description}</p>
-             </div>`
+    $('.journal-entry').append(
+        `<h2>${data.title}</h2>
+         <p class="location">${data.location}</p>
+         <p class="dates">${data.dates}<p>
+         <p class = "description">${data.description}</p>`
     );
     getAllImages(journey_id);
 }

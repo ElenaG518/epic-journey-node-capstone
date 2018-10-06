@@ -39,23 +39,29 @@ function generateUserData() {
 }
 
 // GENERATE AND SEED IMAGES FOR JOURNEYS 
-function seedImageData(id, title, user) {
-    console.info('seeding image data');
-    const seedData = [];
-    for (let i = 1; i <= 5; i++) {
-        seedData.push(generateImageData());
-    }
-    // this will return a promise
-    return Image.insertMany(seedData);
-}
+
+// generate journey to provide journeyId and journeyTitle references when creating image,
+//  then making a call to make sure we retrieve correct image by journeyId
 
 function generateImageData() {
     return {
         journeyId: faker.random.uuid(),
         imgAddress: faker.image.imageUrl(),
         username: "elenaG",
-        journeyTitle: faker.lorem.sentence(),
+        journeyTitle: faker.lorem.sentence()
     }
+}
+
+function seedOneImage(id, title) {
+    const imgObj = {
+        journeyId: id,
+        imgAddress: faker.image.imageUrl(),
+        username: "elenaG",
+        journeyTitle: title,
+    }
+    console.log("seedOneImage", imgObj);
+    // Image.insertOne(imgObj);
+    return imgObj;
 }
 
 // GENERATE AND SEED DATA FOR JOURNEYS 
@@ -213,6 +219,8 @@ describe('User router API resource', function() {
 
 
 });
+
+
 
 describe('Journey router API resource', function() {
 
@@ -441,9 +449,9 @@ describe('Journey router API resource for Image', function() {
         return runServer(TEST_DATABASE_URL);
     });
 
-    // beforeEach(function() {
-    //     return seedImageData();
-    // });
+    beforeEach(function() {
+        return seedJourneyData();
+    });
 
     afterEach(function() {
         return tearDownDb();
@@ -492,4 +500,40 @@ describe('Journey router API resource for Image', function() {
         });
     });
 
+    describe('GET endpoint for image', function() {
+        // strategy: make a GET request to get one journey, then send journeyId and JourneyTitle to 
+        //GenerateImagebyJourneyId function to create image. then retrieve image by journeyId
+        // then prove that the user we get back has
+        // right keys, and that `id` is there (which means
+        // the data was inserted into db)
+        it('should return image by journey id', function() {
+
+            let img = {};
+
+            Journey.findOne()
+                .then(function(res) {
+                    // console.log("hello", res._id, res.title);
+                    const newImage = generateImageData();
+                    img = seedOneImage(res._id, res.title);
+                    console.log("what", img);
+                    return chai.request(app)
+                        .post('/journeys/add-img')
+                        .send(img)
+                })
+                .then(function(res) {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.error(err);
+
+                });
+
+
+
+
+
+
+
+        });
+    });
 });

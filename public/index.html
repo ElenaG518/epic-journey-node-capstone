@@ -34,15 +34,13 @@
     </header>
     <main role='main'>
 
-        <section role="region" class='intro' id="login">
+        <section role="region" class='intro'>
             <h2>Create journals for all of your trips in one easy to use app</h2>
 
             <p>Use Epic Journey to keep track of your trip's location, dates, pictures, and journal entries. No need to try to remember everything about your trip months later. </p>
             <p> With Epic Journey, all the details of your trip are at your fingertips!</p>
 
-            <form class='login-form'>
-
-
+            <form class='login-form' id='login'>
                 <fieldset class='login-form-section'>
                     <legend>Sign In</legend>
                     <label for='login-username'>Username:</label>
@@ -50,13 +48,11 @@
                     <label for='login-password'>Password:</label>
                     <input type='password' id='login-password' name='login-password' value="password" required>
                     <button role='button' type='submit' id='login-button'>Log In</button>
-                    <!-- <p id='login-error'></p> -->
-
-                    <a class="signup-anchor" href="">  Sign Up</a> </p>
+                    <a class="signup-anchor" href="#signup">  Sign Up</a> </p>
                 </fieldset>
             </form>
 
-            <form class="signup-form hide" id="users">
+            <form class="signup-form hide" id="signup">
                 <fieldset>
                     <legend>Sign Up</legend>
                     <label for='firstName'>First Name:</label>
@@ -65,22 +61,16 @@
                     <input type='text' id='lastName' name='lastName' value="Granados" required>
                     <label for='username'>Username:</label>
                     <input type='text' id='username' name='username' value="elenaG" required>
-
                     <label for='password'>Password:</label>
                     <input type='password' id='password' name='password' value="password" required>
-
-                    <!-- <label for='password-match'>Re-enter Password:</label>
-                    <input type='password' id='password-match' name='password-match' required> -->
-
                     <button role='button' type='submit' id='signUpButton'>Sign Up</button>
-                    <a class="login-anchor" href="./#signup">Sign In</a>
+                    <a class="login-anchor" href="#login">Sign In</a>
                 </fieldset>
             </form>
         </section>
 
-        <section role="region" class="create-journey hide">
+        <section role="region" class="create-journey hide" id>
             <form class="journey-form">
-
                 <fieldset>
                     <legend>Create Journey</legend>
                     <label for='title'>Title:</label>
@@ -119,18 +109,19 @@
 
 
             <div class="notebook">
-
-                <img src="images/sketchBackground.jpg">
-                <nav role="navigation" class="dashboard-nav">
-                    <ul>
-                        <li><a href="#" id="upload_widget_opener">Upload image</a>|</li>
-                        <li><a href="#" class="edit-journey-anchor">Edit</a>|</li>
-                        <li><a href="#" class="delete-journey-anchor">Delete</a></li>
-                    </ul>
-                </nav>
+                <div class="journal-entry"></div>
             </div>
-
             <div class="album"></div>
+
+            <nav role="navigation" class="dashboard-nav">
+                <ul>
+                    <li><a href="#" id="upload_widget_opener">Add image</a>|</li>
+                    <li><a href="#" class="edit-journey-anchor">Edit</a>|</li>
+                    <li><a href="#" class="delete-journey-anchor">Delete</a></li>
+                </ul>
+            </nav>
+
+
 
 
 
