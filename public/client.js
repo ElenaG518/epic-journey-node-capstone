@@ -508,7 +508,7 @@ function displayEditJourneyForm(data) {
                     <p>Starting Date: <input type="text" id="datepicker" class="edit-start-dates"></p>
                     <p>Ending Date: <input type="text" id="datepicker" class="edit-end-dates"></p>
                     <label for='edit-description'>Journal Entry:</label>
-                    <textarea class='edit-journal-text' id="edit-description">${data.description}</textarea>
+                    <textarea class='edit-journal-text' id="edit-description" rows="10" cols="50">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
             </fieldset>
         </form>`
