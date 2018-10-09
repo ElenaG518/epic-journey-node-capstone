@@ -281,10 +281,12 @@ function displayJourneys(data) {
     if (!$('.dashboard').hasClass('hide')) {
         $('.dashboard').hide();
     };
-    data.journeys.sort((a, b) => b.title - a.title);
+
     // get one image per journey to show on homepages
     for (var index in data.journeys) {
         // console.log("for", data.journeys[index].id, data.journeys[index].title);
+        journey_id = "";
+        journey_title = "";
         getOneImage(data.journeys[index].id, data.journeys[index].title);
     }
 }
@@ -298,13 +300,14 @@ function getOneImage(journeyId, journeyTitle) {
     //make the api call using the payload above
     $.ajax({
             type: 'GET',
-            url: `/journeys/images/single/${journeyId}`,
+            url: `/journeys/images/single/${journey_id}`,
             dataType: 'json',
             contentType: 'application/json'
         })
         //if call is successfull
         .done(function(result) {
             console.log(result);
+            console.log(journey_id, journey_title);
             createThumb(result, journey_id, journey_title);
         })
         // if the call is failing
@@ -317,7 +320,7 @@ function getOneImage(journeyId, journeyTitle) {
 
 // create thumbnails for the each journey displayed on homepage
 function createThumb(thumb_info, journey_id, journey_title) {
-    console.log("function createThumb", thumb_info);
+    console.log("function createThumb", thumb_info, journey_id, journey_title);
     // if there are no image in the database for a journey
     if (thumb_info == null) {
         console.log(journey_id, journey_title);
@@ -540,12 +543,11 @@ function displayEditJourneyForm(data) {
          <form class="edit-form">
             <fieldset >
                 <legend>Edit Journey</legend>
-                    <label for='edit-title'>Title:</label>
-                    <input type='text' id='edit-title' name='title' value ="${data.title}" >
+                   
                     <label for='edit-location'>Location:</label>
                     <input type='text' id='edit-location' name='location' value ="${data.location}" >
-                    <p>Starting Date: <input type="text" id="datepicker-start" class="edit-start-dates"></p>
-                    <p>Ending Date: <input type="text" id="datepicker-end" class="edit-end-dates"></p>
+                    <label for="starting-date">Starting Date:</label> <input type="text" id="datepicker-start" class="edit-start-dates"></p>
+                    <label>Ending Date:</label> <input type="text" id="datepicker-end" class="edit-end-dates"></p>
                     <label for='edit-description'>Journal Entry:</label>
                     <textarea class='edit-journal-text' id="edit-description" rows="10" cols="50">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
@@ -561,7 +563,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     $('.edit-journey').removeClass('hide').show();
     // capture values from form
     const id = journey_id;
-    const title = $('#edit-title').val();
+    // const title = $('#edit-title').val();
     const location = $('#edit-location').val();
     const startDates = $('.edit-start-dates').val();
     const endDates = $('.edit-end-dates').val();

@@ -12,7 +12,7 @@ router.get('/:username', (req, res) => {
     console.log(req.params.username);
     Journey
         .find({ loggedInUserName: req.params.username })
-        .sort('created')
+        .sort({ title: 1 })
         // if successful, send back journeys
         .then(journeys => {
             // if (journey.loggedInUserName == req.params.user)
