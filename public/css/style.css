@@ -455,6 +455,8 @@ picture {
 /* styling for all other elements in smaller screens */
 
 @media screen and (max-width: 620px) and (min-width: 320px) {
+    .homepage,
+    .dashboard,
     .create-journey,
     .edit-journey {
         padding-bottom: 100px;
