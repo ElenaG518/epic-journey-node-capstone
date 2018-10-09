@@ -231,8 +231,12 @@ $('.journey-form').submit(function(event) {
         //if call is successfull
         .done(function(result) {
             console.log(result);
+            journey_id = result.id;
+            journey_title = result.title;
             $('.journal-entry').empty();
-            displayJourney(result);
+            callCloudinary();
+            // displayJourney(result);
+
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -284,21 +288,19 @@ function displayJourneys(data) {
 
     // get one image per journey to show on homepages
     for (var index in data.journeys) {
-        journey_id = data.journeys[index].id;
-        journey_title = data.journeys[index].title;
+        // journey_id = data.journeys[index].id;
+        // journey_title = data.journeys[index].title;
         console.log("for", data.journeys[index].id, data.journeys[index].title);
         // getOneImage();
         $.ajax({
                 type: 'GET',
-                url: `/journeys/images/single/${journey_id}`,
+                url: `/journeys/images/single/${data.journeys[index].id}`,
                 dataType: 'json',
                 contentType: 'application/json'
             })
             //if call is successfull
-            .done(function(result, journey_id, journey_title) {
+            .done(function(result) {
                 console.log(result);
-
-                console.log(journey_id, journey_title);
                 createThumb(result);
             })
             // if the call is failing
@@ -341,13 +343,13 @@ function displayJourneys(data) {
 
 // create thumbnails for the each journey displayed on homepage
 function createThumb(thumb_info) {
-    console.log("function createThumb", thumb_info, journey_id, journey_title);
+    console.log("function createThumb", thumb_info);
     // if there are no image in the database for a journey
     if (thumb_info == null) {
-        console.log(journey_id, journey_title);
+        console.log(journey_title);
         $('.cards').append(
                 `<article class="card">
-            <a href="#${journey_title}" class="link-to-journey" id="${journey_id}">
+            <a href="#${journey_title}" class="link-to-journey">
             <div class="card-content">
                 <p>${journey_title}</p>
             </div>
@@ -379,10 +381,12 @@ $('.cards').on('click', '.link-to-journey', event => {
     console.log("clicked it");
     journey_id = $(event.currentTarget).attr('id');
     console.log(journey_id);
-    getJourneyById(journey_id);
+    getJourneyById(journey_id, displayJourney);
 });
 
-function getJourneyById(journey_id) {
+function getJourneyById(journey_id, callback) {
+    console.log("getJourneyById ran", journey_id);
+
     //make the api call using the payload above
     $.ajax({
             type: 'GET',
@@ -394,7 +398,7 @@ function getJourneyById(journey_id) {
         .done(function(result) {
             console.log(result);
             $('.journal-entry').empty();
-            displayJourney(result);
+            callback(result);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -428,13 +432,23 @@ function displayJourney(data) {
     getAllImages(journey_id);
 }
 
+
 // CREATE CLOUDINARY WIDGET TO UPLOAD PICTURES
-document.getElementById('upload_widget_opener').addEventListener('click', function() {
+$('#upload_widget_opener').click(event => {
+    console.log("click upload_widget_opener");
+    event.preventDefault();
+    console.log(journey_title);
+    callCloudinary();
+
+});
+
+function callCloudinary() {
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
         function(error, result) {
             console.log(error, result);
             const username = $('#loggedInUserName').val();
-            addPhotos(result[0].url, username, journey_id);
+            console.log("441", username, journey_id);
+            addPhotos(result[0].url, username, journey_id, journey_title);
         }, false);
 
     $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
@@ -449,10 +463,10 @@ document.getElementById('upload_widget_opener').addEventListener('click', functi
     $(document).on('cloudinarywidgetclosed', function(e, data) {
         console.log("Widget closed", data);
     });
-});
+};
 
 // add pictures for journeys to the database
-function addPhotos(img_url, username, journey_id) {
+function addPhotos(img_url, username, journey_id, journey_title) {
     console.log("Add photos funct", img_url, username, journey_id);
     const imgObject = {
         imgAddress: img_url,
@@ -471,7 +485,7 @@ function addPhotos(img_url, username, journey_id) {
         })
         .done(function(result) {
             console.log(result);
-            getJourneyById(journey_id);
+            getJourneyById(journey_id, displayJourney);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -517,6 +531,40 @@ function displayAllImages(imgArray) {
     console.log(imgArrayString);
     $('.album').append(imgArrayString);
 }
+
+function updateImageTitleId(journeyObjToUpdate) {
+    console.log("updateImageTitleId", journeyObjToUpdate);
+    const editImageTitle = {
+        journeyId: journeyObjToUpdate.id,
+        journeyTitle: journeyObjToUpdate.title
+    };
+    console.log(editImageTitle);
+    //make the api call using the payload above
+    $.ajax({
+            type: 'PUT',
+            url: `/journeys/update-img/${journeyObjToUpdate.id}`,
+            dataType: 'json',
+            data: JSON.stringify(editImageTitle),
+            contentType: 'application/json'
+        })
+        // if the call is successful
+        .done(function(result) {
+            $('.journal-entry').empty();
+            const username = $('#loggedInUserName').val();
+            console.log(username);
+
+            getJourneyById(journey_id, displayJourney);
+            // getListOfJourneys(username);
+        })
+        // if the call is failing
+        .fail(function(jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+
+        });
+}
+
 
 // EDIT journey
 
@@ -564,11 +612,12 @@ function displayEditJourneyForm(data) {
          <form class="edit-form">
             <fieldset >
                 <legend>Edit Journey</legend>
-                   
+                <label for='edit-title'>Title:</label>
+                <input type='text' id='edit-title' name='title' value ="${data.title}" >
                     <label for='edit-location'>Location:</label>
                     <input type='text' id='edit-location' name='location' value ="${data.location}" >
-                    <label for="starting-date">Starting Date:</label> <input type="text" id="datepicker-start" class="edit-start-dates"></p>
-                    <label>Ending Date:</label> <input type="text" id="datepicker-end" class="edit-end-dates"></p>
+                    <label for="starting-date">Starting Date:</label> <input type="text" id="datepicker-start" class="edit-start-dates" value=${data.startDates}></p>
+                    <label>Ending Date:</label> <input type="text" id="datepicker-end" class="edit-end-dates" value =${data.endDates}></p>
                     <label for='edit-description'>Journal Entry:</label>
                     <textarea class='edit-journal-text' id="edit-description" rows="10" cols="50">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
@@ -584,7 +633,8 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     $('.edit-journey').removeClass('hide').show();
     // capture values from form
     const id = journey_id;
-    // const title = $('#edit-title').val();
+    console.log("601", id);
+    const title = $('#edit-title').val();
     const location = $('#edit-location').val();
     const startDates = $('.edit-start-dates').val();
     const endDates = $('.edit-end-dates').val();
@@ -617,6 +667,8 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
             console.log(username);
             $('.cards').empty();
             $('.edit-journey').hide();
+            console.log("635", journey_id);
+            getJourneyById(journey_id, updateImageTitleId);
             getListOfJourneys(username);
         })
         // if the call is failing
@@ -627,6 +679,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
 
         });
 });
+
 
 // DELETE journey
 

@@ -48,7 +48,7 @@ router.get('/edit/:id', (req, res) => {
     console.log(req.params.id);
     Journey
         .findById(req.params.id)
-        .then(journey => res.json(journey.serialize()))
+        .then(journey => res.json(journey))
         .catch(err => {
             console.error(err);
             res.status(500).json({ error: "Could not retrieve journeys" });
@@ -102,7 +102,7 @@ router.put('/update/:id', jsonParser, function(req, res) {
     }
     // variables that are updatable
     const toUpdate = {};
-    const updateableFields = ['location', 'startDates', 'endDates', 'description'];
+    const updateableFields = ['title', 'location', 'startDates', 'endDates', 'description'];
     updateableFields.forEach(field => {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
@@ -126,6 +126,38 @@ router.delete('/:id', (req, res) => {
         .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
+
+
+// response for getting all images by journey Id
+router.get('/images/:journeyId', (req, res) => {
+    console.log('getting all images for username journey');
+    console.log(req.params.journeyId);
+    // look up images by journey id
+    Image
+        .find({ journeyId: req.params.journeyId })
+        .then(images => {
+            res.json({
+                images: images.map(image => image)
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'couldnot retrieve images' });
+        });
+});
+
+// response for getting one single image by journey Id
+router.get('/images/single/:journeyId', (req, res) => {
+    console.log('getting all images for username journey');
+    console.log(req.params.journeyId);
+    Image
+        .findOne({ journeyId: req.params.journeyId })
+        .then(image => res.json(image))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'couldnot retrieve images' });
+        });
+});
 
 // response for API call to create image for journey
 router.post('/add-img', jsonParser, (req, res) => {
@@ -157,35 +189,32 @@ router.post('/add-img', jsonParser, (req, res) => {
 
 });
 
-// response for getting all images by journey Id
-router.get('/images/:journeyId', (req, res) => {
-    console.log('getting all images for username journey');
+// response to handle user request to edit journey
+router.put('/update-img/:journeyId', jsonParser, function(req, res) {
+    console.log("call to put for image");
     console.log(req.params.journeyId);
-    // look up images by journey id
+    console.log(req.body.journeyId);
+    // ensure we have the required fields and that they match
+    if (!(req.params.journeyId && req.body.journeyId && req.params.journeyId === req.body.journeyId)) {
+        const message = (
+            `Request path journeyId (${req.params.journeyId}) and request body journeyId ` +
+            `(${req.body.journeyId}) must match`);
+        console.error(message);
+        return res.status(400).json({ message: message });
+    }
+    // variables that are updatable
+    const toUpdate = {};
+    const updateableFields = ['journeyTitle'];
+    updateableFields.forEach(field => {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+    // update information
     Image
-        .find({ journeyId: req.params.journeyId })
-        .then(images => {
-            res.json({
-                images: images.map(image => image)
-            });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ message: 'couldnot retrieve images' });
-        });
-});
-
-// response for getting one single image by journey Id
-router.get('/images/single/:journeyId', (req, res) => {
-    console.log('getting all images for username journey');
-    console.log(req.params.journeyId);
-    Image
-        .findOne({ journeyId: req.params.journeyId })
-        .then(image => res.json(image))
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ message: 'couldnot retrieve images' });
-        });
+        .updateMany({ journeyId: req.body.journeyId }, { $set: toUpdate }, { new: true })
+        .then(image => res.status(204).json({ message: 'success' }).end())
+        .catch(err => res.status(500).json({ message: 'couldn\'t update image(s)' }));
 });
 
 module.exports = router;

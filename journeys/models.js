@@ -20,7 +20,7 @@ const journeySchema = mongoose.Schema({
     description: { type: String, required: true },
     created: { type: Date, default: Date.now, required: true },
     loggedInUserName: { type: String, required: true },
-    // images: [journeyImageSchema]
+
 });
 
 // how image will be represented when method is called
