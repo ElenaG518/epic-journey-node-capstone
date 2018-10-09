@@ -102,7 +102,7 @@ router.put('/update/:id', jsonParser, function(req, res) {
     }
     // variables that are updatable
     const toUpdate = {};
-    const updateableFields = ['title', 'location', 'startDates', 'endDates', 'description'];
+    const updateableFields = ['location', 'startDates', 'endDates', 'description'];
     updateableFields.forEach(field => {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
