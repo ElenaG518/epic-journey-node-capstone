@@ -284,42 +284,63 @@ function displayJourneys(data) {
 
     // get one image per journey to show on homepages
     for (var index in data.journeys) {
-        // console.log("for", data.journeys[index].id, data.journeys[index].title);
-        journey_id = "";
-        journey_title = "";
-        getOneImage(data.journeys[index].id, data.journeys[index].title);
+        journey_id = data.journeys[index].id;
+        journey_title = data.journeys[index].title;
+        console.log("for", data.journeys[index].id, data.journeys[index].title);
+        // getOneImage();
+        $.ajax({
+                type: 'GET',
+                url: `/journeys/images/single/${journey_id}`,
+                dataType: 'json',
+                contentType: 'application/json'
+            })
+            //if call is successfull
+            .done(function(result, journey_id, journey_title) {
+                console.log(result);
+
+                console.log(journey_id, journey_title);
+                createThumb(result);
+            })
+            // if the call is failing
+            .fail(function(jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
     }
 }
 
 // make API call for one image
-function getOneImage(journeyId, journeyTitle) {
-    console.log("function getOneImage", journeyId);
-    journey_id = journeyId;
-    journey_title = journeyTitle;
-    console.log("here", journey_id, journey_title);
-    //make the api call using the payload above
-    $.ajax({
-            type: 'GET',
-            url: `/journeys/images/single/${journey_id}`,
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-        //if call is successfull
-        .done(function(result) {
-            console.log(result);
-            console.log(journey_id, journey_title);
-            createThumb(result, journey_id, journey_title);
-        })
-        // if the call is failing
-        .fail(function(jqXHR, error, errorThrown) {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-        });
-}
+// function getOneImage() {
+//     console.log("function getOneImage");
+//     // journey_id = journeyId;
+//     // journey_title = journeyTitle;
+//     console.log("here", journey_id, journey_title);
+//     //make the api call using the journey_id above
+//     $.ajax({
+//             type: 'GET',
+//             url: `/journeys/images/single/${journey_id}`,
+//             dataType: 'json',
+//             contentType: 'application/json'
+//         })
+//         //if call is successfull
+//         .done(function(result) {
+//             console.log(result);
+//             console.log(journey_id, journey_title);
+//             createThumb(result
+//                 // , journey_id, journey_title
+//             );
+//         })
+//         // if the call is failing
+//         .fail(function(jqXHR, error, errorThrown) {
+//             console.log(jqXHR);
+//             console.log(error);
+//             console.log(errorThrown);
+//         });
+// }
 
 // create thumbnails for the each journey displayed on homepage
-function createThumb(thumb_info, journey_id, journey_title) {
+function createThumb(thumb_info) {
     console.log("function createThumb", thumb_info, journey_id, journey_title);
     // if there are no image in the database for a journey
     if (thumb_info == null) {
