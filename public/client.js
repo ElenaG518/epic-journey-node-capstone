@@ -406,7 +406,7 @@ function displayJourney(data) {
 
 // CREATE CLOUDINARY WIDGET TO UPLOAD PICTURES
 document.getElementById('upload_widget_opener').addEventListener('click', function() {
-    cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', cropping: 'server' },
+    cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
         function(error, result) {
             console.log(error, result);
             const username = $('#loggedInUserName').val();
@@ -544,8 +544,8 @@ function displayEditJourneyForm(data) {
                     <input type='text' id='edit-title' name='title' value ="${data.title}" >
                     <label for='edit-location'>Location:</label>
                     <input type='text' id='edit-location' name='location' value ="${data.location}" >
-                    <p>Starting Date: <input type="text" id="datepicker" class="edit-start-dates"></p>
-                    <p>Ending Date: <input type="text" id="datepicker" class="edit-end-dates"></p>
+                    <p>Starting Date: <input type="text" id="datepicker-start" class="edit-start-dates"></p>
+                    <p>Ending Date: <input type="text" id="datepicker-end" class="edit-end-dates"></p>
                     <label for='edit-description'>Journal Entry:</label>
                     <textarea class='edit-journal-text' id="edit-description" rows="10" cols="50">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
