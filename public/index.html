@@ -10,7 +10,10 @@
     <link href="https://fonts.googleapis.com/css?family=Lato|Playfair+Display:400,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link href="https://widget.cloudinary.com/n/demo/118/themes/minimal.css" rel="stylesheet">
+    <link href="../images/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 </head>
 
 <body>
@@ -40,9 +43,9 @@
                     <fieldset class="login-form-section">
                         <legend>Sign In</legend>
                         <label for="login-username">Username:</label>
-                        <input type="text" id="login-username" name="login-username" required>
+                        <input type="text" id="login-username" name="login-username" value="user" required>
                         <label for="login-password">Password:</label>
-                        <input type="password" id="login-password" name="login-password" required>
+                        <input type="password" id="login-password" name="login-password" value="pass" required>
                         <button role="button" type="submit" id="login-button">Log In</button>
                         <a class="signup-anchor" href="#signup">  Sign Up</a>
                     </fieldset>
@@ -66,6 +69,15 @@
             </section>
 
             <section role="region" class="create-journey hide">
+                <div class="directions">
+                    <p>Create your journey in two easy steps:</p>
+                    <ol>
+                        <li>1. Add details of your trip</li>
+                        <li>2. Click submit button and upload album cover</li>
+
+                    </ol>
+                    <h2>Enjoy your journey!</h2>
+                </div>
                 <form class="journey-form">
                     <fieldset>
                         <legend>
@@ -74,16 +86,13 @@
                         <input type="text" id="title" name="title" required>
                         <label for="location">Location:</label>
                         <input type="text" id="location" name="location" required>
-                        <label for="datepicker">Starting Date:</label>
-                        <input type="text" id="datepicker-start">
-                        <label>Ending Date: </label>
-                        <input type="text" id="datepicker-end">
-                        <!-- <label for="datepicker">Dates:</label> -->
-                        <!-- <p>Ending Date: <input type="text" id="datepicker-ending"></p> -->
-                        <!-- <input type="text" id="dates" name="dates" value="dates are awesome" required> -->
+                        <label for="datepicker-start">Starting Date:</label>
+                        <input type="text" id="datepicker-start" required>
+                        <label>Ending Date:</label>
+                        <input type="text" id="datepicker-end" required>
                         <label for="description">Journal Entry:</label>
                         <textarea class="journal-text" id="description" rows="10" cols="50"></textarea>
-                        <button role="button" type="submit" id="sumbit-journey">Add Album cover</button>
+                        <button role="button" type="submit" id="sumbit-journey">Submit</button>
                     </fieldset>
                 </form>
             </section>
@@ -114,13 +123,24 @@
         </main>
 
     </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker-start").datepicker();
+            $("#datepicker-end").datepicker();
+            $("#edit-datepicker-start").datepicker();
+            $("#edit-datepicker-end").datepicker();
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        });
+    </script>
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
     <!-- cloudinary scripts -->
     <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     <!-- local js file -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="client.js"></script>
 
 </body>

@@ -6,25 +6,18 @@ let journey_title;
 // SCROLLING HEADER
 function resizeHeaderOnScroll() {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop,
-        shrinkOn = 200,
+        shrinkOn = 150,
         headerEl = document.getElementById('js-header');
+    headerEl.classList.add("smaller");
 
-    if (distanceY > shrinkOn) {
-        headerEl.classList.add("smaller");
-    } else {
-        headerEl.classList.remove("smaller");
-    }
+    // if (distanceY > shrinkOn) {
+    //     headerEl.classList.add("smaller");
+    // } else {
+    //     headerEl.classList.remove("smaller");
+    // }
 }
 
 window.addEventListener('scroll', resizeHeaderOnScroll);
-
-
-// ANCHORS
-
-// var headerHeight = $('.anchor-container').height();
-// $('html, body').animate({
-//     scrollTop: $($.attr(this, 'href')).offset().top - headerHeight
-// }, 500);
 
 // home anchor
 $('.home-anchor').click(event => {
@@ -312,55 +305,26 @@ function displayJourneys(data) {
     }
 }
 
-// make API call for one image
-// function getOneImage() {
-//     console.log("function getOneImage");
-//     // journey_id = journeyId;
-//     // journey_title = journeyTitle;
-//     console.log("here", journey_id, journey_title);
-//     //make the api call using the journey_id above
-//     $.ajax({
-//             type: 'GET',
-//             url: `/journeys/images/single/${journey_id}`,
-//             dataType: 'json',
-//             contentType: 'application/json'
-//         })
-//         //if call is successfull
-//         .done(function(result) {
-//             console.log(result);
-//             console.log(journey_id, journey_title);
-//             createThumb(result
-//                 // , journey_id, journey_title
-//             );
-//         })
-//         // if the call is failing
-//         .fail(function(jqXHR, error, errorThrown) {
-//             console.log(jqXHR);
-//             console.log(error);
-//             console.log(errorThrown);
-//         });
-// }
-
 // create thumbnails for the each journey displayed on homepage
 function createThumb(thumb_info) {
     console.log("function createThumb", thumb_info);
     // if there are no image in the database for a journey
-    if (thumb_info == null) {
-        console.log(journey_title);
-        $('.cards').append(
-                `<article class="card">
-            <a href="#${journey_title}" class="link-to-journey">
-            <div class="card-content">
-                <p>${journey_title}</p>
-            </div>
-            
-            </a>
-        </article>`
-            )
-            // else create thumbnail with the image returned by API get call
-    } else {
-        $('.cards').append(
-            `<article class="card">
+    // if (thumb_info == null) {
+    //     console.log(journey_title);
+    //     $('.cards').append(
+    //             `<article class="card">
+    //         <a href="#${journey_title}" class="link-to-journey">
+    //         <div class="card-content">
+    //             <p>${journey_title}</p>
+    //         </div>
+
+    //         </a>
+    //     </article>`
+    //         )
+    //         // else create thumbnail with the image returned by API get call
+    // } else {
+    $('.cards').append(
+        `<article class="card">
             <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
             <picture class="thumbnail">
                 <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
@@ -370,9 +334,9 @@ function createThumb(thumb_info) {
             </div>
             </a> 
             </article>`
-        );
-    }
+    );
 }
+
 
 
 // API call to fetch only selected journey 
@@ -616,8 +580,8 @@ function displayEditJourneyForm(data) {
                 <input type='text' id='edit-title' name='title' value ="${data.title}" >
                     <label for='edit-location'>Location:</label>
                     <input type='text' id='edit-location' name='location' value ="${data.location}" >
-                    <label for="starting-date">Starting Date:</label> <input type="text" id="datepicker-start" class="edit-start-dates" value=${data.startDates}></p>
-                    <label>Ending Date:</label> <input type="text" id="datepicker-end" class="edit-end-dates" value =${data.endDates}></p>
+                    <label for="starting-date">Starting Date:</label> <input type="text" id="edit-datepicker-start" class="edit-start-dates" value=${data.startDates}></p>
+                    <label>Ending Date:</label> <input type="text" id="edit-datepicker-end" class="edit-end-dates" value =${data.endDates}></p>
                     <label for='edit-description'>Journal Entry:</label>
                     <textarea class='edit-journal-text' id="edit-description" rows="10" cols="50">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
@@ -690,9 +654,21 @@ $('.delete-journey-anchor').click(event => {
     const journeyId = journey_id;
     journey_id = "";
     console.log(journeyId);
-    deleteJourney(journeyId);
-    $('.album').empty();
+    myFunction(journeyId);
+    // deleteJourney(journeyId);
+    // $('.album').empty();
 });
+
+function myFunction(journeyId) {
+    var r = confirm("Are you sure you want to delete this journey?");
+    if (r == true) {
+        console.log("you pressed true");
+        deleteJourney(journeyId);
+        $('.album').empty();
+    } else {
+        console.log("You pressed Cancel!");
+    }
+}
 
 // delete journey API call
 function deleteJourney(id) {
