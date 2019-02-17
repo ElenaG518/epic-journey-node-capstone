@@ -43,6 +43,16 @@ function generateUserData() {
 // generate journey to provide journeyId and journeyTitle references when creating image,
 //  then making a call to make sure we retrieve correct image by journeyId
 
+function seedImageData() {
+    console.info('seeding image data');
+    const seedData = [];
+    for (let i = 1; i <= 5; i++) {
+        seedData.push(generateImageData());
+    }
+    // this will return a promise
+    return Image.insertMany(seedData);
+}
+
 function generateImageData() {
     return {
         journeyId: faker.random.uuid(),
@@ -52,16 +62,24 @@ function generateImageData() {
     }
 }
 
-function seedOneImage(id, title) {
-    const imgObj = {
-        journeyId: id,
-        imgAddress: faker.image.imageUrl(),
-        username: "elenaG",
-        journeyTitle: title,
-    }
-    console.log("seedOneImage", imgObj);
-    // Image.insertOne(imgObj);
-    return imgObj;
+
+function getOneImage(id, title, user) {
+    console.log("getOneImage", id, title, user);
+
+
+    Image
+        .create({
+            imgAddress: faker.image.imageUrl(),
+            username: user,
+            journeyId: id.toString(),
+            journeyTitle: title,
+        })
+        // ensure image was created successfully
+        .then(image => { return image })
+        .catch(err => {
+            console.error(err);
+
+        });
 }
 
 // GENERATE AND SEED DATA FOR JOURNEYS 
@@ -216,11 +234,7 @@ describe('User router API resource', function() {
                 });
         });
     });
-
-
 });
-
-
 
 describe('Journey router API resource', function() {
 
@@ -235,9 +249,7 @@ describe('Journey router API resource', function() {
     beforeEach(function() {
         return seedJourneyData();
     });
-    // beforeEach(function() {
-    //     return seedImageData();
-    // });
+
     // afterEach(function() {
     //     return tearDownDb();
     // });
@@ -338,15 +350,12 @@ describe('Journey router API resource', function() {
             it('should add a new journey', function() {
 
                 const newJourney = generateJourneyData();
-                let mostRecentGrade;
 
                 return chai.request(app)
                     .post('/journeys/create')
                     .send(newJourney)
                     .then(function(res) {
 
-                        // console.log("hey", res.body);
-                        seedJourneyData(res.body.id, res.body.title, res.body.loggedInUserName);
                         expect(res).to.have.status(201);
                         expect(res).to.be.json;
                         expect(res.body).to.be.a('object');
@@ -356,19 +365,13 @@ describe('Journey router API resource', function() {
                         expect(res.body.id).to.not.be.null;
                         expect(res.body.title).to.equal(newJourney.title);
                         expect(res.body.location).to.equal(newJourney.location);
-
-                        let dateString = `${newJourney.startDates} - ${newJourney.endDates}`.trim();
-                        // expect(res.body.dates).to.equal(dateString);
                         expect(res.body.description).to.equal(newJourney.description);
                         expect(res.body.loggedInUserName).to.equal(newJourney.loggedInUserName);
-
                         return Journey.findById(res.body.id);
                     })
                     .then(function(journey) {
                         expect(journey.title).to.equal(newJourney.title);
                         expect(journey.location).to.equal(newJourney.location);
-                        let dateString = `${newJourney.startDates} - ${newJourney.endDates}`.trim();
-                        // expect(journey.dates).to.equal(dateString);
                         expect(journey.description).to.equal(newJourney.description);
                         expect(journey.loggedInUserName).to.equal(newJourney.loggedInUserName);
                     });
@@ -452,6 +455,9 @@ describe('Journey router API resource for Image', function() {
     beforeEach(function() {
         return seedJourneyData();
     });
+    // beforeEach(function() {
+    //     return seedImageData();
+    // });
 
     afterEach(function() {
         return tearDownDb();
@@ -500,5 +506,33 @@ describe('Journey router API resource for Image', function() {
         });
     });
 
+    describe('GET endpoint for image by journey Id', function() {
+        //     strategy: make a POST request with data,
+        //     then prove that the user we get back has
+        //     right keys, and that `id` is there (which means
+        //     the data was inserted into db)
+        it('should fetch a journey image', function() {
 
+
+            let newImage;
+
+            return Journey.findOne()
+                .then(function(res) {
+                    console.log("this is journey", res);
+
+                    const id = res._id;
+                    console.log("id", id);
+                    newImage = getOneImage(id, res.title, res.loggedInUserName);
+                    return Image.find({ journeyId: id })
+
+                })
+                .then(function(img) {
+                    console.log("this is image", img);
+                })
+                .catch(error => console.log(error));
+
+        });
+
+
+    });
 });

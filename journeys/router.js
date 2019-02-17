@@ -12,12 +12,16 @@ router.get('/:username', (req, res) => {
     console.log(req.params.username);
     Journey
         .find({ loggedInUserName: req.params.username })
-        .sort({ title: 1 })
+        
         // if successful, send back journeys
         .then(journeys => {
             // if (journey.loggedInUserName == req.params.user)
+            let jour = journeys.map(journey => journey.serialize());
+            jour = jour.sort((a, b) => {
+                return a.title - b.title;
+              })
             res.json({
-                journeys: journeys.map(journey => journey.serialize())
+                journeys: jour
             });
         })
         // send error if call was not successful

@@ -7,7 +7,7 @@
     <title>Epic Journey</title>
     <link href="../css/style.css" rel="stylesheet" type="text/css" />
     <link href="../css/reset.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato|Playfair+Display:400,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quattrocento|Playfair+Display:400,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link href="https://widget.cloudinary.com/n/demo/118/themes/minimal.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -41,47 +41,49 @@
 
                 <form class="login-form" id="login">
                     <fieldset class="login-form-section">
-                        <legend>Sign In</legend>
-                        <label for="login-username">Username:</label>
+                        <legend>sign in</legend>
+                        <label for="login-username">username:</label>
                         <input type="text" id="login-username" name="login-username" value="user" required>
-                        <label for="login-password">Password:</label>
+                        <label for="login-password">password:</label>
                         <input type="password" id="login-password" name="login-password" value="pass" required>
-                        <button role="button" type="submit" id="login-button">Log In</button>
-                        <a class="signup-anchor" href="#signup">  Sign Up</a>
+                        <button role="button" type="submit" id="login-button" class="login-btn">log in</button>
+                        <!-- <a class="demo-anchor" href="#">demo</a> -->
+                        <a class="signup-anchor" href="#signup">sign up</a>
                     </fieldset>
                 </form>
 
                 <form class="signup-form hide" id="signup">
                     <fieldset>
-                        <legend>Sign Up</legend>
-                        <label for="firstName">First Name:</label>
+                        <legend>sign up</legend>
+                        <label for="firstName">first name:</label>
                         <input type="text" id="firstName" name="firstName" required>
-                        <label for="lastName">Last Name:</label>
+                        <label for="lastName">last name:</label>
                         <input type="text" id="lastName" name="lastName" required>
-                        <label for="username">Username:</label>
+                        <label for="username">username:</label>
                         <input type="text" id="username" name="username" required>
-                        <label for="password">Password:</label>
+                        <label for="password">password:</label>
                         <input type="password" id="password" name="password" required>
-                        <button role="button" type="submit" id="signUpButton">Sign Up</button>
-                        <a class="login-anchor" href="#login">Sign In</a>
+                        <button role="button" type="submit" id="signUpButton" class="login-btn">sign up</button>
+                        <a class="login-anchor" href="#login">sign in</a>
                     </fieldset>
                 </form>
             </section>
 
             <section role="region" class="create-journey hide">
+                <h2>Create Journey</h2>
                 <div class="directions">
-                    <p>Create your journey in two easy steps:</p>
+                    <p>Create your journey in three easy steps:</p>
                     <ol>
-                        <li>1. Add details of your trip</li>
-                        <li>2. Click submit button and upload album cover</li>
+                        <li>Add details of your trip</li>
+                        <li>Upload album cover</li>
+                        <li>Submit</li>
 
                     </ol>
-                    <h2>Enjoy your journey!</h2>
                 </div>
                 <form class="journey-form">
                     <fieldset>
                         <legend>
-                            Create journey</legend>
+                            Journey Details</legend>
                         <label for="title">Title:</label>
                         <input type="text" id="title" name="title" required>
                         <label for="location">Location:</label>
@@ -92,13 +94,14 @@
                         <input type="text" id="datepicker-end" required>
                         <label for="description">Journal Entry:</label>
                         <textarea class="journal-text" id="description" rows="10" cols="50"></textarea>
-                        <button role="button" type="submit" id="sumbit-journey">Submit</button>
+                        <button role="button" type="image" id="submit-image">add album cover</button>
+                        <button role="button" type="submit" id="sumbit-journey">add album cover</button>
                     </fieldset>
                 </form>
             </section>
 
             <section role="region" class="homepage hide" id="home">
-                <h2>My Journeys</h2>
+                <h2>Albums</h2>
                 <div class="cards"></div>
                 <button class="add-journey">Add Journey</button>
             </section>

@@ -40,16 +40,12 @@ $('.logout-anchor').click(event => {
     location.reload();
 });
 
-
 // form event listeners
 
 $('.signup-anchor').click(event => {
     event.preventDefault();
     var headerHeight = $('.signup-form').height();
     console.log(headerHeight);
-    $('html, body').animate({
-        scrollTop: $($.attr(this, 'signup')).offset().top - headerHeight
-    }, 500);
     console.log("got to sign up");
     $('.login-form').addClass('hide');
     $('.signup-form').removeClass('hide');
@@ -59,17 +55,21 @@ $('.login-anchor').click(event => {
     event.preventDefault();
     var headerHeight = $('.login-form').height();
     console.log(headerHeight);
-    $('html, body').animate({
-        scrollTop: $($.attr(this, 'login')).offset().top - headerHeight
-    }, 500);
     console.log("got to login");
     $('.signup-form').addClass('hide');
     $('.login-form').removeClass('hide');
 });
 
+$('.demo-anchor').click(event => {
+    event.preventDefault();
+    var headerHeight = $('.login-form').height();
+    console.log(headerHeight);
+    console.log("demo-anchor clicked");
+    login("user", "pass");
+});
+
 $('.add-journey').click(event => {
     event.preventDefault();
-
     console.log("add journey button clicked");
     $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
@@ -79,8 +79,6 @@ $('.add-journey').click(event => {
     const endDates = $('#datepicker-end').val("");
     const description = $('#description').val("");
     const username = $('#loggedInUserName').val();
-
-
 });
 
 // API calls to users router
@@ -93,7 +91,6 @@ $('.signup-form').submit(function(event) {
     const lastName = $('#lastName').val();
     const username = $('#username').val();
     const password = $('#password').val();
-
 
     //validate the input
     if (firstName == "") {
@@ -145,13 +142,12 @@ $('.signup-form').submit(function(event) {
 // login API call
 $('.login-form').submit(function(event) {
     event.preventDefault();
-    console.log("login form ran");
-
     const username = $('#login-username').val();
     const password = $('#login-password').val();
-    // console.log(username);
-    // console.log(password);
+    login(username, password);
+});    
 
+function login(username, password) {
     if (username == "") {
         alert('Please enter username');
     } else if (password == "") {
@@ -186,17 +182,21 @@ $('.login-form').submit(function(event) {
                 const message = jqXHR.responseJSON.message;
                 alert(message);
             });
-
     };
-});
+};
 
 // Journey API calls
+
+$('#submit-image').click(function(event) {
+    event.preventDefault();
+    callCloudinary();
+
+});
 
 // CREATE journeys API call
 $('.journey-form').submit(function(event) {
     event.preventDefault();
     // capture values for journey
-    console.log("journal entry form ran");
     const title = $('#title').val();
     const location = $('#location').val();
     const startDates = $('#datepicker-start').val();
@@ -227,9 +227,7 @@ $('.journey-form').submit(function(event) {
             journey_id = result.id;
             journey_title = result.title;
             $('.journal-entry').empty();
-            callCloudinary();
-            // displayJourney(result);
-
+            // callCloudinary();
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -265,14 +263,12 @@ function getListOfJourneys(username) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
-            alert('Check your connection');
         });
 }
 
 // display all journeys to client
 function displayJourneys(data) {
     console.log("fuction displayJourneys ran", data);
-
     $('.intro').hide();
     $('.homepage').removeClass('hide').show();
     if (!$('.dashboard').hasClass('hide')) {
@@ -281,10 +277,7 @@ function displayJourneys(data) {
 
     // get one image per journey to show on homepages
     for (var index in data.journeys) {
-        // journey_id = data.journeys[index].id;
-        // journey_title = data.journeys[index].title;
         console.log("for", data.journeys[index].id, data.journeys[index].title);
-        // getOneImage();
         $.ajax({
                 type: 'GET',
                 url: `/journeys/images/single/${data.journeys[index].id}`,
@@ -308,36 +301,19 @@ function displayJourneys(data) {
 // create thumbnails for the each journey displayed on homepage
 function createThumb(thumb_info) {
     console.log("function createThumb", thumb_info);
-    // if there are no image in the database for a journey
-    // if (thumb_info == null) {
-    //     console.log(journey_title);
-    //     $('.cards').append(
-    //             `<article class="card">
-    //         <a href="#${journey_title}" class="link-to-journey">
+    // $('.cards').append(
+    //     `<article class="card">
+    //         <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
+    //         <picture class="thumbnail">
+    //             <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
+    //         </picture> 
     //         <div class="card-content">
-    //             <p>${journey_title}</p>
+    //         <p>${thumb_info.journeyTitle}</p>
     //         </div>
-
-    //         </a>
-    //     </article>`
-    //         )
-    //         // else create thumbnail with the image returned by API get call
-    // } else {
-    $('.cards').append(
-        `<article class="card">
-            <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
-            <picture class="thumbnail">
-                <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
-            </picture> 
-            <div class="card-content">
-            <p>${thumb_info.journeyTitle}</p>
-            </div>
-            </a> 
-            </article>`
-    );
+    //         </a> 
+    //         </article>`
+    // );
 }
-
-
 
 // API call to fetch only selected journey 
 $('.cards').on('click', '.link-to-journey', event => {
@@ -411,8 +387,8 @@ function callCloudinary() {
         function(error, result) {
             console.log(error, result);
             const username = $('#loggedInUserName').val();
-            console.log("441", username, journey_id);
-            addPhotos(result[0].url, username, journey_id, journey_title);
+            console.log("384", result[0].url, username);
+            // addPhotos(result[0].url, username);
         }, false);
 
     $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {

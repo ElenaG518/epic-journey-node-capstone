@@ -4,7 +4,7 @@ body {
     background-repeat: repeat-y;
     background-size: cover;
     background-color: #ffc3a042;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Quattrocento', serif;
 }
 
 #wrapper {
@@ -23,9 +23,21 @@ main {
     display: none;
 }
 
-.intro,
-{
+.intro {
     top: 150px;
+}
+
+.login-btn {
+    margin-bottom: 10px;
+}
+
+.demo-anchor {
+    font-size: 65%;
+}
+
+.signup-anchor,
+.login-anchor {
+    font-size: 85%;
 }
 
 .create-journey {
@@ -93,21 +105,19 @@ header nav {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
-    align-content: flex-start;
     background-color: #2b2b2b;
     width: 100%;
 }
 
 header nav a {
     color: #fcfcfc;
-    font-weight: 300;
-    font-size: 1em;
+    font-size: 15px;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-    flex: 0 0 calc(15%);
+    flex: 0 0 calc(12%);
     text-decoration: none;
     text-align: center;
 }
@@ -205,6 +215,7 @@ label {
 }
 
 form input {
+    padding: 1px 4px;
     display: block;
     margin: 0 auto 25px;
     width: 280px;
@@ -229,9 +240,10 @@ form a {
 form button,
 .add-journey,
 .add-pics {
+    font-size: 16px;
     border: 5px solid white;
-    border-radius: 5px;
-    padding: 15px 25px;
+    border-radius: 15px;
+    padding: 10px 25px;
     background-color: #ffc3a0;
     display: block;
     margin: 50px auto;
@@ -244,17 +256,14 @@ form button,
     margin-top: 25px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: baseline;
-    align-content: flex-start;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: center;
 }
 
 .card {
-    display: flex;
     flex: 0 1 calc(30% - 1em);
-    margin: auto;
     background: white;
-    margin-bottom: 2em;
     border: 1px solid darkgrey;
     box-shadow: 0px 2px black;
 }
@@ -275,34 +284,25 @@ button:hover {
 
 a:hover {
     color: darkslategray;
-    font-size: 105%;
     text-shadow: 1px hsl(0, 0%, 14%);
 }
 
 .card:hover {
     box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
-    padding: 1px;
 }
 
 .card a {
     color: black;
-    text-decoration: underline;
     display: block;
     text-align: left;
-    /* background-color: #ffc3a000; */
-    /* margin: auto; */
     padding: 10px 15px;
 }
 
 .card a:hover {
     text-decoration: underline;
     display: block;
-    color: darkred;
-    font-size: 110%;
+    color: #3e5059;
     text-align: left;
-    /* background-color: #ffc3a000; */
-    /* margin: auto; */
-    padding: 10px 15px;
 }
 
 .card-content {
@@ -353,9 +353,18 @@ a:hover {
 }
 
 
+/* add journey styles */
+
+
+/* .steps li {
+    list-style-type: inherit;
+} */
+
+
 /* notebook and journal entry styles */
 
 .notebook {
+    border-radius: 20px;
     background-image: url("../images/sketchBackground.jpg");
     background-size: cover;
     position: relative;
@@ -423,7 +432,7 @@ a:hover {
 }
 
 .directions li {
-    list-style-type: none;
+    /* list-style-type: none; */
     padding-left: 30px;
 }
 
@@ -471,7 +480,8 @@ a:hover {
         height: 75px;
     }
     header.smaller h1#logo {
-        height: 40px;
+        height: 60px;
+        padding: 10px 0;
         line-height: 40px;
         font-size: 30px;
         width: 100%;
@@ -517,6 +527,12 @@ a:hover {
     .edit-journey {
         padding-bottom: 100px;
     }
+    .homepage {
+        margin-top: -45px;
+    }
+    .create-journey {
+        margin-top: 0;
+    }
     form,
     .journey-form,
     .edit-form {
@@ -527,11 +543,21 @@ a:hover {
         height: 100px;
         font-size: 1.8em;
     }
+    header.smaller h1#logo {
+        height: 60px;
+        padding: 10px 0;
+        line-height: 40px;
+        font-size: 30px;
+        width: 100%;
+    }
     nav li {
         flex: 0 0 calc(25%);
     }
     main {
         top: 150px;
+    }
+    .intro {
+        top: 250px;
     }
     h2 {
         line-height: 1.5em;
