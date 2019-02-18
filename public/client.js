@@ -29,6 +29,9 @@ $('.home-anchor').click(event => {
     $('.cards').empty();
     $('.create-journey').hide();
     $('.edit-journey').empty().hide();
+    $('#submit-image').removeClass('hide');
+    $('#submit-journey').addClass('hide');
+
     getListOfJourneys(username);
 });
 
@@ -191,7 +194,8 @@ $('#submit-image').click(function(event) {
     event.preventDefault();
     console.log("add image");
     addJourneyAlbumCover();
-    $('#submit-image').addClass('hidden');
+    // $('#submit-image').addClass('hide');
+    // $('#submit-journey').removeClass('hide');
 
 });
 
@@ -239,7 +243,7 @@ $('.journey-form').submit(function(event) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
-            alert('something bad just happened at journals/create');
+            alert(`${error}`);
         });
 });
 
@@ -375,6 +379,8 @@ function addJourneyAlbumCover() {
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
         function(error, result) {
             console.log(error, result);
+            $('#submit-image').addClass('hide');
+            $('#submit-journey').removeClass('hide');
             }, false);
 
     $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
@@ -410,12 +416,6 @@ function callCloudinary(username, id, title) {
         
     });        
 };
-
-
-
-
-
-
 
 // add pictures for journeys to the database
 function addPhotos(img_url, username, journey_id, journey_title) {
