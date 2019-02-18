@@ -20,8 +20,7 @@ const journeySchema = mongoose.Schema({
     description: { type: String, required: true },
     created: { type: Date, default: Date.now, required: true },
     loggedInUserName: { type: String, required: true },
-  
-
+    album: { type: String, required: true }
 });
 
 // how image will be represented when method is called
@@ -47,7 +46,8 @@ journeySchema.methods.serialize = function() {
         dates: this.dates,
         description: this.description,
         created: this.created,
-        loggedInUserName: this.loggedInUserName
+        loggedInUserName: this.loggedInUserName,
+        album: this.album
     }
 }
 

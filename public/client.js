@@ -214,7 +214,7 @@ $('.journey-form').submit(function(event) {
         endDates: endDates,
         description: description,
         loggedInUserName: username, 
-        // album = album
+        album: album
     };
     console.log(journalObject);
     //make the api call using the payload above
@@ -227,11 +227,11 @@ $('.journey-form').submit(function(event) {
         })
         //if call is successfull
         .done(function(result) {
-            console.log(result);
+            console.log("success ", result);
             journey_id = result.id;
             journey_title = result.title;
             $('.journal-entry').empty();
-            // callCloudinary();
+            getJourneyById(journey_id, displayJourney);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
@@ -278,45 +278,54 @@ function displayJourneys(data) {
     if (!$('.dashboard').hasClass('hide')) {
         $('.dashboard').hide();
     };
+    
+    for (var index in data.journeys) {
+        console.log("for", data.journeys[index].id, data.journeys[index].title, data.journeys[index].album);
+        createThumb(data.journeys[index]);
+    }
+
+
+
+    // replace the code below
 
     // get one image per journey to show on homepages
-    for (var index in data.journeys) {
-        console.log("for", data.journeys[index].id, data.journeys[index].title);
-        $.ajax({
-                type: 'GET',
-                url: `/journeys/images/single/${data.journeys[index].id}`,
-                dataType: 'json',
-                contentType: 'application/json'
-            })
-            //if call is successfull
-            .done(function(result) {
-                console.log(result);
-                createThumb(result);
-            })
-            // if the call is failing
-            .fail(function(jqXHR, error, errorThrown) {
-                console.log(jqXHR);
-                console.log(error);
-                console.log(errorThrown);
-            });
-    }
+    // for (var index in data.journeys) {
+    //     console.log("for", data.journeys[index].id, data.journeys[index].title);
+    //     $.ajax({
+    //             type: 'GET',
+    //             url: `/journeys/images/single/${data.journeys[index].id}`,
+    //             dataType: 'json',
+    //             contentType: 'application/json'
+    //         })
+    //         //if call is successfull
+    //         .done(function(result) {
+    //             console.log("displayJourneys result ", result);
+    //             // createThumb(result);
+    //         })
+    //         // if the call is failing
+    //         .fail(function(jqXHR, error, errorThrown) {
+    //             console.log(jqXHR);
+    //             console.log(error);
+    //             console.log(errorThrown);
+    //         });
+    // }
 }
 
 // create thumbnails for the each journey displayed on homepage
-function createThumb(thumb_info) {
-    console.log("function createThumb", thumb_info);
-    // $('.cards').append(
-    //     `<article class="card">
-    //         <a href="#${thumb_info.journeyTitle}" class="link-to-journey" id="${thumb_info.journeyId}">
-    //         <picture class="thumbnail">
-    //             <img src="${thumb_info.imgAddress}" alt="${thumb_info.journeyTitle}">
-    //         </picture> 
-    //         <div class="card-content">
-    //         <p>${thumb_info.journeyTitle}</p>
-    //         </div>
-    //         </a> 
-    //         </article>`
-    // );
+function createThumb(item) {
+    console.log("function createThumb", item);
+    $('.cards').append(
+        `<article class="card">
+            <a href="#${item.title}" class="link-to-journey" id="${item.id}">
+            <picture class="thumbnail">
+                <img src="${item.album}" alt="${item.title}">
+            </picture> 
+            <div class="card-content">
+            <p>${item.title}</p>
+            </div>
+            </a> 
+            </article>`
+    );
 }
 
 // API call to fetch only selected journey 
@@ -362,16 +371,16 @@ function displayJourney(data) {
     $('.create-journey').hide();
     // get journey id in case of edit or delete
     journey_id = data.id;
-    const username = $('#loggedInUserName').val();
     console.log(data);
-    console.log(journey_id);
     journey_title = `${data.title}`;
     $('.journal-entry').append(
         `<h2>${data.title}</h2>
          <p class="location">${data.location}</p>
          <p class="dates">${data.dates}</p>
-         <p class = "description">${data.description}</p>`
+         <p class = "description">${data.description}</p>
+         `
     );
+    $('.album').append (`<picture><img src="${data.album}" alt="${data.title}"></picture>`);
     // call function to get all images by the id of the journey
     getAllImages(journey_id);
 }

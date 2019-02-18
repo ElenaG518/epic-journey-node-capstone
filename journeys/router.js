@@ -61,8 +61,8 @@ router.get('/edit/:id', (req, res) => {
 
 // response for API call to create a journey with information provided by user
 router.post('/create', jsonParser, (req, res) => {
-    console.log(req.body.title, req.body.location, req.body.startDates, req.body.endDates, req.body.description);
-    const requiredFields = ['title', 'location', 'startDates', 'endDates', 'description', 'loggedInUserName'];
+    console.log(req.body.title, req.body.location, req.body.startDates, req.body.endDates, req.body.description, req.body.album);
+    const requiredFields = ['title', 'location', 'startDates', 'endDates', 'description', 'loggedInUserName', 'album'];
     // ensure we have values for all required fields, otherwise send an error
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -80,7 +80,8 @@ router.post('/create', jsonParser, (req, res) => {
             startDates: req.body.startDates,
             endDates: req.body.endDates,
             description: req.body.description,
-            loggedInUserName: req.body.loggedInUserName
+            loggedInUserName: req.body.loggedInUserName,
+            album: req.body.album
 
         })
         .then(journey => res.status(201).json(journey.serialize()))
