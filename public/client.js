@@ -190,7 +190,8 @@ function login(username, password) {
 $('#submit-image').click(function(event) {
     event.preventDefault();
     console.log("add image");
-    callCloudinary();
+    addJourneyAlbumCover();
+    $('#submit-image').addClass('hidden');
 
 });
 
@@ -283,32 +284,6 @@ function displayJourneys(data) {
         console.log("for", data.journeys[index].id, data.journeys[index].title, data.journeys[index].album);
         createThumb(data.journeys[index]);
     }
-
-
-
-    // replace the code below
-
-    // get one image per journey to show on homepages
-    // for (var index in data.journeys) {
-    //     console.log("for", data.journeys[index].id, data.journeys[index].title);
-    //     $.ajax({
-    //             type: 'GET',
-    //             url: `/journeys/images/single/${data.journeys[index].id}`,
-    //             dataType: 'json',
-    //             contentType: 'application/json'
-    //         })
-    //         //if call is successfull
-    //         .done(function(result) {
-    //             console.log("displayJourneys result ", result);
-    //             // createThumb(result);
-    //         })
-    //         // if the call is failing
-    //         .fail(function(jqXHR, error, errorThrown) {
-    //             console.log(jqXHR);
-    //             console.log(error);
-    //             console.log(errorThrown);
-    //         });
-    // }
 }
 
 // create thumbnails for the each journey displayed on homepage
@@ -390,12 +365,13 @@ function displayJourney(data) {
 $('#upload_widget_opener').click(event => {
     console.log("click upload_widget_opener");
     event.preventDefault();
-    console.log(journey_title);
-    callCloudinary();
-
+    const username = $('#loggedInUserName').val();
+    console.log("widget ", username, journey_id, journey_title);
+    callCloudinary(username, journey_id, journey_title);
+    
 });
 
-function callCloudinary() {
+function addJourneyAlbumCover() {
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
         function(error, result) {
             console.log(error, result);
@@ -419,6 +395,27 @@ function callCloudinary() {
         console.log("Widget closed", data);
     });
 };
+
+function callCloudinary(username, id, title) {
+    console.log("callCloudinary ", username, id, title);
+    cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
+        function(error, result) {
+            console.log(error, result[0].secure_url);
+            addPhotos(result[0].secure_url, username, id, title);
+            }, false);
+
+    $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
+        console.log("Single file success", e, data);
+        console.log("data secure url ", data.secure_url);
+        
+    });        
+};
+
+
+
+
+
+
 
 // add pictures for journeys to the database
 function addPhotos(img_url, username, journey_id, journey_title) {
@@ -475,10 +472,9 @@ function getAllImages(journeyId) {
 }
 
 function displayAllImages(imgArray) {
-    console.log("function displayAllImages");
+    console.log("function displayAllImages ", imgArray);
     const imgArrayString = [];
     for (let index in imgArray.images) {
-        // imgArrayString.push(`${imgArray.images[index].imgAddress}`);
         imgArrayString.push(`<picture>
             <img src="${imgArray.images[index].imgAddress}" alt="${imgArray.images[index].journeyTitle}">
             </picture>`);
