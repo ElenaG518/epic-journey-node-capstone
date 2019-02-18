@@ -189,6 +189,7 @@ function login(username, password) {
 
 $('#submit-image').click(function(event) {
     event.preventDefault();
+    console.log("add image");
     callCloudinary();
 
 });
@@ -203,6 +204,8 @@ $('.journey-form').submit(function(event) {
     const endDates = $('#datepicker-end').val();
     const description = $('#description').val();
     const username = $('#loggedInUserName').val();
+    const album = $('#url').val();
+    console.log("url ", album);
     //create the payload object (what data we send to the api call)
     const journalObject = {
         title: title,
@@ -210,7 +213,8 @@ $('.journey-form').submit(function(event) {
         startDates: startDates,
         endDates: endDates,
         description: description,
-        loggedInUserName: username
+        loggedInUserName: username, 
+        // album = album
     };
     console.log(journalObject);
     //make the api call using the payload above
@@ -386,13 +390,15 @@ function callCloudinary() {
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
         function(error, result) {
             console.log(error, result);
-            const username = $('#loggedInUserName').val();
-            console.log("384", result[0].url, username);
-            // addPhotos(result[0].url, username);
-        }, false);
+            }, false);
 
     $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
+        const username = $('#loggedInUserName').val();
         console.log("Single file success", e, data);
+        console.log("data secure url ", data.secure_url, username);
+        $('#url').val(data.secure_url);
+        const imgUrl= $('#url').val();
+        console.log("url ", imgUrl);
     });
     $(document).on('cloudinarywidgeterror', function(e, data) {
         console.log("Error", data);
@@ -631,8 +637,6 @@ $('.delete-journey-anchor').click(event => {
     journey_id = "";
     console.log(journeyId);
     myFunction(journeyId);
-    // deleteJourney(journeyId);
-    // $('.album').empty();
 });
 
 function myFunction(journeyId) {
