@@ -4,20 +4,20 @@ let journey_id;
 let journey_title;
 
 // SCROLLING HEADER
-function resizeHeaderOnScroll() {
-    const distanceY = window.pageYOffset || document.documentElement.scrollTop,
-        shrinkOn = 150,
-        headerEl = document.getElementById('js-header');
-    headerEl.classList.add("smaller");
+// function resizeHeaderOnScroll() {
+//     const distanceY = window.pageYOffset || document.documentElement.scrollTop,
+//         shrinkOn = 150,
+//         headerEl = document.getElementById('js-header');
+//     headerEl.classList.add("smaller");
 
-    // if (distanceY > shrinkOn) {
-    //     headerEl.classList.add("smaller");
-    // } else {
-    //     headerEl.classList.remove("smaller");
-    // }
-}
+//     if (distanceY > shrinkOn) {
+//         headerEl.classList.add("smaller");
+//     } else {
+//         headerEl.classList.remove("smaller");
+//     }
+// }
 
-window.addEventListener('scroll', resizeHeaderOnScroll);
+// window.addEventListener('scroll', resizeHeaderOnScroll);
 
 // home anchor
 $('.home-anchor').click(event => {
@@ -74,7 +74,7 @@ $('.demo-anchor').click(event => {
 $('.add-journey').click(event => {
     event.preventDefault();
     console.log("add journey button clicked");
-    $('.create-journey').removeClass('hide').show();
+    $('.create-journey').removeClass('hide');
     $('.homepage').hide();
     const title = $('#title').val("");
     const location = $('#location').val("");
@@ -175,7 +175,9 @@ function login(username, password) {
             .done(function(result) {
                 $('#loggedInUserName').val(result.username);
                 console.log(result.username);
+                $('#js-header').addClass('smaller');
                 $('nav').removeClass('hide');
+
                 getListOfJourneys(result.username);
             })
             // if the call is failing

@@ -14,7 +14,7 @@ body {
 
 main {
     position: relative;
-    top: 150px;
+    top: 55px;
     margin: 0 auto;
     max-width: 1200px;
 }
@@ -24,7 +24,7 @@ main {
 }
 
 .intro {
-    top: 150px;
+    margin-top: 250px;
 }
 
 .login-btn {
@@ -40,13 +40,14 @@ main {
     font-size: 85%;
 }
 
-.create-journey {
+.create-journey,
+.dashboard {
     margin-top: 150px;
 }
 
 .album-pic a {
     text-align: center;
-    font-size: 15px;
+    font-size: 17px;
     color: darkolivegreen;
     padding-top: 10px;
 }
@@ -72,7 +73,7 @@ header.smaller {
 }
 
 header.smaller h1#logo {
-    line-height: 90px;
+    line-height: 100px;
     font-size: 45px;
 }
 
@@ -94,7 +95,6 @@ header h1#logo {
     display: block;
     line-height: 3em;
     margin: 0;
-    padding: 0 1em;
     text-align: center;
     font-family: 'Playfair Display', serif;
     font-style: italic;
@@ -123,13 +123,9 @@ header nav {
 
 header nav a {
     color: #fcfcfc;
-    font-size: 15px;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-    flex: 0 0 calc(12%);
+    font-size: 20px;
+    margin-right: 20px;
+    flex: 0 0 20%;
     text-decoration: none;
     text-align: center;
 }
@@ -275,6 +271,7 @@ form button,
 }
 
 .card {
+    margin: 6% auto;
     flex: 0 1 calc(30% - 1em);
     background: white;
     border: 1px solid darkgrey;
@@ -330,15 +327,6 @@ a:hover {
 }
 
 
-/* dashboard styles */
-
-.dashboard {
-    max-width: 800px;
-    margin: auto auto 100px;
-    margin-top: 45px;
-}
-
-
 /* dashboard nav */
 
 .dashboard-nav {
@@ -377,6 +365,7 @@ a:hover {
 /* notebook and journal entry styles */
 
 .notebook {
+    border: 1px solid darkkhaki;
     border-radius: 20px;
     background-image: url("../images/sketchBackground.jpg");
     background-size: cover;
@@ -401,7 +390,6 @@ a:hover {
     margin: auto;
     text-align: left;
     padding: 30px;
-    font-size: 90%;
     font-family: 'Indie Flower', cursive;
 }
 
@@ -428,12 +416,12 @@ a:hover {
 
 .album picture {
     border: 2px inset silver;
-    flex: 0 1 calc(40% - 2em);
+    flex: 0 1 calc(32% - 1em);
     margin: auto;
     background: white;
     margin-bottom: 2em;
     box-shadow: 0px 0px 1px 0px lightgrey;
-    padding: 10px;
+    padding: 20px;
 }
 
 .directions {
@@ -445,7 +433,6 @@ a:hover {
 }
 
 .directions li {
-    /* list-style-type: none; */
     padding-left: 30px;
 }
 
@@ -463,20 +450,8 @@ a:hover {
 /* Styling for header and header nav */
 
 @media all and (max-width: 760px) {
-    main {
-        top: 250px;
-    }
     header {
-        height: 120px;
-    }
-    header h1#logo {
-        display: block;
-        float: none;
-        margin: 0 auto;
-        height: 100px;
-        line-height: 80px;
-        text-align: center;
-        font-size: 1.8em;
+        height: 180px;
     }
     header nav {
         display: block;
@@ -489,16 +464,6 @@ a:hover {
         line-height: 50px;
         margin: 0 10px;
     }
-    header.smaller {
-        height: 75px;
-    }
-    header.smaller h1#logo {
-        height: 60px;
-        padding: 10px 0;
-        line-height: 40px;
-        font-size: 30px;
-        width: 100%;
-    }
     header.smaller nav {
         height: 35px;
     }
@@ -507,19 +472,56 @@ a:hover {
     }
 }
 
-
-/* styling for card elements */
-
-@media screen and (max-width: 720px) and (min-width: 620px) {
-    .card {
-        flex: 0 1 calc(33% - 1em);
+@media all and (max-width: 620px) {
+    header.smaller {
+        height: 121px;
+    }
+    main {
+        top: 200px;
     }
 }
 
-@media screen and (max-width: 620px) and (min-width: 420px) {
+
+/* styling for card elements */
+
+@media screen and (max-width: 960px) and (min-width: 721px) {
+    .card {
+        flex: 0 1 calc(40% - 0.7em);
+    }
+}
+
+@media screen and (max-width: 820px) and (min-width: 719px) {
+    .album picture {
+        flex: 0 1 calc(47% - 1em);
+    }
+}
+
+@media screen and (max-width: 720px) and (min-width: 620px) {
+    .album picture {
+        flex: 0 1 calc(49% - .5em);
+        padding: 10px;
+    }
+    .card {
+        flex: 0 1 calc(45% - 1em);
+    }
+}
+
+@media screen and (max-width: 619px) and (min-width: 420px) {
     .card {
         flex: 0 1 calc(65% - 1em);
         margin-bottom: 1em;
+    }
+    .album picture {
+        flex: 0 1 calc(80% - 1em);
+    }
+    .intro {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width: 510px) and (min-width: 420px) {
+    header h1#logo {
+        font-size: 55px;
     }
 }
 
@@ -527,6 +529,15 @@ a:hover {
     .card {
         flex: 0 1 calc(85% - 1em);
         margin-bottom: 1em;
+    }
+    header {
+        height: 135px;
+    }
+    header h1#logo {
+        font-size: 40px;
+    }
+    .album picture {
+        flex: 0 1 calc(100% - 1em);
     }
 }
 
@@ -551,26 +562,16 @@ a:hover {
     .edit-form {
         max-width: 300px;
     }
-    header h1 {
-        padding: 25px 0;
-        height: 100px;
-        font-size: 1.8em;
-    }
     header.smaller h1#logo {
-        height: 60px;
         padding: 10px 0;
-        line-height: 40px;
-        font-size: 30px;
+        font-size: 40px;
         width: 100%;
+    }
+    header nav a {
+        font-size: 18px;
     }
     nav li {
         flex: 0 0 calc(25%);
-    }
-    main {
-        top: 150px;
-    }
-    .intro {
-        top: 250px;
     }
     h2 {
         line-height: 1.5em;
@@ -578,18 +579,13 @@ a:hover {
     .homepage h2 {
         margin-top: 50px;
     }
-    .cards,
-    {
+    .cards {
         margin-top: 50px;
     }
     .album {
         margin-top: 50px
     }
     .card {
-        margin-bottom: 1em;
-    }
-    .album img {
-        width: 250px;
         margin-bottom: 1em;
     }
     .journal-text,
