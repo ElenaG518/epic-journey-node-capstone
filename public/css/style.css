@@ -44,6 +44,18 @@ main {
     margin-top: 150px;
 }
 
+.album-pic a {
+    text-align: center;
+    font-size: 15px;
+    color: darkolivegreen;
+    padding-top: 10px;
+}
+
+.album-confirm {
+    width: 250px;
+    margin: auto;
+}
+
 
 /* header styles */
 
@@ -152,6 +164,7 @@ h2 {
 }
 
 .homepage h2 {
+    margin-top: 160px;
     margin-bottom: 50px;
     color: darkslategray;
     font-weight: 900;
@@ -528,7 +541,7 @@ a:hover {
         padding-bottom: 100px;
     }
     .homepage {
-        margin-top: -45px;
+        margin-top: 45px;
     }
     .create-journey {
         margin-top: 0;

@@ -194,9 +194,6 @@ $('#submit-image').click(function(event) {
     event.preventDefault();
     console.log("add image");
     addJourneyAlbumCover();
-    // $('#submit-image').addClass('hide');
-    // $('#submit-journey').removeClass('hide');
-
 });
 
 // CREATE journeys API call
@@ -375,6 +372,12 @@ $('#upload_widget_opener').click(event => {
     
 });
 
+$('.album-pic').on('click', '.change-cover', event => {
+    event.preventDefault();
+    console.log("change-cover has been clicked");
+    addJourneyAlbumCover();
+})
+
 function addJourneyAlbumCover() {
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
         function(error, result) {
@@ -390,6 +393,10 @@ function addJourneyAlbumCover() {
         $('#url').val(data.secure_url);
         const imgUrl= $('#url').val();
         console.log("url ", imgUrl);
+        $('.album-pic').html(`
+        <img src="${imgUrl}" class="album-confirm">
+        <a href="#" class="change-cover">change album cover</a>`);
+        
     });
     $(document).on('cloudinarywidgeterror', function(e, data) {
         console.log("Error", data);
@@ -401,6 +408,8 @@ function addJourneyAlbumCover() {
         console.log("Widget closed", data);
     });
 };
+
+
 
 function callCloudinary(username, id, title) {
     console.log("callCloudinary ", username, id, title);
