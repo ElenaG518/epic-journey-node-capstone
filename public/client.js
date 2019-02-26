@@ -82,6 +82,7 @@ $('.add-journey').click(event => {
     const endDates = $('#datepicker-end').val("");
     const description = $('#description').val("");
     const username = $('#loggedInUserName').val();
+    $('.album-pic').empty();
 });
 
 // API calls to users router
@@ -372,6 +373,7 @@ $('#upload_widget_opener').click(event => {
     
 });
 
+// call cloudinary via AddJourneyAlbumCover to change album cover
 $('.album-pic').on('click', '.change-cover', event => {
     event.preventDefault();
     console.log("change-cover has been clicked");
@@ -386,10 +388,12 @@ function addJourneyAlbumCover() {
             $('#submit-journey').removeClass('hide');
             }, false);
 
+    // capture secure url for uploaded picture 
     $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
         const username = $('#loggedInUserName').val();
         console.log("Single file success", e, data);
         console.log("data secure url ", data.secure_url, username);
+        $('#url').val("");
         $('#url').val(data.secure_url);
         const imgUrl= $('#url').val();
         console.log("url ", imgUrl);
@@ -410,7 +414,7 @@ function addJourneyAlbumCover() {
 };
 
 
-
+// add additional pictures to journeys
 function callCloudinary(username, id, title) {
     console.log("callCloudinary ", username, id, title);
     cloudinary.openUploadWidget({ cloud_name: 'elenag518', upload_preset: 'pachirili', height: 300, width: 300, crop: "limit" },
@@ -600,6 +604,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     const endDates = $('.edit-end-dates').val();
     const description = $('#edit-description').val();
     const username = $('#loggedInUserName').val();
+   
 
     // create paylode object
     const editJournalObject = {
