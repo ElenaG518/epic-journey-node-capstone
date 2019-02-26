@@ -124,8 +124,7 @@ header nav {
 header nav a {
     color: #fcfcfc;
     font-size: 20px;
-    margin-right: 20px;
-    flex: 0 0 20%;
+    flex: 0 0 15%;
     text-decoration: none;
     text-align: center;
 }
@@ -357,11 +356,6 @@ a:hover {
 /* add journey styles */
 
 
-/* .steps li {
-    list-style-type: inherit;
-} */
-
-
 /* notebook and journal entry styles */
 
 .notebook {
@@ -453,22 +447,15 @@ a:hover {
     header {
         height: 180px;
     }
-    header nav {
-        display: block;
-        float: none;
-        height: 50px;
-        text-align: center;
-        margin: 0 auto;
-    }
     header nav a {
-        line-height: 50px;
-        margin: 0 10px;
+        flex: 0 0 25%;
+    }
+    header nav {
+        height: 50px;
+        margin: 0 auto;
     }
     header.smaller nav {
         height: 35px;
-    }
-    header.smaller nav a {
-        line-height: 35px;
     }
 }
 
@@ -517,6 +504,10 @@ a:hover {
     .intro {
         margin-top: 50px;
     }
+    header nav a {
+        flex: 0 0 20%;
+        margin-right: 10px;
+    }
 }
 
 @media screen and (max-width: 510px) and (min-width: 420px) {
@@ -538,6 +529,10 @@ a:hover {
     }
     .album picture {
         flex: 0 1 calc(100% - 1em);
+    }
+    header nav a {
+        flex: 0 0 25%;
+        margin-right: 10px;
     }
 }
 
