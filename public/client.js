@@ -264,7 +264,7 @@ function getListOfJourneys(username) {
         })
         //if call is successfull
         .done(function(result) {
-            console.log(result);
+            console.log("getlist ", result);
             displayJourneys(result);
         })
         // if the call is failing
@@ -285,7 +285,7 @@ function displayJourneys(data) {
     };
     
     for (var index in data.journeys) {
-        console.log("for", data.journeys[index].id, data.journeys[index].title, data.journeys[index].album);
+        console.log("for", data.journeys[index]._id, data.journeys[index].title, data.journeys[index].album);
         createThumb(data.journeys[index]);
     }
 }
