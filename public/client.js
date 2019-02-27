@@ -74,7 +74,7 @@ $('.demo-anchor').click(event => {
 $('.add-journey').click(event => {
     event.preventDefault();
     console.log("add journey button clicked");
-    $('.create-journey').removeClass('hide');
+    $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
     const title = $('#title').val("");
     const location = $('#location').val("");
