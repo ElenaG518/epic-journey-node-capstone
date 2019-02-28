@@ -15,13 +15,10 @@ router.get('/:username', (req, res) => {
         
         // if successful, send back journeys
         .then(journeys => {
-            console.log("journeys ", journeys);
-            journeys.map(journey => {
-                if (journey.loggedInUserName == req.params.user) {
-                    journey.serialize();
-                }
-            })    
-            res.json({journeys})
+            // if (journey.loggedInUserName == req.params.user)
+            res.json({
+                journeys: journeys.map(journey => journey.serialize())
+            });
         })
         // send error if call was not successful
         .catch(err => {
