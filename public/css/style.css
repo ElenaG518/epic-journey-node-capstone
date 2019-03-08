@@ -1,592 +1,641 @@
-                body {
-                background-image: url("../images/travel.jpg");
-                background-position: top left;
-                background-repeat: repeat-y;
-                background-size: cover;
-                background-color: #ffc3a042;
-                font-family: 'Quattrocento', serif;
-            }
-            
-            #wrapper {
-                width: 100%;
-                margin: 0 auto;
-            }
-            
-            main {
-                position: relative;
-                top: 55px;
-                margin: 0 auto;
-                max-width: 1200px;
-            }
-            
-            .hide {
-                display: none;
-            }
-            
-            .intro {
-                margin-top: 250px;
-            }
-            
-            .login-btn {
-                margin-bottom: 10px;
-            }
-            
-            .demo-anchor {
-                font-size: 65%;
-            }
-            
-            .signup-anchor,
-            .login-anchor {
-                font-size: 85%;
-            }
-            
-            .create-journey,
-            .dashboard {
-                margin-top: 150px;
-            }
-            
-            .album-pic {
-                margin-top: 15px;
-            }
-            
-            .album-pic a {
-                text-align: center;
-                font-size: 17px;
-                color: darkolivegreen;
-                padding-top: 10px;
-            }
-            
-            .album-confirm {
-                width: 265px;
-                margin: auto;
-                border: 5px solid white;
-                border-radius: 5px;
-            }
-            /* header styles */
-            
-            header.smaller {
-                height: 100px;
-            }
-            
-            *,
-            *:before,
-            *:after {
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-            }
-            
-            header.smaller h1#logo {
-                line-height: 100px;
-                font-size: 45px;
-            }
-            
-            header {
-                width: 100%;
-                height: 10em;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 999;
-                border-bottom: solid 0.5em #f4f4f4;
-                background-image: url("../images/mustard.jpg");
-                background-position: center;
-                background-repeat: repeat;
-                transition: height 0.3s;
-            }
-            
-            header h1#logo {
-                display: block;
-                line-height: 3em;
-                margin: 0;
-                text-align: center;
-                font-family: 'Playfair Display', serif;
-                font-style: italic;
-                font-size: 60px;
-                color: #48470e;
-                text-shadow: 0.1em 0.03em darkgoldenrod;
-                font-weight: 900;
-                -webkit-transition: all 0.3s;
-                -moz-transition: all 0.3s;
-                -ms-transition: all 0.3s;
-                -o-transition: all 0.3s;
-                transition: all 0.3s;
-            }
-            /* header nav styles */
-            
-            header nav {
-                line-height: 1.8em;
-                display: flex;
-                flex-flow: row nowrap;
-                justify-content: flex-end;
-                background-color: #2b2b2b;
-                width: 100%;
-            }
-            
-            header nav a {
-                color: #fcfcfc;
-                flex: 0 1 calc(8% - 1em);
-                text-decoration: none;
-                text-align: center;
-            }
-            
-            header nav a:hover {
-                background-color: darkolivegreen;
-                color: whitesmoke;
-            }
-            /* apply to all navs */
-            
-            nav ul {
-                display: flex;
-                flex-flow: row nowrap;
-                justify-content: flex-end;
-                align-items: center;
-                align-content: center;
-            }
-            /* text styles */
-            
-            h2 {
-                line-height: 1;
-                font-weight: 100;
-                color: #4d0204;
-                font-family: 'Playfair Display', serif;
-                text-align: center;
-                margin-bottom: 50px;
-                padding: 0 15px;
-            }
-            
-            .homepage h2 {
-                margin-top: 160px;
-                margin-bottom: 50px;
-                color: darkslategray;
-                font-weight: 900;
-            }
-            
-            p {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 10px 15px;
-                line-height: 1.5em;
-            }
-            
-            a {
-                text-decoration: none;
-                color: #fcfcfc;
-                font-weight: 300;
-                cursor: pointer;
-            }
-            
-            .clearfix:after {
-                visibility: hidden;
-                display: block;
-                content: "";
-                clear: both;
-                height: 0;
-            }
-            /* form styles */
-            
-            form {
-                color: black;
-                background-color: hsla(0, 6%, 83%, 0.99);
-                max-width: 400px;
-                border: 3px solid white;
-                border-radius: 10px;
-                margin: 50px auto;
-            }
-            
-            .journey-form,
-            .edit-form {
-                max-width: 621px;
-                margin: 50px auto;
-            }
-            
-            form fieldset {
-                border: 0;
-            }
-            
-            form legend {
-                text-align: center;
-                padding: 30px 0 20px;
-                font-size: larger;
-            }
-            
-            label {
-                max-width: 280px;
-                display: block;
-                padding: 5px 0px;
-                margin: 0 auto;
-            }
-            
-            form input {
-                padding: 1px 4px;
-                display: block;
-                margin: 0 auto 25px;
-                width: 280px;
-            }
-            
-            .journal-text,
-            .edit-journal-text {
-                padding: 5px 10px;
-                display: block;
-                margin: 0 auto 25px;
-            }
-            
-            form a {
-                color: #313005;
-                font-size: 90%;
-                text-align: center;
-                display: block;
-                text-decoration: underline;
-                margin-bottom: 20px;
-            }
-            
-            form button,
-            .add-journey,
-            .add-pics {
-                font-size: 16px;
-                border: 5px solid white;
-                border-radius: 15px;
-                padding: 10px 25px;
-                background-color: #ffc3a0;
-                display: block;
-                margin: 50px auto;
-            }
-            /* homepages styles */
-            
-            .cards {
-                margin-top: 25px;
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: space-around;
-                align-items: flex-start;
-                align-content: center;
-            }
-            
-            .card {
-                margin: 6% auto;
-                flex: 0 1 calc(30% - 1em);
-                background: white;
-                border: 1px solid darkgrey;
-                box-shadow: 0px 2px black;
-            }
-            
-            picture {
-                margin: auto;
-                padding: 3px;
-                display: block;
-            }
-            
-            button {
-                box-shadow: 0px 0px 1px hsl(0, 0%, 14%);
-            }
-            
-            button:hover {
-                box-shadow: 0px 0px 7px hsl(0, 0%, 14%);
-            }
-            
-            a:hover {
-                color: darkslategray;
-                text-shadow: 1px hsl(0, 0%, 14%);
-            }
-            
-            .card:hover {
-                box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
-            }
-            
-            .card a {
-                color: black;
-                display: block;
-                text-align: left;
-                padding: 10px 15px;
-            }
-            
-            .card a:hover {
-                text-decoration: underline;
-                display: block;
-                color: #3e5059;
-                text-align: left;
-            }
-            
-            .card-content {
-                padding: 5px 0 2px;
-                letter-spacing: 2px;
-                font-size: 80%;
-                font-family: 'Indie Flower', cursive;
-            }
-            
-            .thubmnail {
-                flex: 0 1 calc(40% - 2em);
-            }
-            /* dashboard nav */
-            
-            .dashboard-nav {
-                background-color: transparent;
-                line-height: 0.2em;
-                padding: 60px;
-            }
-            
-            .dashboard-nav ul {
-                display: block;
-                text-align: center;
-            }
-            
-            .dashboard-nav li {
-                list-style: none;
-                display: inline-block;
-                text-align: center;
-                text-decoration: underline;
-            }
-            
-            .dashboard-nav a {
-                padding: 0 10px;
-                color: black;
-                text-decoration: underline;
-            }
-            /* add journey styles */
-            /* notebook and journal entry styles */
-            
-            .notebook {
-                border: 1px solid darkkhaki;
-                border-radius: 20px;
-                background-image: url("../images/sketchBackground.jpg");
-                background-size: cover;
-                position: relative;
-                max-width: 800px;
-                margin: auto;
-            }
-            
-            .notebook a {
-                font-size: 85%;
-                margin: auto;
-                display: inline-block;
-                padding: 10px;
-                text-align: center;
-                text-decoration: none;
-            }
-            
-            .journal-entry {
-                height: 450px;
-                overflow-y: auto;
-                display: block;
-                margin: auto;
-                text-align: left;
-                padding: 30px;
-                font-family: 'Indie Flower', cursive;
-            }
-            
-            .journal-entry h2 {
-                text-align: center;
-                margin-bottom: 15px;
-            }
-            
-            .journal-entry p {
-                padding: 10px 35px 10px 55px;
-            }
-            /* album styles */
-            
-            .album {
-                margin: 25px 0;
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: space-around;
-                align-items: flex-start;
-                align-content: center;
-            }
-            
-            .album picture {
-                border: 2px inset silver;
-                flex: 0 1 calc(32% - 1em);
-                margin: 6% 0;
-                background: white;
-                box-shadow: 0px 0px 1px 0px lightgrey;
-                padding: 20px;
-            }
-            
-            .directions {
-                line-height: 1.5em;
-                max-width: 520px;
-                margin: 0 auto;
-                text-align: left;
-                padding: 0 50px;
-            }
-            
-            .directions li {
-                padding-left: 30px;
-            }
-            
-            .directions h2 {
-                margin: 0;
-                padding: 35px 0 0;
-                text-align: center;
-                font-weight: 700px;
-            }
-            /* RESPONSIVE DESIGN STYLING */
-            /* Styling for header and header nav */
-            
-            @media all and (max-width: 760px) {
-                header {
-                    height: 180px;
-                }
-                header nav a {
-                    flex: 0 1 calc(20% - 1em);
-                }
-                header nav {
-                    height: 50px;
-                    margin: 0 auto;
-                }
-                header.smaller nav {
-                    height: 35px;
-                }
-            }
-            
-            @media all and (max-width: 620px) {
-                header.smaller {
-                    height: 121px;
-                }
-                main {
-                    top: 200px;
-                }
-            }
-            /* styling for card elements */
-            
-            @media screen and (max-width: 960px) and (min-width: 721px) {
-                .card {
-                    flex: 0 1 calc(40% - 0.7em);
-                }
-                header nav a {
-                    flex: 0 1 calc(15% - 1em);
-                    margin-right: 10px;
-                }
-            }
-            
-            @media screen and (max-width: 820px) and (min-width: 719px) {
-                .album picture {
-                    flex: 0 1 calc(47% - 1em);
-                }
-            }
-            
-            @media screen and (max-width: 720px) and (min-width: 620px) {
-                .album picture {
-                    flex: 0 1 calc(49% - .5em);
-                    padding: 10px;
-                }
-                .card {
-                    flex: 0 1 calc(45% - 1em);
-                }
-            }
-            
-            @media screen and (max-width: 619px) and (min-width: 420px) {
-                .card {
-                    flex: 0 1 calc(65% - 1em);
-                    margin-bottom: 1em;
-                }
-                .album picture {
-                    flex: 0 1 calc(80% - 1em);
-                }
-                .intro {
-                    margin-top: 50px;
-                }
-                header nav a {
-                    flex: 0 1 20%;
-                    margin-right: 10px;
-                }
-            }
-            
-            @media screen and (max-width: 510px) and (min-width: 420px) {
-                header h1#logo {
-                    font-size: 55px;
-                }
-                .journal-text,
-                .edit-journal-text {
-                    max-width: 400px;
-                }
-            }
-            
-            @media screen and (max-width: 419px) and (min-width: 320px) {
-                .card {
-                    flex: 0 1 calc(85% - 1em);
-                    margin-bottom: 1em;
-                }
-                header {
-                    height: 135px;
-                }
-                header h1#logo {
-                    font-size: 40px;
-                }
-                .album picture {
-                    flex: 0 1 calc(100% - 1em);
-                }
-                header nav a {
-                    flex: 0 0 25%;
-                    margin-right: 10px;
-                }
-                .journal-text,
-                .edit-journal-text {
-                    max-width: 265px;
-                }
-                /* styling for all other elements in smaller screens */
-                @media screen and (max-width: 620px) and (min-width: 320px) {
-                    .homepage,
-                    .dashboard,
-                    .create-journey,
-                    .edit-journey {
-                        padding-bottom: 100px;
-                    }
-                    .homepage {
-                        margin-top: 45px;
-                    }
-                    .create-journey {
-                        margin-top: 0;
-                    }
-                    /* form,
-            .journey-form,
-            .edit-form {
-                max-width: 300px;
-            } */
-                    header.smaller h1#logo {
-                        padding: 10px 0;
-                        font-size: 40px;
-                        width: 100%;
-                    }
-                    header nav a {
-                        font-size: 18px;
-                    }
-                    nav li {
-                        flex: 0 0 calc(25%);
-                    }
-                    h2 {
-                        line-height: 1.5em;
-                    }
-                    .homepage h2 {
-                        margin-top: 50px;
-                    }
-                    .cards {
-                        margin-top: 50px;
-                    }
-                    .album {
-                        margin-top: 50px
-                    }
-                    .card {
-                        margin-bottom: 1em;
-                    }
-                    /* .journal-text,
-        .edit-journal-text {
-            max-width: 265px;
-        } */
-                    form input,
-                    form label {
-                        width: 250px;
-                    }
-                    .notebook {
-                        position: relative;
-                    }
-                    .journal-entry p {
-                        padding: 10px 10px 10px 15px;
-                    }
-                    .edit-journey {
-                        margin-top: 50px;
-                    }
-                    .dashboard-nav {
-                        padding: 0;
-                    }
-                }
+body {
+    background-image: url("../images/travel.jpg");
+    background-position: top left;
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-color: #ffc3a042;
+    font-family: 'Quattrocento', serif;
+}
+
+#wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+main {
+    position: relative;
+    top: 55px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.hide {
+    display: none;
+}
+
+.intro {
+    margin-top: 250px;
+}
+
+.login-btn {
+    margin-bottom: 10px;
+}
+
+.demo-anchor {
+    font-size: 65%;
+}
+
+.signup-anchor,
+.login-anchor {
+    font-size: 85%;
+}
+
+.create-journey,
+.dashboard {
+    margin-top: 150px;
+}
+
+.album-pic {
+    margin-top: 15px;
+}
+
+.album-pic a {
+    text-align: center;
+    font-size: 17px;
+    color: darkolivegreen;
+    padding-top: 10px;
+}
+
+.album-confirm {
+    width: 265px;
+    margin: auto;
+    border: 5px solid white;
+    border-radius: 5px;
+}
+
+
+/* header styles */
+
+header.smaller {
+    height: 100px;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+header.smaller h1#logo {
+    line-height: 100px;
+    font-size: 45px;
+}
+
+header {
+    width: 100%;
+    height: 10em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    border-bottom: solid 0.5em #f4f4f4;
+    background-image: url("../images/mustard.jpg");
+    background-position: center;
+    background-repeat: repeat;
+    transition: height 0.3s;
+}
+
+header h1#logo {
+    display: block;
+    line-height: 3em;
+    margin: 0;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 60px;
+    color: #48470e;
+    text-shadow: 0.1em 0.03em darkgoldenrod;
+    font-weight: 900;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+
+/* header nav styles */
+
+header nav {
+    line-height: 1.8em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    background-color: #2b2b2b;
+    width: 100%;
+}
+
+header nav a {
+    color: #fcfcfc;
+    padding: 0 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+header nav a:hover {
+    background-color: darkolivegreen;
+    color: whitesmoke;
+}
+
+
+/* apply to all navs */
+
+nav ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+
+/* text styles */
+
+h2 {
+    line-height: 1;
+    font-weight: 100;
+    color: #4d0204;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 15px;
+}
+
+.homepage h2 {
+    margin-top: 160px;
+    margin-bottom: 50px;
+    color: darkslategray;
+    font-weight: 900;
+}
+
+p {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    line-height: 1.5em;
+}
+
+a {
+    text-decoration: none;
+    color: #fcfcfc;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+}
+
+
+/* form styles */
+
+form {
+    color: black;
+    background-color: hsla(0, 6%, 83%, 0.99);
+    max-width: 410px;
+    border: 3px solid white;
+    border-radius: 10px;
+    margin: 50px auto;
+}
+
+.journey-form,
+.edit-form {
+    max-width: 620px;
+    margin: 50px auto;
+}
+
+form fieldset {
+    border: 0;
+}
+
+form legend {
+    text-align: center;
+    padding: 30px 0 20px;
+    font-size: larger;
+}
+
+label {
+    max-width: 280px;
+    display: block;
+    padding: 5px 0px;
+    margin: 0 auto;
+}
+
+form input {
+    padding: 1px 4px;
+    display: block;
+    margin: 0 auto 25px;
+    width: 280px;
+}
+
+.journal-text,
+.edit-journal-text {
+    padding: 5px 10px;
+    display: block;
+    margin: 0 auto 25px;
+}
+
+form a {
+    color: #313005;
+    font-size: 90%;
+    text-align: center;
+    display: block;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
+form button,
+.add-journey,
+.add-pics {
+    font-size: 16px;
+    border: 5px solid white;
+    border-radius: 15px;
+    padding: 10px 25px;
+    background-color: #ffc3a0;
+    display: block;
+    margin: 50px auto;
+}
+
+
+/* homepages styles */
+
+.cards {
+    margin-top: 25px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: center;
+}
+
+.card {
+    margin: 6% auto;
+    flex: 0 1 calc(30% - 1em);
+    background: white;
+    border: 1px solid darkgrey;
+    box-shadow: 0px 2px black;
+}
+
+picture {
+    margin: auto;
+    display: block;
+}
+
+button {
+    box-shadow: 0px 0px 1px hsl(0, 0%, 14%);
+}
+
+button:hover {
+    box-shadow: 0px 0px 7px hsl(0, 0%, 14%);
+}
+
+a:hover {
+    color: darkslategray;
+    text-shadow: 1px hsl(0, 0%, 14%);
+}
+
+.card:hover {
+    box-shadow: 5px 5px 10px hsl(0, 0%, 14%);
+}
+
+.card a {
+    color: black;
+    display: block;
+    text-align: left;
+    padding: 10px 15px;
+}
+
+.card a:hover {
+    text-decoration: underline;
+    display: block;
+    color: #3e5059;
+    text-align: left;
+}
+
+.card-content {
+    padding: 5px 0 2px;
+    letter-spacing: 2px;
+    font-size: 80%;
+    font-family: 'Indie Flower', cursive;
+}
+
+.thubmnail {
+    flex: 0 1 calc(40% - 2em);
+}
+
+
+/* dashboard nav */
+
+.dashboard-nav {
+    background-color: transparent;
+    line-height: 0.2em;
+    padding: 60px;
+}
+
+.dashboard-nav ul {
+    display: block;
+    text-align: center;
+}
+
+.dashboard-nav li {
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.dashboard-nav a {
+    padding: 0 10px;
+    color: black;
+    text-decoration: underline;
+}
+
+
+/* add journey styles */
+
+
+/* notebook and journal entry styles */
+
+.notebook {
+    border: 1px solid darkkhaki;
+    border-radius: 20px;
+    background-image: url("../images/sketchBackground.jpg");
+    background-size: cover;
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+}
+
+.notebook a {
+    font-size: 85%;
+    margin: auto;
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.journal-entry {
+    height: 450px;
+    overflow-y: auto;
+    display: block;
+    margin: auto;
+    text-align: left;
+    padding: 30px;
+    font-family: 'Indie Flower', cursive;
+}
+
+.journal-entry h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.journal-entry p {
+    padding: 10px 35px 10px 55px;
+}
+
+
+/* album styles */
+
+.album {
+    margin: 25px 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: center;
+}
+
+.album picture {
+    border: 2px inset silver;
+    flex: 0 1 calc(32% - 1em);
+    margin: 6% 0;
+    background: white;
+    box-shadow: 0px 0px 1px 0px lightgrey;
+    padding: 20px;
+}
+
+.directions {
+    line-height: 1.5em;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0 50px;
+}
+
+.directions li {
+    padding-left: 30px;
+}
+
+.directions h2 {
+    margin: 0;
+    padding: 35px 0 0;
+    text-align: center;
+    font-weight: 700px;
+}
+
+.edit-journey {
+    margin-top: 150px;
+}
+
+
+/* RESPONSIVE DESIGN STYLING */
+
+@media screen and (max-width: 960px) and (min-width: 721px) {
+    .card {
+        flex: 0 1 calc(40% - 0.7em);
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .notebook {
+        margin: 0 15px;
+    }
+}
+
+@media screen and (max-width: 820px) and (min-width: 719px) {
+    .album picture {
+        flex: 0 1 calc(47% - 1em);
+    }
+}
+
+@media all and (max-width: 760px) {
+    header {
+        height: 180px;
+    }
+    header nav {
+        height: 50px;
+        margin: 0 auto;
+    }
+    header.smaller nav {
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 720px) and (min-width: 620px) {
+    .album picture {
+        flex: 0 1 calc(49% - .5em);
+        padding: 10px;
+    }
+    .card {
+        flex: 0 1 calc(45% - 1em);
+    }
+}
+
+@media all and (max-width: 620px) {
+    header.smaller {
+        height: 121px;
+    }
+    main {
+        top: 200px;
+    }
+}
+
+@media screen and (max-width: 619px) and (min-width: 511px) {
+    header h1#logo {
+        font-size: 55px;
+    }
+    .journal-text,
+    .edit-journal-text {
+        max-width: 400px;
+    }
+}
+
+@media screen and (max-width: 660px) and (min-width: 420px) {
+    .journey-form,
+    .edit-form {
+        margin: 50px 15px;
+    }
+}
+
+@media screen and (max-width: 619px) and (min-width: 420px) {
+    .card {
+        flex: 0 1 calc(65% - 1em);
+        margin-bottom: 1em;
+    }
+    .album picture {
+        flex: 0 1 calc(80% - 1em);
+    }
+    .intro {
+        margin-top: 50px;
+    }
+    .dashboard {
+        margin-top: 0;
+        padding-bottom: 100px;
+    }
+    .journey-form,
+    .edit-form {
+        margin: 50px 15px;
+    }
+    .journal-text,
+    .edit-journal-text {
+        max-width: 400px;
+    }
+    .create-journey,
+    .edit-journey {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 510px) and (min-width: 420px) {
+    header h1#logo {
+        font-size: 55px;
+    }
+    .journal-text,
+    .edit-journal-text {
+        max-width: 340px;
+    }
+}
+
+@media screen and (max-width: 419px) and (min-width: 371px) {
+    .journal-text,
+    .edit-journal-text {
+        max-width: 330px;
+    }
+}
+
+@media screen and (max-width: 419px) and (min-width: 320px) {
+    main {
+        top: -55px;
+    }
+    .homepage,
+    .dashboard {
+        margin-top: 245px;
+    }
+    .edit-journey {
+        margin-top: 250px;
+    }
+    .card {
+        flex: 0 1 calc(97% - 1em);
+    }
+    header {
+        height: 135px;
+    }
+    header h1#logo {
+        font-size: 40px;
+    }
+    .album picture {
+        flex: 0 1 calc(100% - 1em);
+    }
+    form {
+        margin: 50px 5px;
+    }
+    .notebook {
+        margin: 0 5px;
+    }
+    .create-journey {
+        margin-top: 250px;
+    }
+}
+
+@media screen and (max-width: 370px) and (min-width: 320px) {
+    .journal-text,
+    .edit-journal-text {
+        max-width: 265px;
+    }
+}
+
+@media screen and (max-width: 620px) and (min-width: 320px) {
+    header.smaller h1#logo {
+        padding: 10px 0;
+        font-size: 40px;
+        width: 100%;
+    }
+    header nav a {
+        font-size: 18px;
+    }
+    nav li {
+        flex: 0 0 calc(25%);
+    }
+    h2 {
+        line-height: 1.5em;
+    }
+    .homepage h2 {
+        margin-top: 50px;
+    }
+    .cards {
+        margin-top: 50px;
+    }
+    .album {
+        margin-top: 50px
+    }
+    .card {
+        margin-bottom: 1em;
+    }
+    form input,
+    form label {
+        width: 250px;
+    }
+    .journal-entry p {
+        padding: 10px 10px 10px 15px;
+    }
+    .dashboard-nav {
+        padding: 0;
+    }
+}
