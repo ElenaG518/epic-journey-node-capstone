@@ -19,10 +19,15 @@ let journey_title;
 
 // window.addEventListener('scroll', resizeHeaderOnScroll);
 
+function scrollWin() {
+    window.scrollTo(0, 0);
+  }
+
 // home anchor
 $('.home-anchor').click(event => {
     console.log("home anchor clicked");
     event.preventDefault();
+    scrollWin();
     const username = $('#loggedInUserName').val();
     console.log(username);
     $('.journal-entry').empty();
@@ -74,6 +79,7 @@ $('.demo-anchor').click(event => {
 $('.add-journey').click(event => {
     event.preventDefault();
     console.log("add journey button clicked");
+    scrollWin();
     $('.create-journey').removeClass('hide').show();
     $('.homepage').hide();
     const title = $('#title').val("");
@@ -177,7 +183,6 @@ function login(username, password) {
                 console.log(result.username);
                 $('#js-header').addClass('smaller');
                 $('nav').removeClass('hide');
-
                 getListOfJourneys(result.username);
             })
             // if the call is failing
@@ -280,10 +285,10 @@ function displayJourneys(data) {
     console.log("fuction displayJourneys ran", data);
     $('.intro').hide();
     $('.homepage').removeClass('hide').show();
+    scrollWin();
     if (!$('.dashboard').hasClass('hide')) {
         $('.dashboard').hide();
     };
-    
     for (var index in data.journeys) {
         console.log("for", data.journeys[index]._id, data.journeys[index].title, data.journeys[index].album);
         createThumb(data.journeys[index]);
@@ -345,6 +350,7 @@ function getJourneyById(journey_id, callback) {
 function displayJourney(data) {
     console.log("displayJourney function ran");
     $('.dashboard').removeClass('hide').show();
+    scrollWin();
     $('.homepage').hide();
     $('.album').empty();
     $('.create-journey').hide();
@@ -541,6 +547,7 @@ $('.edit-journey-anchor').click(event => {
     const journeyId = journey_id;
     console.log(journeyId);
     $('.edit-journey').empty().show();
+    scrollWin();
     $('.album').empty();
     editJourney(journeyId);
 });
@@ -636,7 +643,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
             $('.edit-journey').hide();
             console.log("635", journey_id);
             getJourneyById(journey_id, updateImageTitleId);
-            getListOfJourneys(username);
+            // getListOfJourneys(username);
         })
         // if the call is failing
         .fail(function(jqXHR, error, errorThrown) {
