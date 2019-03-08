@@ -337,7 +337,7 @@ function getJourneyById(journey_id, callback) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
-            alert('Check your connection');
+            alert('could not retrieve journey');
         });
 };
 

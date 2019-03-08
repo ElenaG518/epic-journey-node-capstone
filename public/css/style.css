@@ -45,6 +45,10 @@ main {
     margin-top: 150px;
 }
 
+.album-pic {
+    margin-top: 15px;
+}
+
 .album-pic a {
     text-align: center;
     font-size: 17px;
@@ -53,8 +57,10 @@ main {
 }
 
 .album-confirm {
-    width: 250px;
+    width: 265px;
     margin: auto;
+    border: 5px solid white;
+    border-radius: 5px;
 }
 
 
@@ -123,8 +129,7 @@ header nav {
 
 header nav a {
     color: #fcfcfc;
-    font-size: 20px;
-    flex: 0 0 15%;
+    flex: 0 1 calc(8% - 1em);
     text-decoration: none;
     text-align: center;
 }
@@ -447,7 +452,7 @@ a:hover {
         height: 180px;
     }
     header nav a {
-        flex: 0 0 25%;
+        flex: 0 1 calc(20% - 1em);
     }
     header nav {
         height: 50px;
@@ -504,7 +509,7 @@ a:hover {
         margin-top: 50px;
     }
     header nav a {
-        flex: 0 0 20%;
+        flex: 0 1 20%;
         margin-right: 10px;
     }
 }
