@@ -678,18 +678,16 @@ $('.delete-journey-anchor').click(event => {
     console.log("delete journey clicked");
     event.preventDefault();
     const journeyId = journey_id;
-    journey_id = "";
     console.log(journeyId);
     myFunction(journeyId);
 });
 
 function myFunction(journeyId) {
-    const id= journeyId;
     var r = confirm("Are you sure you want to delete this journey?");
     if (r == true) {
         console.log("you pressed true");
-        console.log("delete id ", id);
-        deleteJourney(id);
+        deleteJourney(journeyId);
+        journey_id = "";
         $('.album').empty();
     } else {
         console.log("You pressed Cancel!");
