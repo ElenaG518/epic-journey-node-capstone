@@ -688,6 +688,7 @@ function myFunction(journeyId) {
     var r = confirm("Are you sure you want to delete this journey?");
     if (r == true) {
         console.log("you pressed true");
+        console.log("delete id ", id);
         deleteJourney(id);
         $('.album').empty();
     } else {
