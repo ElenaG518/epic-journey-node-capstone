@@ -596,7 +596,7 @@ function displayEditJourneyForm(data) {
          <form class="edit-form">
             <fieldset >
                 <legend>Edit Journey</legend>
-                <input type='text' id='edit-journey-id' name='edit-journey-id' value ="${data._id}" class="hide" >
+                <input type='text' id='edit-journey-id' name='journey-id' value ="${data._id}" class="hide" >
                 <label for='edit-title'>Title:</label>
                 <input type='text' id='edit-title' name='title' value ="${data.title}" >
                     <label for='edit-location'>Location:</label>
