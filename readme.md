@@ -33,7 +33,7 @@ The app's functionality includes:
 
 ## Technology
 * Front-End: HTML5 | CSS3 | JavaScript ES6 | jQuery
-* Back-End: Node.js | Express.js | Mocha | Chai | RESTful API Endpoints | MongoDB | Mongoose
+* Back-End: Node.js | Express.js | Mocha | Chai | RESTful API Endpoints | MongoDB | Mongoose | Passport | bcrypt | jsonwebtoken
 
 
 
