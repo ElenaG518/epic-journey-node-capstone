@@ -23,7 +23,7 @@ router.use(bodyParser.json());
 //  and passes them to a callback function, in this case localStategy in strategies.js
 router.post('/login', localAuth, (req, res) => {
   // the user object is added to the request object at req.user
-  console.log("req.user from login in auth ", req.user);
+  console.log("req.user from login in auth ", req.user.serialize());
   const authToken = createAuthToken(req.user.serialize());
   res.json({authToken});
 });

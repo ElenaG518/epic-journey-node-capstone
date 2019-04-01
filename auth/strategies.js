@@ -40,7 +40,9 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
       return callback(null, user);
     })
     .catch(err => {
+      console.log("error aqui ", err);
       if (err.reason === 'LoginError') {
+        console.log("error here ", err);
         return callback(null, false, err);
       }
       return callback(err, false);

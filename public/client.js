@@ -176,8 +176,8 @@ function login(username, password) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
-                const message = jqXHR.responseJSON.message;
-                alert(message);
+                // const message = jqXHR.responseJSON.message;
+                alert("Incorrect username or password");
             });
     };
 };
