@@ -684,10 +684,11 @@ $('.delete-journey-anchor').click(event => {
 });
 
 function myFunction(journeyId) {
+    const id= journeyId;
     var r = confirm("Are you sure you want to delete this journey?");
     if (r == true) {
         console.log("you pressed true");
-        deleteJourney(journeyId);
+        deleteJourney(id);
         $('.album').empty();
     } else {
         console.log("You pressed Cancel!");
