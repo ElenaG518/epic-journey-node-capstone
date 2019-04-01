@@ -641,7 +641,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     //make the api call using the payload above
     $.ajax({
             type: 'PUT',
-            url: `/api/journeys/${id}`,
+            url: `/api/journeys/edit/${id}`,
             dataType: 'json',
             data: JSON.stringify(editJournalObject),
             contentType: 'application/json', 
