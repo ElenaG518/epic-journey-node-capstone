@@ -1,17 +1,27 @@
 'use strict';
 const express = require('express');
-const bodyParser = require('body-parser');
+const passport = require('passport');
 const { Journey, Image } = require('./models');
 const router = express.Router();
+const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-// response for API call to get all journeys for user
-router.get('/:username', (req, res) => {
-    console.log('looking by username');
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
-    console.log(req.params.username);
+// A protected endpoint which needs a valid JWT to access it
+// app.get('/api/protected', jwtAuth, (req, res) => {
+//   return res.json({
+//     data: 'rosebud'
+//   });
+// });
+
+// response for API call to get all journeys for user
+router.get('/', jwtAuth, (req, res) => {
+    console.log('looking by username ', req.user);
+
+    // console.log(req.params.username);
     Journey
-        .find({ loggedInUserName: req.params.username }).sort({title: 1})
+        .find({ loggedInUserName: req.user.username }).sort({title: 1})
         
         // if successful, send back journeys
         .then(journeys => {
@@ -28,8 +38,8 @@ router.get('/:username', (req, res) => {
 });
 
 // response for API call to get  journey by Id
-router.get('/id/:id', (req, res) => {
-    console.log('looking by id');
+router.get('/id/:id',jwtAuth, (req, res) => {
+    console.log('looking by id ', req.user);
 
     console.log(req.params.id);
     Journey
@@ -42,7 +52,7 @@ router.get('/id/:id', (req, res) => {
 });
 
 // response for API call to get journey to edit by searching by journey Id
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', jwtAuth, (req, res) => {
     console.log('looking by id');
 
     console.log(req.params.id);
@@ -55,19 +65,23 @@ router.get('/edit/:id', (req, res) => {
         });
 });
 
+
 // response for API call to create a journey with information provided by user
-router.post('/create', jsonParser, (req, res) => {
-    console.log(req.body.title, req.body.location, req.body.startDates, req.body.endDates, req.body.description, req.body.album);
-    const requiredFields = ['title', 'location', 'startDates', 'endDates', 'description', 'loggedInUserName', 'album'];
+router.post('/', jsonParser, jwtAuth, (req, res) => {
+    console.log("post ", req.body, req.user);
+    const requiredFields = ['title', 'location', 'loggedInUserName', 'startDates', 'endDates', 'description', 'album'];
     // ensure we have values for all required fields, otherwise send an error
-    for (let i = 0; i < requiredFields.length; i++) {
-        const field = requiredFields[i];
-        if (!(field in req.body)) {
-            const message = `Missing \`${field}\` in request body`;
-            console.error(message);
-            return res.status(400).send(message);
-        }
-    }
+    // for (let i = 0; i < requiredFields.length; i++) {
+    //     const field = requiredFields[i];
+
+        requiredFields.forEach(field => {
+            if (!(field in req.body)) {
+                const message = `Missing \`${field}\` in request body`;
+                console.error(message);
+                return res.status(400).send(message);
+            }
+        })
+        
     // create the journey with the information provided by user
     Journey
         .create({
@@ -76,7 +90,7 @@ router.post('/create', jsonParser, (req, res) => {
             startDates: req.body.startDates,
             endDates: req.body.endDates,
             description: req.body.description,
-            loggedInUserName: req.body.loggedInUserName,
+            loggedInUserName: req.user.username,
             album: req.body.album
 
         })
@@ -89,10 +103,7 @@ router.post('/create', jsonParser, (req, res) => {
 });
 
 // response to handle user request to edit journey
-router.put('/update/:id', jsonParser, function(req, res) {
-    console.log("call to put");
-    console.log(req.params.id);
-    console.log(req.body.id);
+router.put('/:id', jsonParser, jwtAuth, function(req, res) {
     // ensure we have the required fields and that they match
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         const message = (
@@ -118,6 +129,7 @@ router.put('/update/:id', jsonParser, function(req, res) {
 
 // find journey by id and delete if from databasae
 router.delete('/:id', (req, res) => {
+    console.log("delete id ", req.params.id);
     Journey
         .findByIdAndRemove(req.params.id)
         .then(() => {
@@ -131,7 +143,7 @@ router.delete('/:id', (req, res) => {
 
 // response for getting all images by journey Id
 router.get('/images/:journeyId', (req, res) => {
-    console.log('getting all images for username journey');
+    console.log('getting all images for journey');
     console.log(req.params.journeyId);
     // look up images by journey id
     Image
@@ -218,4 +230,4 @@ router.put('/update-img/:journeyId', jsonParser, function(req, res) {
         .catch(err => res.status(500).json({ message: 'couldn\'t update image(s)' }));
 });
 
-module.exports = router;
+module.exports = {router};
