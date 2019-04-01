@@ -253,4 +253,5 @@ describe('/api/journeys', function () {
                     })
                 })    
         })      
-    })    
+    })
+})        

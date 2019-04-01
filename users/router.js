@@ -2,15 +2,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const passport = require('passport');
-const router = express.Router();
-router.use(bodyParser.json());
-
 const {User} = require('./models');
+
+const router = express.Router();
+
+const jsonParser = bodyParser.json();
+
 // Post to register a new user
-router.post('/', (req, res) => {
+router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password'];
- 
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
       min: 1
     },
     password: {
-      min: 4,
+      min: 10,
       // bcrypt truncates after 72 characters, so let's not give the illusion
       // of security by storing extra (unused) info
       max: 72
@@ -99,7 +99,7 @@ router.post('/', (req, res) => {
   lastName = lastName.trim();
 
   return User.find({username})
-    .countDocuments()
+    .count()
     .then(count => {
       if (count > 0) {
         // There is an existing user with the same username
@@ -138,14 +138,10 @@ router.post('/', (req, res) => {
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also
 // verify this in the Mongo shell.
-
 router.get('/', (req, res) => {
   return User.find()
-  .then(users => {
-    console.log(users);
-    res.json({message: "success"});
-  })
-  .catch(err => res.status(500).json({message: 'Internal server error'}));
+    .then(users => res.json(users.map(user => user.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
 module.exports = {router};
