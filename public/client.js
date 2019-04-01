@@ -561,6 +561,7 @@ $('.edit-journey-anchor').click(event => {
 
 // fetch journey to edit API call
 function editJourney(id) {
+    const token = getAuthToken();
     console.log("editJourney function ran");
     console.log(id);
     $.ajax({

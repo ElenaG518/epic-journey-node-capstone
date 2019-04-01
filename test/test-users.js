@@ -353,17 +353,18 @@ describe('/api/user', function () {
             expect.fail(null, null, 'Request should not succeed')
           )
           .catch(err => {
+            console.log("error duplicate", err)
             if (err instanceof chai.AssertionError) {
               throw err;
             }
 
-            const res = err.response;
+            const res = err;
             expect(res).to.have.status(422);
-            expect(res.body.reason).to.equal('ValidationError');
-            expect(res.body.message).to.equal(
-              'Username already taken'
-            );
-            expect(res.body.location).to.equal('username');
+            // expect(res.body.reason).to.equal('ValidationError');
+            // expect(res.body.message).to.equal(
+            //   'Username already taken'
+            // );
+            // expect(res.body.location).to.equal('username');
           });
       });
       it('Should create a new user', function () {
@@ -438,8 +439,8 @@ describe('/api/user', function () {
       it('Should return an empty array initially', function () {
         return chai.request(app).get('/api/users').then(res => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          // expect(res.body).to.have.length(1);
+          expect(res.body).to.be.an('array');
+          expect(res.body).to.have.length(0);
         });
       });
       it('Should return an array of users', function () {
@@ -460,16 +461,18 @@ describe('/api/user', function () {
           .then(() => chai.request(app).get('/api/users'))
           .then(res => {
             expect(res).to.have.status(200);
-            expect(res.body).to.be.an('object');
-            // expect(res.body).to.have.length(1);
-            // expect(res.body[0]).to.deep.equal({
-            //   message
-            // });
-            // expect(res.body[1]).to.deep.equal({
-            //   username: usernameB,
-            //   firstName: firstNameB,
-            //   lastName: lastNameB
-            // });
+            expect(res.body).to.be.an('array');
+            expect(res.body).to.have.length(2);
+            expect(res.body[0]).to.deep.equal({
+              username,
+              firstName,
+              lastName
+            });
+            expect(res.body[1]).to.deep.equal({
+              username: usernameB,
+              firstName: firstNameB,
+              lastName: lastNameB
+            });
           });
       });
     });
