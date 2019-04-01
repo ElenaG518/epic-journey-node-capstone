@@ -596,13 +596,13 @@ function displayEditJourneyForm(data) {
          <form class="edit-form">
             <fieldset >
                 <legend>Edit Journey</legend>
-                <input type='text' id='edit-journey-id' name='journey-id' value ="${data.id}" class="hide" >
+                <input type='text' id='edit-journey-id' name='edit-journey-id' value ="${data._id}" class="hide" >
                 <label for='edit-title'>Title:</label>
                 <input type='text' id='edit-title' name='title' value ="${data.title}" >
                     <label for='edit-location'>Location:</label>
                     <input type='text' id='edit-location' name='location' value ="${data.location}" >
-                    <label for="starting-date">Starting Date:</label> <input type="text" id="edit-datepicker-start" class="edit-start-dates" value="${data.startDates}"></p>
-                    <label>Ending Date:</label> <input type="text" id="edit-datepicker-end" class="edit-end-dates" value ="${data.endDates}"></p>
+                    <label for="starting-date">Starting Date:</label> <input type="text" id="edit-datepicker-start" class="edit-start-dates" value="${data.startDates}" ></p>
+                    <label>Ending Date:</label> <input type="text" id="edit-datepicker-end" class="edit-end-dates" value ="${data.endDates}" ></p>
                     <label for='edit-description'>Journal Entry:</label>
                     <textarea class='edit-journal-text' id="edit-description" rows="10" cols="40">${data.description}</textarea>
                     <button role='button' type='submit' class='journal-edit-btn'>Submit</button>
@@ -641,7 +641,7 @@ $('.edit-journey').on('submit', '.edit-form', function(event) {
     //make the api call using the payload above
     $.ajax({
             type: 'PUT',
-            url: `/api/journeys/edit/${id}`,
+            url: `/api/journeys/${id}`,
             dataType: 'json',
             data: JSON.stringify(editJournalObject),
             contentType: 'application/json', 
